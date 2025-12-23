@@ -32,7 +32,7 @@ const RSVPOverlay: React.FC<Props> = ({ open, onSubmit }) => {
 			zIndex="overlay"
 		>
 			<form onSubmit={handleSubmit}>
-				<Container maxW="lg" mt={48}>
+				<Container maxW="lg" mt={32}>
 					<VStack gap={4}>
 						<Heading color="primary" fontFamily="title" fontWeight="normal">
 							Please enter your name to RSVP

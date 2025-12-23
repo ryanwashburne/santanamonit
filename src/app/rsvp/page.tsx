@@ -23,7 +23,7 @@ const RSVPPage = () => {
 			</Container>
 
 			<Box position="relative">
-				<Container pt={32}>
+				<Container py={8}>
 					<RSVP name={name} />
 				</Container>
 				<RSVPOverlay onSubmit={(p) => setName(p.firstName)} open={!name} />
