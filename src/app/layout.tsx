@@ -1,6 +1,7 @@
+import { Box } from "@chakra-ui/react";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
-import { Puritan } from "next/font/google";
+import { La_Belle_Aurore, Puritan } from "next/font/google";
 import localFont from "next/font/local";
 import Providers from "@/app/providers";
 import Header from "@/components/header";
@@ -48,19 +49,24 @@ const puritan = Puritan({
 	variable: "--font-puritan",
 });
 
+const laBelleAurore = La_Belle_Aurore({
+	weight: "400",
+	variable: "--font-la-belle-aurore",
+});
+
 export default function RootLayout({
 	children,
 }: Readonly<{ children: React.ReactNode }>) {
 	return (
 		<html
-			className={`${puritan.variable} ${rockAttack.variable} ${ppHatton.variable}`}
+			className={`${puritan.variable} ${rockAttack.variable} ${ppHatton.variable} ${laBelleAurore.variable}`}
 			lang="en"
 			suppressHydrationWarning
 		>
 			<body>
 				<Providers>
 					<Header />
-					{children}
+					<Box pb={12}>{children}</Box>
 				</Providers>
 				<Analytics />
 			</body>

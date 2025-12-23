@@ -12,7 +12,8 @@ const config = defineConfig({
 			fonts: {
 				heading: { value: "var(--font-rock-attack), serif" },
 				body: { value: "var(--font-puritan), sans-serif" },
-				nav: { value: "var(--font-pp-hatton), serif" },
+				title: { value: "var(--font-pp-hatton), serif" },
+				cursive: { value: "var(--font-la-belle-aurore), cursive" },
 			},
 			colors: {
 				primary: { value: "#56612E" },

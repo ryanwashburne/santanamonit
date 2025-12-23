@@ -42,7 +42,7 @@ const Header = () => {
 	const pathname = usePathname();
 
 	return (
-		<Container py={16}>
+		<Container pb={32} pt={16}>
 			<VStack gap={8}>
 				<Link href="/" passHref>
 					<Heading
@@ -58,7 +58,7 @@ const Header = () => {
 						The Monits
 					</Heading>
 				</Link>
-				<HStack fontFamily="nav" fontSize="lg" gap="80px">
+				<HStack fontFamily="title" fontSize="lg" gap="80px">
 					{LINKS.map((link) => {
 						return (
 							<ChakraLink
