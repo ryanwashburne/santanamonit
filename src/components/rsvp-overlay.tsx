@@ -33,8 +33,8 @@ const RSVPOverlay: React.FC<Props> = ({ open, onSubmit }) => {
 		>
 			<form onSubmit={handleSubmit}>
 				<Container maxW="lg" mt={32}>
-					<VStack gap={4}>
-						<Heading color="primary" fontFamily="title" fontWeight="normal">
+					<VStack gap={6}>
+						<Heading color="primary" fontWeight="normal">
 							Please enter your name to RSVP
 						</Heading>
 
@@ -48,7 +48,7 @@ const RSVPOverlay: React.FC<Props> = ({ open, onSubmit }) => {
 							<Input bg="white" name="last_name" />
 						</Field.Root>
 
-						<Button mt={4} type="submit" width="100%">
+						<Button mt={6} type="submit" width="100%">
 							View My Schedule
 						</Button>
 					</VStack>

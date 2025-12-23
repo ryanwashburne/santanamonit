@@ -43,13 +43,14 @@ const Header = () => {
 
 	return (
 		<Container pb={32} pt={16}>
-			<VStack gap={8}>
+			<VStack gap={12}>
 				<Link href="/" passHref>
 					<Heading
 						_hover={{
 							opacity: 0.7,
 						}}
 						color="#782E20"
+						fontFamily="header"
 						fontSize="2xl"
 						fontWeight="normal"
 						textTransform="uppercase"
@@ -58,7 +59,7 @@ const Header = () => {
 						The Monits
 					</Heading>
 				</Link>
-				<HStack fontFamily="title" fontSize="lg" gap="80px">
+				<HStack fontFamily="heading" fontSize="lg" gap="80px">
 					{LINKS.map((link) => {
 						return (
 							<ChakraLink

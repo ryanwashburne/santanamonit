@@ -10,9 +10,9 @@ const config = defineConfig({
 	theme: {
 		tokens: {
 			fonts: {
-				heading: { value: "var(--font-rock-attack), serif" },
+				header: { value: "var(--font-rock-attack), serif" },
 				body: { value: "var(--font-puritan), sans-serif" },
-				title: { value: "var(--font-pp-hatton), serif" },
+				heading: { value: "var(--font-pp-hatton), serif" },
 				cursive: { value: "var(--font-la-belle-aurore), cursive" },
 			},
 			colors: {

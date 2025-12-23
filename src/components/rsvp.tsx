@@ -4,7 +4,6 @@ import {
 	Box,
 	Button,
 	ButtonGroup,
-	type ButtonProps,
 	Field,
 	Heading,
 	HStack,
@@ -46,17 +45,16 @@ const EVENTS: Event[] = [
 	},
 ];
 
-const AttendButton: React.FC<ButtonProps> = ({ children }) => {
-	const [clicked, setClicked] = useState(false);
-	const onClick = () => {
-		setClicked(!clicked);
-	};
-
+const AttendButton: React.FC<{
+	selected: boolean;
+	onClick: () => void;
+	children: React.ReactNode;
+}> = ({ selected, onClick, children }) => {
 	return (
 		<Button
 			borderColor="black"
 			onClick={onClick}
-			variant={clicked ? undefined : "outline"}
+			variant={selected ? undefined : "outline"}
 			width="170px"
 		>
 			{children}
@@ -64,10 +62,30 @@ const AttendButton: React.FC<ButtonProps> = ({ children }) => {
 	);
 };
 
+enum Attendance {
+	ATTENDING = "attending",
+	NOT_ATTENDING = "not_attending",
+}
+
 const Event: React.FC<{ event: Event }> = ({ event }) => {
+	const [buttonValue, setButtonValue] = useState<
+		Attendance.ATTENDING | Attendance.NOT_ATTENDING | null
+	>(null);
+
+	const handleClick = (
+		value: Attendance.ATTENDING | Attendance.NOT_ATTENDING,
+	) => {
+		return () => {
+			setButtonValue((oldValue) => {
+				if (oldValue === value) return null;
+				return value;
+			});
+		};
+	};
+
 	return (
 		<VStack gap={4} width="100%">
-			<Heading color="primary" fontFamily="title" fontSize="2xl">
+			<Heading color="primary" fontSize="2xl">
 				{event.title}
 			</Heading>
 
@@ -78,8 +96,18 @@ const Event: React.FC<{ event: Event }> = ({ event }) => {
 			</HStack>
 
 			<ButtonGroup gap={6}>
-				<AttendButton>Attend</AttendButton>
-				<AttendButton>Not Attending</AttendButton>
+				<AttendButton
+					onClick={handleClick(Attendance.ATTENDING)}
+					selected={buttonValue === Attendance.ATTENDING}
+				>
+					Attend
+				</AttendButton>
+				<AttendButton
+					onClick={handleClick(Attendance.NOT_ATTENDING)}
+					selected={buttonValue === Attendance.NOT_ATTENDING}
+				>
+					Not Attending
+				</AttendButton>
 			</ButtonGroup>
 
 			{event.additionalQuestion && (
@@ -115,22 +143,31 @@ const RSVP: React.FC<Props> = ({ name }) => {
 			w="100%"
 		>
 			<form onSubmit={handleSubmit}>
-				<VStack gap="80px" maxW="400px" mx="auto">
-					<Text fontStyle="italic">Hi, {name}</Text>
+				<Text fontSize="lg" fontStyle="italic" mb={16} textAlign="center">
+					Hi, {name}
+				</Text>
 
+				<VStack gap="80px" maxW="350px" mx="auto">
 					{EVENTS.map((event) => {
 						return <Event event={event} key={event.title} />;
 					})}
 
-					<Button type="submit" width="100%">
-						RSVP
-					</Button>
+					<VStack gap={4}>
+						<Button type="submit" width="100%">
+							RSVP
+						</Button>
 
-					{submitted && (
-						<Text color="primary" fontStyle="italic">
-							Thank you! You may edit your responses at any time
-						</Text>
-					)}
+						{submitted && (
+							<Text
+								color="primary"
+								fontStyle="italic"
+								maxW="80%"
+								textAlign="center"
+							>
+								Thank you! You may edit your responses at any time
+							</Text>
+						)}
+					</VStack>
 				</VStack>
 			</form>
 		</Box>
