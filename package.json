@@ -13,6 +13,8 @@
 		"db:push": "prisma db push",
 		"db:studio": "prisma studio",
 		"dev": "next dev",
+		"docker": "./scripts/via_docker.sh",
+		"docker:start": "./scripts/docker_postgres.sh",
 		"env": "vercel env pull .env",
 		"postinstall": "prisma generate",
 		"preview": "next build && next start",
