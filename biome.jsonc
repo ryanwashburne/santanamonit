@@ -2,11 +2,7 @@
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"root": true,
 	"files": {
-		"includes": [
-			"**/*",
-			"!generated/**/*",
-			"!node_modules/**/*"
-		]
+		"includes": ["**/*", "!generated/**/*", "!node_modules/**/*"]
 	},
 	"vcs": {
 		"enabled": true,
@@ -42,11 +38,7 @@
 					"level": "warn",
 					"fix": "safe",
 					"options": {
-						"functions": [
-							"clsx",
-							"cva",
-							"cn"
-						]
+						"functions": ["clsx", "cva", "cn"]
 					}
 				}
 			}
