@@ -1,3 +1,5 @@
+"use client";
+
 import {
 	Link as ChakraLink,
 	Container,
@@ -7,6 +9,7 @@ import {
 	VStack,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const LINKS = [
 	{
@@ -36,21 +39,34 @@ const LINKS = [
 ];
 
 const Header = () => {
+	const pathname = usePathname();
+
 	return (
 		<Container py={16}>
 			<VStack gap={8}>
-				<Heading
-					color="#782E20"
-					fontSize="2xl"
-					fontWeight="normal"
-					textTransform="uppercase"
-				>
-					The Monits
-				</Heading>
+				<Link href="/" passHref>
+					<Heading
+						_hover={{
+							opacity: 0.7,
+						}}
+						color="#782E20"
+						fontSize="2xl"
+						fontWeight="normal"
+						textTransform="uppercase"
+						transition="opacity 0.3s ease-in-out"
+					>
+						The Monits
+					</Heading>
+				</Link>
 				<HStack fontFamily="nav" fontSize="lg" gap="80px">
 					{LINKS.map((link) => {
 						return (
-							<ChakraLink asChild color="inherit" key={link.href}>
+							<ChakraLink
+								asChild
+								color="inherit"
+								fontWeight={pathname === link.href ? "bold" : undefined}
+								key={link.href}
+							>
 								<Link href={link.href}>
 									<Text>{link.label}</Text>
 								</Link>
