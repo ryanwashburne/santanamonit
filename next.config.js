@@ -6,6 +6,7 @@ import "./src/env.js";
 
 /** @type {import("next").NextConfig} */
 const config = {
+	reactCompiler: true,
 	experimental: {
 		optimizePackageImports: ["@chakra-ui/react"],
 	},

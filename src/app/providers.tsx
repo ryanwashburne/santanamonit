@@ -7,7 +7,7 @@ type Props = {
 
 const Providers: React.FC<Props> = ({ children }) => {
 	return (
-		<Provider>
+		<Provider forcedTheme="light">
 			<TRPCReactProvider>{children}</TRPCReactProvider>
 		</Provider>
 	);
