@@ -97,6 +97,13 @@ type Props = {
 };
 
 const RSVP: React.FC<Props> = ({ name }) => {
+	const [submitted, setSubmitted] = useState(false);
+
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		setSubmitted(true);
+	};
+
 	return (
 		<Box
 			border="4px solid"
@@ -107,15 +114,25 @@ const RSVP: React.FC<Props> = ({ name }) => {
 			py={16}
 			w="100%"
 		>
-			<VStack gap="80px" maxW="400px" mx="auto">
-				<Text fontStyle="italic">Hi, {name}</Text>
+			<form onSubmit={handleSubmit}>
+				<VStack gap="80px" maxW="400px" mx="auto">
+					<Text fontStyle="italic">Hi, {name}</Text>
 
-				{EVENTS.map((event) => {
-					return <Event event={event} key={event.title} />;
-				})}
+					{EVENTS.map((event) => {
+						return <Event event={event} key={event.title} />;
+					})}
 
-				<Button width="100%">RSVP</Button>
-			</VStack>
+					<Button type="submit" width="100%">
+						RSVP
+					</Button>
+
+					{submitted && (
+						<Text color="primary" fontStyle="italic">
+							Thank you! You may edit your responses at any time
+						</Text>
+					)}
+				</VStack>
+			</form>
 		</Box>
 	);
 };
