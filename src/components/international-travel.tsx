@@ -20,7 +20,7 @@ const InternationalTravel = () => {
 
 			<VStack>
 				<Heading color="primary" fontWeight="normal">
-					Manila International Airport (MNL)
+					Manila International Airport (MNL) / Clark International Airport (CRK)
 				</Heading>
 				<Text>OR</Text>
 				<Heading color="primary" fontWeight="normal">
