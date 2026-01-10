@@ -29,10 +29,10 @@ const LINKS = [
 		label: "Travel",
 		href: "/travel",
 	},
-	// {
-	// 	label: "Accommodations",
-	// 	href: "/accommodations",
-	// },
+	{
+		label: "Accommodations",
+		href: "/accommodations",
+	},
 	// {
 	// 	label: "Siargao",
 	// 	href: "/siargao",
