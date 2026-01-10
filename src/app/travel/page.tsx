@@ -1,6 +1,7 @@
 "use client";
 
 import {
+	Box,
 	Container,
 	Heading,
 	HStack,
@@ -39,7 +40,9 @@ const TravelPage = () => {
 	return (
 		<Container>
 			<VStack>
-				<Image alt="greetings" src="/greetings.svg" />
+				<Box my={16}>
+					<Image alt="greetings" src="/greetings.svg" />
+				</Box>
 
 				<HStack fontSize="xl" gap={4}>
 					<Link onClick={handleClick(Tab.INTERNATIONAL)}>
@@ -68,7 +71,20 @@ const TravelPage = () => {
 				</HStack>
 
 				<Container maxW="4xl" mt={16}>
-					{getTravelContent(selectedTab)}
+					<VStack gap={16}>
+						{getTravelContent(selectedTab)}
+
+						<VStack fontSize="xl">
+							<Text textAlign="center">
+								Our flight information to Siargao
+								<br />
+								CRK - IAO June 9th DG6763
+								<br />
+								IAO - CRK June 15th DG 6764
+							</Text>
+						</VStack>
+						<Image alt="travel footer" src="/travel.png" />
+					</VStack>
 				</Container>
 			</VStack>
 		</Container>

@@ -25,10 +25,10 @@ const LINKS = [
 		label: "RSVP",
 		href: "/rsvp",
 	},
-	// {
-	// 	label: "Travel",
-	// 	href: "/travel",
-	// },
+	{
+		label: "Travel",
+		href: "/travel",
+	},
 	// {
 	// 	label: "Accommodations",
 	// 	href: "/accommodations",
