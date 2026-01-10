@@ -10,10 +10,17 @@ import {
 
 type Props = {
 	open: boolean;
+	title: string;
+	buttonText: string;
 	onSubmit: (params: { firstName: string; lastName: string }) => void;
 };
 
-const RSVPOverlay: React.FC<Props> = ({ open, onSubmit }) => {
+const RSVPOverlay: React.FC<Props> = ({
+	open,
+	title,
+	buttonText,
+	onSubmit,
+}) => {
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
@@ -35,7 +42,7 @@ const RSVPOverlay: React.FC<Props> = ({ open, onSubmit }) => {
 				<Container maxW="lg" mt={32}>
 					<VStack gap={6}>
 						<Heading color="primary" fontWeight="normal">
-							Please enter your name to RSVP
+							{title}
 						</Heading>
 
 						<Field.Root>
@@ -49,7 +56,7 @@ const RSVPOverlay: React.FC<Props> = ({ open, onSubmit }) => {
 						</Field.Root>
 
 						<Button mt={6} type="submit" width="100%">
-							View My Schedule
+							{buttonText}
 						</Button>
 					</VStack>
 				</Container>

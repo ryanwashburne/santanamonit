@@ -18,7 +18,12 @@ const RSVPPage = () => {
 				<Container>
 					<RSVP name={name} />
 				</Container>
-				<RSVPOverlay onSubmit={(p) => setName(p.firstName)} open={!name} />
+				<RSVPOverlay
+					buttonText="View My Schedule"
+					onSubmit={(p) => setName(p.firstName)}
+					open={!name}
+					title="Please enter your name to RSVP"
+				/>
 			</Box>
 		</Box>
 	);

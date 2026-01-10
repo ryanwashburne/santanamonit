@@ -19,10 +19,10 @@ import { useState } from "react";
 import { LuMenu } from "react-icons/lu";
 
 const LINKS = [
-	// {
-	// 	label: "Schedule",
-	// 	href: "/schedule",
-	// },
+	{
+		label: "Schedule",
+		href: "/schedule-v2",
+	},
 	{
 		label: "Attire",
 		href: "/attire",
