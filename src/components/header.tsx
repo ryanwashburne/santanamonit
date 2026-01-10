@@ -47,7 +47,7 @@ const Header = () => {
 	const pathname = usePathname();
 
 	return (
-		<Box bg="#AAB25F">
+		<Box bg="#AAB25F" overflow="hidden">
 			<Container pb={8} pt={16}>
 				<VStack gap={8}>
 					<Link href="/" passHref>
