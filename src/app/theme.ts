@@ -6,6 +6,10 @@ const config = defineConfig({
 			backgroundColor: "bg",
 			color: "text",
 		},
+		"*:focus, *:focus-visible, *:focus-within": {
+			outline: "none !important",
+			boxShadow: "none !important",
+		},
 	},
 	theme: {
 		tokens: {

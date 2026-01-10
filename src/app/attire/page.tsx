@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Container, Image, Text } from "@chakra-ui/react";
+import NextImage from "next/image";
 import PageHeader from "@/components/page-header";
 
 const AttirePage = () => {
@@ -14,7 +15,16 @@ const AttirePage = () => {
 			</Box>
 
 			<Box>
-				<Image alt="attire" src="/attire.png" />
+				<Image alt="attire" asChild>
+					<NextImage
+						alt="attire"
+						height={5720}
+						quality={100}
+						src="/attire.png"
+						style={{ width: "100%", height: "auto" }}
+						width={2450}
+					/>
+				</Image>
 			</Box>
 		</Container>
 	);

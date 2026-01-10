@@ -134,18 +134,11 @@ const RSVP: React.FC<Props> = ({ name }) => {
 
 	return (
 		<Box maxW="950px" mx="auto" w="100%">
-			{/* Outer wavy border */}
-			<Box
-				border="6px solid"
-				borderColor="#56612E"
-				borderRadius="95px 105px 102px 98px / 98px 103px 97px 101px"
-				p={3}
-			>
-				{/* Inner wavy border */}
+			<Box border="6px solid" borderColor="#56612E" borderRadius="lg" p={3}>
 				<Box
-					border="3px solid"
-					borderColor="#56612E"
-					borderRadius="92px 102px 99px 95px / 95px 100px 94px 98px"
+					border="6px solid"
+					borderColor="#AAB25F"
+					borderRadius="lg"
 					px={8}
 					py={16}
 				>

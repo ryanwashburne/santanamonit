@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Image, VStack } from "@chakra-ui/react";
+import NextImage from "next/image";
 
 const HomePage = () => {
 	return (
@@ -14,7 +15,17 @@ const HomePage = () => {
 				</VStack>
 			</Box>
 			<Box display={{ base: "none", xl: "block" }}>
-				<Image alt="landing welcome" src="/landing.png" />
+				<Image alt="landing welcome" asChild>
+					<NextImage
+						alt="landing welcome"
+						height={1308}
+						priority
+						quality={100}
+						src="/landing.png"
+						style={{ width: "100%", height: "auto" }}
+						width={2560}
+					/>
+				</Image>
 			</Box>
 		</Box>
 	);

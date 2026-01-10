@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Container, Image, Text, VStack } from "@chakra-ui/react";
+import NextImage from "next/image";
 import InternationalTravel from "@/components/international-travel";
 import LocalTravel from "@/components/local-travel";
 import TabNavigation from "@/components/tab-navigation";
@@ -37,7 +38,16 @@ const TravelPage = () => {
 								IAO - CRK June 15th DG 6764
 							</Text>
 						</VStack>
-						<Image alt="travel footer" src="/travel.png" />
+						<Image alt="travel footer" asChild>
+							<NextImage
+								alt="travel footer"
+								height={1000}
+								quality={100}
+								src="/travel.png"
+								style={{ width: "100%", height: "auto" }}
+								width={2400}
+							/>
+						</Image>
 					</VStack>
 				</Container>
 			</VStack>
