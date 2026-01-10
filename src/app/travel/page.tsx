@@ -20,11 +20,11 @@ const TravelPage = () => {
 	return (
 		<Container>
 			<VStack>
-				<Box my={16}>
+				<Box mb={8} mt={16}>
 					<Image alt="greetings" src="/greetings.svg" />
 				</Box>
 
-				<Container maxW="4xl" mt={16}>
+				<Container maxW="4xl">
 					<VStack gap={16}>
 						<TabNavigation tabs={tabs} />
 

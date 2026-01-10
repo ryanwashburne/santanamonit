@@ -71,7 +71,7 @@ export default function RootLayout({
 			<body>
 				<Providers>
 					<Header />
-					<Box pb={12}>{children}</Box>
+					<Box>{children}</Box>
 				</Providers>
 				<Analytics />
 			</body>

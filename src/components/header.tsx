@@ -33,10 +33,10 @@ const LINKS = [
 		label: "Accommodations",
 		href: "/accommodations",
 	},
-	// {
-	// 	label: "Siargao",
-	// 	href: "/siargao",
-	// },
+	{
+		label: "Siargao",
+		href: "/siargao",
+	},
 	// {
 	// 	label: "Opt-In Activities",
 	// 	href: "/opt-in-activities",
