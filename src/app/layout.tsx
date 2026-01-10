@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
-import { La_Belle_Aurore, Puritan } from "next/font/google";
+import { La_Belle_Aurore, Loved_by_the_King, Puritan } from "next/font/google";
 import localFont from "next/font/local";
 import Providers from "@/app/providers";
 import Header from "@/components/header";
@@ -54,12 +54,17 @@ const laBelleAurore = La_Belle_Aurore({
 	variable: "--font-la-belle-aurore",
 });
 
+const lovedByTheKing = Loved_by_the_King({
+	weight: "400",
+	variable: "--font-loved-by-the-king",
+});
+
 export default function RootLayout({
 	children,
 }: Readonly<{ children: React.ReactNode }>) {
 	return (
 		<html
-			className={`${puritan.variable} ${rockAttack.variable} ${ppHatton.variable} ${laBelleAurore.variable}`}
+			className={`${puritan.variable} ${rockAttack.variable} ${ppHatton.variable} ${laBelleAurore.variable} ${lovedByTheKing.variable}`}
 			lang="en"
 			suppressHydrationWarning
 		>

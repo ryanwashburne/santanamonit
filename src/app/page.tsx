@@ -5,10 +5,9 @@ import { Box, Flex, Image } from "@chakra-ui/react";
 const HomePage = () => {
 	return (
 		<Box minH="750px">
-			{/* Nicole + Zach text */}
 			<Flex justify="center" mt={32}>
 				<Image
-					alt=""
+					alt="landing welcome"
 					height="100%"
 					objectFit="contain"
 					src="/landing.svg"
@@ -18,7 +17,7 @@ const HomePage = () => {
 
 			<Box bottom={0} left={0} position="absolute" right={0}>
 				<Image
-					alt=""
+					alt="trees"
 					height="100%"
 					objectFit="contain"
 					src="/trees.svg"

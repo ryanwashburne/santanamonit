@@ -13,7 +13,7 @@ const config = defineConfig({
 				header: { value: "var(--font-rock-attack), serif" },
 				body: { value: "var(--font-puritan), sans-serif" },
 				heading: { value: "var(--font-pp-hatton), serif" },
-				cursive: { value: "var(--font-la-belle-aurore), cursive" },
+				cursive: { value: "var(--font-loved-by-the-king), cursive" },
 			},
 			colors: {
 				primary: { value: "#56612E" },

@@ -1,7 +1,8 @@
 "use client";
 
-import { Box, Container, Heading, VStack } from "@chakra-ui/react";
+import { Box, Container } from "@chakra-ui/react";
 import { useState } from "react";
+import PageHeader from "@/components/page-header";
 import RSVP from "@/components/rsvp";
 import RSVPOverlay from "@/components/rsvp-overlay";
 
@@ -10,20 +11,11 @@ const RSVPPage = () => {
 	return (
 		<Box>
 			<Container>
-				<VStack>
-					<Heading
-						color="primary"
-						fontFamily="cursive"
-						fontSize="8xl"
-						lineHeight={2}
-					>
-						RSVP
-					</Heading>
-				</VStack>
+				<PageHeader title="RSVP" />
 			</Container>
 
 			<Box position="relative">
-				<Container py={8}>
+				<Container>
 					<RSVP name={name} />
 				</Container>
 				<RSVPOverlay onSubmit={(p) => setName(p.firstName)} open={!name} />

@@ -55,7 +55,7 @@ const AttendButton: React.FC<{
 			borderColor="black"
 			onClick={onClick}
 			variant={selected ? undefined : "outline"}
-			width="170px"
+			width="120px"
 		>
 			{children}
 		</Button>
@@ -111,7 +111,7 @@ const Event: React.FC<{ event: Event }> = ({ event }) => {
 			</ButtonGroup>
 
 			{event.additionalQuestion && (
-				<Field.Root>
+				<Field.Root mt={8}>
 					<Field.Label>{event.additionalQuestion}</Field.Label>
 					<Textarea bg="white" rows={5} />
 				</Field.Root>
@@ -133,43 +133,54 @@ const RSVP: React.FC<Props> = ({ name }) => {
 	};
 
 	return (
-		<Box
-			border="4px solid"
-			borderColor="#56612E"
-			maxW="800px"
-			mx="auto"
-			px={8}
-			py={16}
-			w="100%"
-		>
-			<form onSubmit={handleSubmit}>
-				<Text fontSize="lg" fontStyle="italic" mb={16} textAlign="center">
-					Hi, {name}
-				</Text>
-
-				<VStack gap="80px" maxW="350px" mx="auto">
-					{EVENTS.map((event) => {
-						return <Event event={event} key={event.title} />;
-					})}
-
-					<VStack gap={4}>
-						<Button type="submit" width="100%">
-							RSVP
-						</Button>
-
-						{submitted && (
-							<Text
-								color="primary"
-								fontStyle="italic"
-								maxW="80%"
-								textAlign="center"
-							>
-								Thank you! You may edit your responses at any time
+		<Box maxW="950px" mx="auto" w="100%">
+			{/* Outer wavy border */}
+			<Box
+				border="6px solid"
+				borderColor="#56612E"
+				borderRadius="95px 105px 102px 98px / 98px 103px 97px 101px"
+				p={3}
+			>
+				{/* Inner wavy border */}
+				<Box
+					border="3px solid"
+					borderColor="#56612E"
+					borderRadius="92px 102px 99px 95px / 95px 100px 94px 98px"
+					px={8}
+					py={16}
+				>
+					<form onSubmit={handleSubmit}>
+						<VStack>
+							<Text fontSize="xl" fontStyle="italic" mb={16} textAlign="center">
+								Hi, {name}!
 							</Text>
-						)}
-					</VStack>
-				</VStack>
-			</form>
+
+							<VStack gap="80px" maxW="350px" mx="auto">
+								{EVENTS.map((event) => {
+									return <Event event={event} key={event.title} />;
+								})}
+
+								<VStack gap={4} w="100%">
+									<Button size="xl" type="submit" width="100%">
+										RSVP
+									</Button>
+
+									{submitted && (
+										<Text
+											color="primary"
+											fontStyle="italic"
+											maxW="80%"
+											textAlign="center"
+										>
+											Thank you! You may edit your responses at any time
+										</Text>
+									)}
+								</VStack>
+							</VStack>
+						</VStack>
+					</form>
+				</Box>
+			</Box>
 		</Box>
 	);
 };

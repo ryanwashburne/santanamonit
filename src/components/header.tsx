@@ -17,10 +17,10 @@ const LINKS = [
 	// 	label: "Schedule",
 	// 	href: "/schedule",
 	// },
-	// {
-	// 	label: "Attire",
-	// 	href: "/attire",
-	// },
+	{
+		label: "Attire",
+		href: "/attire",
+	},
 	{
 		label: "RSVP",
 		href: "/rsvp",
