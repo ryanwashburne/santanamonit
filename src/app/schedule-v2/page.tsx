@@ -33,7 +33,7 @@ const ScheduleV2Page = () => {
 				<PageHeader title="Schedule of Events" />
 			</Container>
 
-			<Box position="relative">
+			<Box bg="background" position="relative">
 				<Schedule scheduleType={scheduleType} />
 				<RSVPOverlay
 					buttonText="View My Schedule"
