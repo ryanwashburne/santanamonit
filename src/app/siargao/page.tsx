@@ -27,8 +27,9 @@ const SiargaoPage = () => {
 		<Box
 			minH="100vh"
 			style={{
-				background:
-					"linear-gradient(90deg, #BEC673 0%, #BEC673 8%, #50A1D4 8%, #50A1D4 12%, #BEC673 12%, #BEC673 25%, #50A1D4 25%, #50A1D4 27%, #BEC673 27%, #BEC673 42%, #50A1D4 42%, #50A1D4 48%, #BEC673 48%, #BEC673 53%, #50A1D4 53%, #50A1D4 56%, #BEC673 56%, #BEC673 71%, #50A1D4 71%, #50A1D4 74%, #BEC673 74%, #BEC673 88%, #50A1D4 88%, #50A1D4 93%, #BEC673 93%)",
+				backgroundImage: "url('/pattern.svg')",
+				backgroundSize: "cover",
+				backgroundPosition: "center",
 			}}
 		>
 			<VStack>
