@@ -2,7 +2,7 @@
 
 import { Box, Container } from "@chakra-ui/react";
 import { useState } from "react";
-import RSVPOverlay from "@/app/rsvp/rsvp-overlay";
+import RSVPOverlay, { type GuestLookupResult } from "@/app/rsvp/rsvp-overlay";
 import Schedule from "@/app/schedule/schedule";
 import PageHeader from "@/components/page-header";
 import { AttendeeType } from "@/constants/attendee";
@@ -13,12 +13,14 @@ const ScheduleV2Page = () => {
 	);
 	const [overlayOpen, setOverlayOpen] = useState(true);
 
-	const handleSubmit = ({ firstName }: { firstName: string }) => {
-		const name = firstName.toLowerCase().trim();
+	const handleSubmit = (result: GuestLookupResult) => {
+		if (!result.found) return;
 
-		if (name === "wp") {
+		const tag = result.tag.toLowerCase();
+
+		if (tag === "wp") {
 			setAttendeeType(AttendeeType.WP);
-		} else if (name === "family") {
+		} else if (tag === "family") {
 			setAttendeeType(AttendeeType.FAMILY);
 		} else {
 			setAttendeeType(AttendeeType.GUEST);
