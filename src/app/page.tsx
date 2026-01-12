@@ -5,7 +5,8 @@ import NextImage from "next/image";
 
 const HomePage = () => {
 	return (
-		<Box mt={16}>
+		<Box mt={{ base: 16, xl: 32 }}>
+			{/* Mobile */}
 			<Box display={{ base: "block", xl: "none" }} overflow="hidden">
 				<VStack>
 					<Box px={4}>
@@ -14,6 +15,7 @@ const HomePage = () => {
 					<Image alt="trees" height={300} src="/trees.svg" />
 				</VStack>
 			</Box>
+			{/* Desktop */}
 			<Box display={{ base: "none", xl: "block" }}>
 				<Image alt="landing welcome" asChild>
 					<NextImage
