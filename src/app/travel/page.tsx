@@ -20,8 +20,8 @@ const TravelPage = () => {
 
 	return (
 		<Container>
-			<VStack>
-				<Box mb={8} mt={16}>
+			<VStack gap={16}>
+				<Box mt={16}>
 					<Image alt="greetings" src="/greetings.svg" />
 				</Box>
 
@@ -38,18 +38,21 @@ const TravelPage = () => {
 								IAO - CRK June 15th DG 6764
 							</Text>
 						</VStack>
-						<Image alt="travel footer" asChild>
-							<NextImage
-								alt="travel footer"
-								height={1000}
-								quality={100}
-								src="/travel.png"
-								style={{ width: "100%", height: "auto" }}
-								width={2400}
-							/>
-						</Image>
 					</VStack>
 				</Container>
+
+				<Box>
+					<Image alt="travel footer" asChild>
+						<NextImage
+							alt="travel footer"
+							height={1000}
+							quality={100}
+							src="/travel.png"
+							style={{ width: "100%", height: "auto" }}
+							width={2400}
+						/>
+					</Image>
+				</Box>
 			</VStack>
 		</Container>
 	);

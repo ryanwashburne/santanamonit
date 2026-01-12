@@ -15,7 +15,7 @@ const RSVPPage = () => {
 			</Container>
 
 			<Box bg="background" position="relative">
-				<Container>
+				<Container pt={8}>
 					<RSVP name={name} />
 				</Container>
 				<RSVPOverlay

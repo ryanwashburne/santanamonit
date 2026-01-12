@@ -12,23 +12,24 @@ const Listing = ({
 	phone,
 	website,
 }: ListingType) => {
-	const [isHovered, setIsHovered] = useState(false);
+	// currently unused
+	const [isHovered] = useState(true);
 
 	return (
 		<Box
-			border="2px solid"
+			border="1px solid"
 			borderColor="primary"
 			borderRadius="lg"
-			onMouseEnter={() => setIsHovered(true)}
-			onMouseLeave={() => setIsHovered(false)}
+			// onMouseEnter={() => setIsHovered(true)}
+			// onMouseLeave={() => setIsHovered(false)}
 			overflow="hidden"
 			position="relative"
-			px={4}
+			px={8}
 			py={8}
 			transition="all 0.3s ease-in-out"
 			w="full"
 		>
-			<VStack align="stretch" gap={4}>
+			<VStack align="stretch" gap={16}>
 				<Heading color="primary" fontSize="xl" fontWeight="normal">
 					{title}
 				</Heading>
@@ -36,47 +37,40 @@ const Listing = ({
 				<Image
 					alt={title}
 					borderRadius="lg"
-					h={isHovered ? "250px" : "300px"}
 					objectFit="cover"
 					src={coverPhoto}
-					transition="height 0.3s ease-in-out"
 					w="full"
 				/>
 
 				<VStack align="stretch" gap={3} transition="all 0.3s ease-in-out">
-					<Text fontSize="xl">{description}</Text>
+					<Text fontSize="lg">{description}</Text>
 
 					<Box
+						fontSize="md"
 						maxHeight={isHovered ? "200px" : "0"}
 						opacity={isHovered ? 1 : 0}
 						overflow="hidden"
 						transition="all 0.3s ease-in-out"
 					>
-						<VStack align="stretch" gap={2} pt={isHovered ? 3 : 0}>
+						<VStack align="stretch" gap={0}>
 							{location && (
 								<Link
-									color="primary"
+									color="text"
 									display="flex"
-									fontSize="md"
 									gap={2}
 									href={location.url}
 									target="_blank"
+									textDecoration="underline"
 								>
-									<Text>📍</Text>
-									<Text textDecoration="underline">{location.name}</Text>
+									<Text>📍 {location.name}</Text>
 								</Link>
 							)}
 
-							{phone && (
-								<Text fontSize="md">
-									<strong>Phone:</strong> {phone}
-								</Text>
-							)}
+							{phone && <Text>{phone}</Text>}
 
 							{website && (
 								<Link
-									color="primary"
-									fontSize="md"
+									color="text"
 									href={website}
 									target="_blank"
 									textDecoration="underline"

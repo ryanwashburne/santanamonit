@@ -27,9 +27,11 @@ const SiargaoPage = () => {
 		<Box
 			minH="100vh"
 			style={{
-				backgroundImage: "url('/pattern.svg')",
-				backgroundSize: "cover",
-				backgroundPosition: "center",
+				backgroundImage:
+					"linear-gradient(rgba(226, 222, 205, 0.5), rgba(226, 222, 205, 0.5)), url('/pattern.svg')",
+				backgroundSize: "100%, contain",
+				backgroundPosition: "top center",
+				backgroundRepeat: "no-repeat, repeat",
 			}}
 		>
 			<VStack>
