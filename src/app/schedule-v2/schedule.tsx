@@ -1,18 +1,18 @@
 import { Container, Flex, Image, VStack } from "@chakra-ui/react";
 import Wedding from "@/app/schedule-v2/wedding";
 import WelcomeParty from "@/app/schedule-v2/welcome-party";
-import type { ScheduleType } from "@/constants/schedule";
+import type { AttendeeType } from "@/constants/attendee";
 
 type Props = {
-	scheduleType: ScheduleType;
+	attendeeType: AttendeeType;
 };
 
-const Schedule: React.FC<Props> = ({ scheduleType }) => {
+const Schedule: React.FC<Props> = ({ attendeeType }) => {
 	return (
 		<VStack align="stretch">
 			<Container w="full">
 				<Flex justify="center" w="full">
-					<Image src={`/schedule/${scheduleType}.svg`} />
+					<Image src={`/schedule/${attendeeType}.svg`} />
 				</Flex>
 			</Container>
 

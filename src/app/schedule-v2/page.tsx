@@ -5,23 +5,23 @@ import { useState } from "react";
 import RSVPOverlay from "@/app/rsvp/rsvp-overlay";
 import Schedule from "@/app/schedule-v2/schedule";
 import PageHeader from "@/components/page-header";
-import { ScheduleType } from "@/constants/schedule";
+import { AttendeeType } from "@/constants/attendee";
 
 const ScheduleV2Page = () => {
-	const [scheduleType, setScheduleType] = useState<ScheduleType>(
-		ScheduleType.GUEST,
+	const [attendeeType, setAttendeeType] = useState<AttendeeType>(
+		AttendeeType.GUEST,
 	);
 	const [overlayOpen, setOverlayOpen] = useState(true);
 
 	const handleSubmit = ({ firstName }: { firstName: string }) => {
 		const name = firstName.toLowerCase().trim();
 
-		if (name === "ryan") {
-			setScheduleType(ScheduleType.WP);
+		if (name === "wp") {
+			setAttendeeType(AttendeeType.WP);
 		} else if (name === "family") {
-			setScheduleType(ScheduleType.FAMILY);
+			setAttendeeType(AttendeeType.FAMILY);
 		} else {
-			setScheduleType(ScheduleType.GUEST);
+			setAttendeeType(AttendeeType.GUEST);
 		}
 
 		setOverlayOpen(false);
@@ -34,7 +34,7 @@ const ScheduleV2Page = () => {
 			</Container>
 
 			<Box bg="background" position="relative">
-				<Schedule scheduleType={scheduleType} />
+				<Schedule attendeeType={attendeeType} />
 				<RSVPOverlay
 					buttonText="View My Schedule"
 					onSubmit={handleSubmit}
