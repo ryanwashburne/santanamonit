@@ -8,6 +8,8 @@ import PageHeader from "@/components/page-header";
 import TabNavigation from "@/components/tab-navigation";
 import { BOTTOM_PADDING } from "@/constants/spacing";
 
+import siargaoMap from "../../../public/siargao-map.png";
+
 const SiargaoPage = () => {
 	const tabs = [
 		{
@@ -51,14 +53,7 @@ const SiargaoPage = () => {
 							maxW="4xl"
 							w="full"
 						>
-							<NextImage
-								alt="Siargao Map"
-								height={1097}
-								quality={100}
-								src="/siargao-map.png"
-								style={{ width: "100%", height: "auto" }}
-								width={1438}
-							/>
+							<NextImage alt="Siargao Map" src={siargaoMap} />
 						</Image>
 
 						<Box bg="background" borderRadius="lg" px={24} py={16}>

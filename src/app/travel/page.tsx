@@ -7,6 +7,9 @@ import LocalTravel from "@/app/travel/local-travel";
 import TabNavigation from "@/components/tab-navigation";
 import { BOTTOM_PADDING } from "@/constants/spacing";
 
+import greetings from "../../../public/greetings.svg";
+import travel from "../../../public/travel.png";
+
 const TravelPage = () => {
 	const tabs = [
 		{
@@ -23,7 +26,7 @@ const TravelPage = () => {
 		<Container pb={BOTTOM_PADDING}>
 			<VStack gap={16}>
 				<Box mt={16}>
-					<Image alt="greetings" src="/greetings.svg" />
+					<NextImage alt="greetings" src={greetings} />
 				</Box>
 
 				<Container maxW="4xl">
@@ -44,14 +47,7 @@ const TravelPage = () => {
 
 				<Box>
 					<Image alt="travel footer" asChild>
-						<NextImage
-							alt="travel footer"
-							height={1000}
-							quality={100}
-							src="/travel.png"
-							style={{ width: "100%", height: "auto" }}
-							width={2400}
-						/>
+						<NextImage alt="travel footer" src={travel} />
 					</Image>
 				</Box>
 			</VStack>

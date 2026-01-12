@@ -5,6 +5,8 @@ import NextImage from "next/image";
 import PageHeader from "@/components/page-header";
 import { BOTTOM_PADDING } from "@/constants/spacing";
 
+import attire from "../../../public/attire.png";
+
 const AttirePage = () => {
 	return (
 		<Container pb={BOTTOM_PADDING}>
@@ -17,14 +19,7 @@ const AttirePage = () => {
 
 			<Box>
 				<Image alt="attire" asChild>
-					<NextImage
-						alt="attire"
-						height={5720}
-						quality={100}
-						src="/attire.png"
-						style={{ width: "100%", height: "auto" }}
-						width={2450}
-					/>
+					<NextImage alt="attire" src={attire} />
 				</Image>
 			</Box>
 		</Container>
