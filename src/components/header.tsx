@@ -21,7 +21,7 @@ import { LuMenu } from "react-icons/lu";
 const LINKS = [
 	{
 		label: "Schedule",
-		href: "/schedule-v2",
+		href: "/schedule",
 	},
 	{
 		label: "Attire",
