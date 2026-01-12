@@ -14,6 +14,59 @@ function normalizeString(str: string): string {
 }
 
 export const rsvpRouter = createTRPCRouter({
+	getResponse: publicProcedure
+		.input(
+			z.object({
+				firstName: z.string().min(1),
+				lastName: z.string().min(1),
+			}),
+		)
+		.query(async ({ ctx, input }) => {
+			const response = await ctx.db.rsvpResponse.findUnique({
+				where: {
+					firstName_lastName: {
+						firstName: input.firstName,
+						lastName: input.lastName,
+					},
+				},
+			});
+			return response;
+		}),
+
+	submitResponse: publicProcedure
+		.input(
+			z.object({
+				firstName: z.string().min(1),
+				lastName: z.string().min(1),
+				responses: z.record(
+					z.string(),
+					z.object({
+						attending: z.boolean().nullable(),
+						answer: z.string().optional(),
+					}),
+				),
+			}),
+		)
+		.mutation(async ({ ctx, input }) => {
+			const response = await ctx.db.rsvpResponse.upsert({
+				where: {
+					firstName_lastName: {
+						firstName: input.firstName,
+						lastName: input.lastName,
+					},
+				},
+				create: {
+					firstName: input.firstName,
+					lastName: input.lastName,
+					responses: input.responses,
+				},
+				update: {
+					responses: input.responses,
+				},
+			});
+			return response;
+		}),
+
 	lookupGuest: publicProcedure
 		.input(
 			z.object({

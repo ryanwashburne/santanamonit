@@ -1,3 +1,5 @@
+"use client";
+
 import {
 	Button,
 	ButtonGroup,
@@ -8,7 +10,6 @@ import {
 	Textarea,
 	VStack,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import type { Event } from "@/constants/event";
 
 const AttendButton: React.FC<{
@@ -32,23 +33,32 @@ const AttendButton: React.FC<{
 	);
 };
 
-enum Attendance {
-	ATTENDING = "attending",
-	NOT_ATTENDING = "not_attending",
-}
+export type EventResponse = {
+	attending: boolean | null;
+	answer?: string;
+};
 
-const RSVPEvent: React.FC<{ event: Event }> = ({ event }) => {
-	const [buttonValue, setButtonValue] = useState<Attendance | null>(null);
+type RSVPEventProps = {
+	event: Event;
+	value: EventResponse;
+	onChange: (value: EventResponse) => void;
+};
 
-	const handleClick = (
-		value: Attendance.ATTENDING | Attendance.NOT_ATTENDING,
-	) => {
+const RSVPEvent: React.FC<RSVPEventProps> = ({ event, value, onChange }) => {
+	const handleAttendingClick = (attending: boolean) => {
 		return () => {
-			setButtonValue((oldValue) => {
-				if (oldValue === value) return null;
-				return value;
+			onChange({
+				...value,
+				attending: value.attending === attending ? null : attending,
 			});
 		};
+	};
+
+	const handleAnswerChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+		onChange({
+			...value,
+			answer: e.target.value,
+		});
 	};
 
 	return (
@@ -65,14 +75,14 @@ const RSVPEvent: React.FC<{ event: Event }> = ({ event }) => {
 
 			<ButtonGroup gap={6}>
 				<AttendButton
-					onClick={handleClick(Attendance.ATTENDING)}
-					selected={buttonValue === Attendance.ATTENDING}
+					onClick={handleAttendingClick(true)}
+					selected={value.attending === true}
 				>
 					Attending
 				</AttendButton>
 				<AttendButton
-					onClick={handleClick(Attendance.NOT_ATTENDING)}
-					selected={buttonValue === Attendance.NOT_ATTENDING}
+					onClick={handleAttendingClick(false)}
+					selected={value.attending === false}
 				>
 					Not Attending
 				</AttendButton>
@@ -81,7 +91,13 @@ const RSVPEvent: React.FC<{ event: Event }> = ({ event }) => {
 			{event.additionalQuestion && (
 				<Field.Root mt={8}>
 					<Field.Label>{event.additionalQuestion}</Field.Label>
-					<Textarea bg="#EAE2E2" borderRadius="lg" rows={5} />
+					<Textarea
+						bg="#EAE2E2"
+						borderRadius="lg"
+						onChange={handleAnswerChange}
+						rows={5}
+						value={value.answer ?? ""}
+					/>
 				</Field.Root>
 			)}
 		</VStack>
