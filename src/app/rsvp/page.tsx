@@ -5,17 +5,18 @@ import { useState } from "react";
 import RSVP from "@/app/rsvp/rsvp";
 import RSVPOverlay from "@/app/rsvp/rsvp-overlay";
 import PageHeader from "@/components/page-header";
+import { BOTTOM_PADDING } from "@/constants/spacing";
 
 const RSVPPage = () => {
 	const [name, setName] = useState("");
 	return (
-		<Box>
+		<Box pb={BOTTOM_PADDING}>
 			<Container>
 				<PageHeader title="RSVP" />
 			</Container>
 
 			<Box bg="background" position="relative">
-				<Container pt={8}>
+				<Container py={12}>
 					<RSVP name={name} />
 				</Container>
 				<RSVPOverlay

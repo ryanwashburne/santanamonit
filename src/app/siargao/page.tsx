@@ -6,6 +6,7 @@ import ExperienceTabContent from "@/app/siargao/siargao-experience-tab";
 import InfoTabContent from "@/app/siargao/siargao-info-tab";
 import PageHeader from "@/components/page-header";
 import TabNavigation from "@/components/tab-navigation";
+import { BOTTOM_PADDING } from "@/constants/spacing";
 
 const SiargaoPage = () => {
 	const tabs = [
@@ -27,6 +28,7 @@ const SiargaoPage = () => {
 	return (
 		<Box
 			minH="100vh"
+			pb={BOTTOM_PADDING}
 			style={{
 				backgroundImage:
 					"linear-gradient(rgba(226, 222, 205, 0.5), rgba(226, 222, 205, 0.5)), url('/pattern.svg')",

@@ -4,6 +4,7 @@ import { Container, Grid, VStack } from "@chakra-ui/react";
 import Listing from "@/app/accommodations/listing";
 import PageHeader from "@/components/page-header";
 import TabNavigation from "@/components/tab-navigation";
+import { BOTTOM_PADDING } from "@/constants/spacing";
 import { airbnbListings, resortListings } from "@/data/accommodations";
 
 const AccommodationsPage = () => {
@@ -31,7 +32,7 @@ const AccommodationsPage = () => {
 	];
 
 	return (
-		<Container>
+		<Container pb={BOTTOM_PADDING}>
 			<VStack>
 				<PageHeader title="Accommodations" />
 

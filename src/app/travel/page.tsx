@@ -5,6 +5,7 @@ import NextImage from "next/image";
 import InternationalTravel from "@/app/travel/international-travel";
 import LocalTravel from "@/app/travel/local-travel";
 import TabNavigation from "@/components/tab-navigation";
+import { BOTTOM_PADDING } from "@/constants/spacing";
 
 const TravelPage = () => {
 	const tabs = [
@@ -19,7 +20,7 @@ const TravelPage = () => {
 	];
 
 	return (
-		<Container>
+		<Container pb={BOTTOM_PADDING}>
 			<VStack gap={16}>
 				<Box mt={16}>
 					<Image alt="greetings" src="/greetings.svg" />

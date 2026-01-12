@@ -3,10 +3,11 @@
 import { Box, Container, Image, Text } from "@chakra-ui/react";
 import NextImage from "next/image";
 import PageHeader from "@/components/page-header";
+import { BOTTOM_PADDING } from "@/constants/spacing";
 
 const AttirePage = () => {
 	return (
-		<Container>
+		<Container pb={BOTTOM_PADDING}>
 			<PageHeader title="Wedding Attire" />
 
 			<Box fontSize="lg" my={12} textAlign="center">
