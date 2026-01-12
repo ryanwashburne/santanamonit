@@ -8,8 +8,9 @@ const AdminPage = async () => {
 	const initialIsAdmin = adminToken?.value
 		? verifyAdminToken(adminToken.value)
 		: false;
+	const isDev = process.env.NODE_ENV === "development";
 
-	return <AdminClient initialIsAdmin={initialIsAdmin} />;
+	return <AdminClient initialIsAdmin={initialIsAdmin} isDev={isDev} />;
 };
 
 export default AdminPage;

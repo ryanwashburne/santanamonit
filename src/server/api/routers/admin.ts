@@ -34,4 +34,16 @@ export const adminRouter = createTRPCRouter({
 		});
 		return responses;
 	}),
+
+	clearAllResponses: adminProcedure.mutation(async ({ ctx }) => {
+		if (process.env.NODE_ENV !== "development") {
+			throw new TRPCError({
+				code: "FORBIDDEN",
+				message: "This action is only available in development",
+			});
+		}
+
+		await ctx.db.rsvpResponse.deleteMany();
+		return { success: true };
+	}),
 });

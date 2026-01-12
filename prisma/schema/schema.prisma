@@ -8,12 +8,13 @@ datasource db {
 }
 
 model RsvpResponse {
-    id        String   @id @default(cuid())
-    firstName String
-    lastName  String
-    responses Json
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id          String   @id @default(cuid())
+    firstName   String
+    lastName    String
+    responses   Json
+    submittedBy String?  // Name of person who submitted on their behalf
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
 
     @@unique([firstName, lastName])
 }

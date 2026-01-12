@@ -30,6 +30,7 @@ function deleteCookie(name: string) {
 
 type Props = {
 	initialIsAdmin: boolean;
+	isDev: boolean;
 };
 
 type ResponseValue = {
@@ -44,17 +45,48 @@ function formatDateTime(date: Date): string {
 	});
 }
 
-const AdminDashboard: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
+const AdminDashboard: React.FC<{ onLogout: () => void; isDev: boolean }> = ({
+	onLogout,
+	isDev,
+}) => {
 	const responsesQuery = api.admin.getAllResponses.useQuery();
+	const clearMutation = api.admin.clearAllResponses.useMutation({
+		onSuccess: () => {
+			responsesQuery.refetch();
+		},
+	});
+
+	const handleClearAll = () => {
+		if (
+			window.confirm(
+				"Are you sure you want to delete ALL RSVP responses? This cannot be undone.",
+			)
+		) {
+			clearMutation.mutate();
+		}
+	};
 
 	return (
 		<Container maxW="4xl" py={12}>
 			<VStack align="stretch" gap={6}>
 				<HStack justify="space-between">
 					<Heading>Admin Dashboard</Heading>
-					<Button onClick={onLogout} size="sm" variant="outline">
-						Logout
-					</Button>
+					<HStack>
+						{isDev && (
+							<Button
+								colorPalette="red"
+								loading={clearMutation.isPending}
+								onClick={handleClearAll}
+								size="sm"
+								variant="outline"
+							>
+								[DEV] Clear All
+							</Button>
+						)}
+						<Button onClick={onLogout} size="sm" variant="outline">
+							Logout
+						</Button>
+					</HStack>
 				</HStack>
 
 				<Heading size="md">
@@ -85,6 +117,13 @@ const AdminDashboard: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 								<Accordion.ItemTrigger>
 									<Span flex="1">
 										{response.firstName} {response.lastName}
+										{response.submittedBy &&
+											response.submittedBy !==
+												`${response.firstName} ${response.lastName}` && (
+												<Text as="span" color="fg.muted" fontSize="sm" ml={2}>
+													(via {response.submittedBy})
+												</Text>
+											)}
 									</Span>
 									<Text color="fg.muted" fontSize="sm">
 										{formatDateTime(new Date(response.updatedAt))}
@@ -94,7 +133,7 @@ const AdminDashboard: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 								<Accordion.ItemContent>
 									<Accordion.ItemBody>
 										<VStack align="stretch" gap={3}>
-											<HStack gap={4}>
+											<HStack gap={4} wrap="wrap">
 												<Text color="fg.muted" fontSize="xs">
 													Created:{" "}
 													{formatDateTime(new Date(response.createdAt))}
@@ -103,6 +142,11 @@ const AdminDashboard: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 													Updated:{" "}
 													{formatDateTime(new Date(response.updatedAt))}
 												</Text>
+												{response.submittedBy && (
+													<Text color="fg.muted" fontSize="xs">
+														Submitted by: {response.submittedBy}
+													</Text>
+												)}
 											</HStack>
 											{Object.entries(
 												response.responses as Record<string, ResponseValue>,
@@ -143,7 +187,7 @@ const AdminDashboard: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 	);
 };
 
-const AdminClient: React.FC<Props> = ({ initialIsAdmin }) => {
+const AdminClient: React.FC<Props> = ({ initialIsAdmin, isDev }) => {
 	const router = useRouter();
 	const [error, setError] = useState<string | null>(null);
 
@@ -178,7 +222,7 @@ const AdminClient: React.FC<Props> = ({ initialIsAdmin }) => {
 	};
 
 	if (isAuthenticated) {
-		return <AdminDashboard onLogout={handleLogout} />;
+		return <AdminDashboard isDev={isDev} onLogout={handleLogout} />;
 	}
 
 	return (
