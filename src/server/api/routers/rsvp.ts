@@ -94,9 +94,15 @@ export const rsvpRouter = createTRPCRouter({
 				const firstName = row[5] ?? "";
 				const lastName = row[6] ?? "";
 
+				// Support multiple last names separated by " / " (e.g., "Santana / Kenneth")
+				const lastNameVariants = lastName
+					.split(" / ")
+					.map((name) => normalizeString(name));
+				const lastNameMatches = lastNameVariants.includes(normalizedLastName);
+
 				if (
 					normalizeString(firstName) === normalizedFirstName &&
-					normalizeString(lastName) === normalizedLastName
+					lastNameMatches
 				) {
 					const group = Number.parseInt(row[11] ?? "0", 10);
 					const tag = (row[7] ?? "guest").trim().toLowerCase();
