@@ -1,7 +1,7 @@
 "use client";
 
 import { Container, Grid, VStack } from "@chakra-ui/react";
-import ActivityCard from "@/components/activity-card";
+import ActivityCard from "@/app/opt-in-activities/activity-card";
 import PageHeader from "@/components/page-header";
 
 const OptInActivitiesPage = () => {

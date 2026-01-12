@@ -2,9 +2,9 @@
 
 import { Box, Container } from "@chakra-ui/react";
 import { useState } from "react";
+import RSVP from "@/app/rsvp/rsvp";
+import RSVPOverlay from "@/app/rsvp/rsvp-overlay";
 import PageHeader from "@/components/page-header";
-import RSVP from "@/components/rsvp";
-import RSVPOverlay from "@/components/rsvp-overlay";
 
 const RSVPPage = () => {
 	const [name, setName] = useState("");

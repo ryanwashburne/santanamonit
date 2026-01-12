@@ -1,5 +1,9 @@
 import { VStack } from "@chakra-ui/react";
-import { InfoSection, InfoSubsection, InfoText } from "./info-section";
+import {
+	InfoSection,
+	InfoSubsection,
+	InfoText,
+} from "@/components/info-section";
 
 const ExperienceTabContent = () => {
 	return (

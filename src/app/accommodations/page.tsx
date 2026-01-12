@@ -1,7 +1,7 @@
 "use client";
 
 import { Container, Grid, VStack } from "@chakra-ui/react";
-import Listing from "@/components/listing";
+import Listing from "@/app/accommodations/listing";
 import PageHeader from "@/components/page-header";
 import TabNavigation from "@/components/tab-navigation";
 import { airbnbListings, resortListings } from "@/data/accommodations";

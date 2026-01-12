@@ -2,8 +2,8 @@
 
 import { Box, Container, Image, Text, VStack } from "@chakra-ui/react";
 import NextImage from "next/image";
-import InternationalTravel from "@/components/international-travel";
-import LocalTravel from "@/components/local-travel";
+import InternationalTravel from "@/app/travel/international-travel";
+import LocalTravel from "@/app/travel/local-travel";
 import TabNavigation from "@/components/tab-navigation";
 
 const TravelPage = () => {

@@ -2,9 +2,9 @@
 
 import { Box, Container, Image, VStack } from "@chakra-ui/react";
 import NextImage from "next/image";
+import ExperienceTabContent from "@/app/siargao/siargao-experience-tab";
+import InfoTabContent from "@/app/siargao/siargao-info-tab";
 import PageHeader from "@/components/page-header";
-import ExperienceTabContent from "@/components/siargao-experience-tab";
-import InfoTabContent from "@/components/siargao-info-tab";
 import TabNavigation from "@/components/tab-navigation";
 
 const SiargaoPage = () => {

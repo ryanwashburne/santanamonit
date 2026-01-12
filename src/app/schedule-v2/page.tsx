@@ -2,9 +2,9 @@
 
 import { Box, Container } from "@chakra-ui/react";
 import { useState } from "react";
+import RSVPOverlay from "@/app/rsvp/rsvp-overlay";
+import Schedule from "@/app/schedule-v2/schedule";
 import PageHeader from "@/components/page-header";
-import RSVPOverlay from "@/components/rsvp-overlay";
-import Schedule from "@/components/schedule";
 import { ScheduleType } from "@/constants/schedule";
 
 const ScheduleV2Page = () => {

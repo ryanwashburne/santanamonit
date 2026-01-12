@@ -1,6 +1,6 @@
 import { Container, Flex, Image, VStack } from "@chakra-ui/react";
-import Wedding from "@/components/wedding";
-import WelcomeParty from "@/components/welcome-party";
+import Wedding from "@/app/schedule-v2/wedding";
+import WelcomeParty from "@/app/schedule-v2/welcome-party";
 import type { ScheduleType } from "@/constants/schedule";
 
 type Props = {
