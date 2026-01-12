@@ -11,6 +11,7 @@ const Listing = ({
 	location,
 	phone,
 	website,
+	links,
 }: ListingType) => {
 	// currently unused
 	const [isHovered] = useState(true);
@@ -78,6 +79,20 @@ const Listing = ({
 									{website}
 								</Link>
 							)}
+
+							{links &&
+								links.length > 0 &&
+								links.map((link) => (
+									<Link
+										color="text"
+										href={link.url}
+										key={link.name}
+										target="_blank"
+										textDecoration="underline"
+									>
+										{link.name}
+									</Link>
+								))}
 						</VStack>
 					</Box>
 				</VStack>

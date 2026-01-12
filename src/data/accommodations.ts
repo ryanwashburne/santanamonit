@@ -8,6 +8,10 @@ export interface Listing {
 	};
 	phone?: string;
 	website?: string;
+	links?: {
+		name: string;
+		url: string;
+	}[];
 }
 
 export const resortListings: Listing[] = [
@@ -111,73 +115,83 @@ export const resortListings: Listing[] = [
 
 export const airbnbListings: Listing[] = [
 	{
-		title: "Beachfront Villa",
-		coverPhoto: "https://via.placeholder.com/400x300",
+		title: "Villa Hele",
+		coverPhoto: "/accommodations/airbnbs/villa-hele.png",
 		description:
-			"Spacious 4-bedroom villa with direct beach access and ocean views.",
+			"A four-bedroom villa with beachfront access, Villa Hele is a beautiful property for those wanting to stay in a quieter area of General Luna.",
 		location: {
-			name: "General Luna, Siargao",
-			url: "https://maps.google.com",
+			name: "Villa Hele",
+			url: "https://maps.app.goo.gl/mf4ED1RKt4jA1qVR7",
 		},
-		phone: "+63 123 456 7896",
-		website: "https://airbnb.com/beachfront-villa",
+		phone: "+63 969 598 6388",
+		website: "https://www.booking.com/Share-uqCIWw",
 	},
 	{
-		title: "Cozy Surf House",
-		coverPhoto: "https://via.placeholder.com/400x300",
+		title: "Tadhana Villa",
+		coverPhoto: "/accommodations/airbnbs/tadhana-villa.png",
 		description:
-			"Charming 2-bedroom house perfect for surfers, steps from Cloud 9.",
+			"Tadhana Villa is under the management of the popular Bravo Resort but just a few blocks down. The villa has 3 rooms that can fit up to 4pax each.",
 		location: {
-			name: "Cloud 9, Siargao",
-			url: "https://maps.google.com",
+			name: "Tadhana Villa",
+			url: "https://maps.app.goo.gl/NJPuDdAbZMcNjn617",
 		},
-		phone: "+63 123 456 7897",
-		website: "https://airbnb.com/surf-house",
+		phone: "+63 999 877 8518",
+		website: "https://www.bravosiargao.com/villas/tadhana-villa.html",
 	},
 	{
-		title: "Palm Tree Villa",
-		coverPhoto: "https://via.placeholder.com/400x300",
+		title: "Tanaw Villas",
+		coverPhoto: "/accommodations/airbnbs/tanaw-villas.png",
 		description:
-			"Private villa surrounded by palm trees with pool and tropical garden.",
+			"Tanaw Villas is perched on top of a hill with a rooftop pool overlooking General Luna. Surrounded by a garden, Tanaw Villas feels both open and secluded. Those who plan to stay here should be comfortable with renting motorbikes for easy access to the center of town which is only 5 minutes away.",
 		location: {
-			name: "Pacifico, Siargao",
-			url: "https://maps.google.com",
+			name: "Tanaw Villas",
+			url: "https://maps.app.goo.gl/SGKLsfc2Bmbkn9Ff8",
 		},
-		phone: "+63 123 456 7898",
-		website: "https://airbnb.com/palm-villa",
+		phone: "+63 928 559 5244",
+		website: "https://www.booking.com/Share-zbTbPf",
 	},
 	{
-		title: "Modern Jungle House",
-		coverPhoto: "https://via.placeholder.com/400x300",
-		description: "Contemporary 3-bedroom house nestled in lush jungle setting.",
-		location: {
-			name: "General Luna, Siargao",
-			url: "https://maps.google.com",
-		},
-		phone: "+63 123 456 7899",
-		website: "https://airbnb.com/jungle-house",
-	},
-	{
-		title: "Oceanview Bungalow",
-		coverPhoto: "https://via.placeholder.com/400x300",
+		title: "Nami Villas",
+		coverPhoto: "/accommodations/airbnbs/nami-villas.png",
 		description:
-			"Intimate bungalow with stunning ocean views and sunset terrace.",
+			"Nami Villas is a stylish and comfortable island villa in a quieter area of General Luna. There are two different villas both bookable through Airbnb.",
+		links: [
+			{
+				name: "Airbnb: Nami Villas 1",
+				url: "https://www.airbnb.com/rooms/946075036088899312",
+			},
+			{
+				name: "Airbnb: Nami Villas 2",
+				url: "https://www.airbnb.com/rooms/53806070",
+			},
+		],
 		location: {
-			name: "Cloud 9, Siargao",
-			url: "https://maps.google.com",
+			name: "Nami Villas",
+			url: "https://maps.app.goo.gl/f2Djkt5oJD4zKwNi9",
 		},
-		phone: "+63 123 456 7900",
-		website: "https://airbnb.com/oceanview-bungalow",
 	},
 	{
-		title: "Island Paradise Home",
-		coverPhoto: "https://via.placeholder.com/400x300",
-		description: "Fully equipped 5-bedroom home ideal for groups and families.",
+		title: "Seaclub",
+		coverPhoto: "/accommodations/airbnbs/seaclub.png",
+		description:
+			"Seaclub Villas is located in the heart of the Cloud 9 surfing area. With private pool villas set in lush gardens, Seaclub is great for small groups looking to share a private space. There are multiple villas right next to each other, so this is also a nice option for larger groups wanting to be near one another.",
 		location: {
-			name: "Burgos, Siargao",
-			url: "https://maps.google.com",
+			name: "Seaclub",
+			url: "https://maps.app.goo.gl/2R3VUomGBMLNXuzR6",
 		},
-		phone: "+63 123 456 7901",
-		website: "https://airbnb.com/paradise-home",
+		phone: "+63 969 017 7718",
+		website: "https://book.seaclub.co",
+	},
+	{
+		title: "Kalinaw Villas",
+		coverPhoto: "/accommodations/airbnbs/kalinaw-villas.png",
+		description:
+			"Luxury, premium villas equipped with private pools and sweeping ocean views for an intimate, exclusive stay.",
+		location: {
+			name: "Kalinaw Villas",
+			url: "https://maps.app.goo.gl/6KitTNqkh362shoP7",
+		},
+		phone: "+63 968 536 5153",
+		website: "https://www.kalinawresort.com/",
 	},
 ];
