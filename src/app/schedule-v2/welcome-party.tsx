@@ -1,31 +1,24 @@
-import { Center, Flex, Heading, Image, Text, VStack } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
+import EventDetail from "./event-detail";
+import HorizontalEventCard from "./horizontal-event-card";
 
 const WelcomeParty = () => {
 	return (
-		<Flex bg="primary" color="white" maxH="800px">
-			<Image alt="welcome party" objectFit="cover" src="/harana.png" w="40%" />
+		<HorizontalEventCard
+			date="June 10th | Wednesday"
+			imageAlt="welcome party"
+			imagePosition="left"
+			imageSrc="/harana.png"
+			title="Rehersal Brunch & Welcome Party"
+		>
+			<EventDetail label="Brunch">
+				<Text>Bravo Resort 10AM</Text>
+			</EventDetail>
 
-			<Center w="full">
-				<VStack align="stretch" fontSize="xl" gap={8}>
-					<VStack align="stretch" gap={0}>
-						<Heading fontWeight="normal" textTransform="uppercase">
-							Rehersal Brunch &amp; Welcome Party
-						</Heading>
-						<Text>June 10th | Wednesday</Text>
-					</VStack>
-
-					<VStack align="stretch" gap={0}>
-						<Text textTransform="uppercase">Brunch</Text>
-						<Text>Bravo Resort 10AM</Text>
-					</VStack>
-
-					<VStack align="stretch" gap={0}>
-						<Text textTransform="uppercase">Welcome Party</Text>
-						<Text>Harana Beach Bar 4-7PM</Text>
-					</VStack>
-				</VStack>
-			</Center>
-		</Flex>
+			<EventDetail label="Welcome Party">
+				<Text>Harana Beach Bar 4-7PM</Text>
+			</EventDetail>
+		</HorizontalEventCard>
 	);
 };
 

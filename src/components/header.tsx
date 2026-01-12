@@ -121,21 +121,19 @@ const Header = () => {
 					</Drawer.Root>
 				</Box>
 				<VStack gap={8}>
-					<Link href="/" passHref>
-						<Heading
-							_hover={{
-								opacity: 0.7,
-							}}
-							color="white"
-							fontFamily="header"
-							fontSize="2xl"
-							fontWeight="normal"
-							textTransform="uppercase"
-							transition="opacity 0.3s ease-in-out"
-						>
-							The Monits
-						</Heading>
-					</Link>
+					<ChakraLink asChild>
+						<Link href="/">
+							<Heading
+								color="white"
+								fontFamily="header"
+								fontSize="2xl"
+								fontWeight="normal"
+								textTransform="uppercase"
+							>
+								The Monits
+							</Heading>
+						</Link>
+					</ChakraLink>
 					<HStack
 						display={{ base: "none", lg: "flex" }}
 						fontFamily="heading"
