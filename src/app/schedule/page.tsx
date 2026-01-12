@@ -1,33 +1,24 @@
 "use client";
 
 import { Box, Container } from "@chakra-ui/react";
-import { useState } from "react";
-import RSVPOverlay, { type GuestLookupResult } from "@/app/rsvp/rsvp-overlay";
+import { useMemo } from "react";
+import RSVPOverlay from "@/app/rsvp/rsvp-overlay";
 import Schedule from "@/app/schedule/schedule";
 import PageHeader from "@/components/page-header";
 import { AttendeeType } from "@/constants/attendee";
+import { useGuest } from "@/contexts/guest-context";
 
 const ScheduleV2Page = () => {
-	const [attendeeType, setAttendeeType] = useState<AttendeeType>(
-		AttendeeType.GUEST,
-	);
-	const [overlayOpen, setOverlayOpen] = useState(true);
+	const { guest } = useGuest();
 
-	const handleSubmit = (result: GuestLookupResult) => {
-		if (!result.found) return;
+	const attendeeType = useMemo(() => {
+		if (!guest) return AttendeeType.GUEST;
 
-		const tag = result.tag.toLowerCase();
-
-		if (tag === "wp") {
-			setAttendeeType(AttendeeType.WP);
-		} else if (tag === "family") {
-			setAttendeeType(AttendeeType.FAMILY);
-		} else {
-			setAttendeeType(AttendeeType.GUEST);
-		}
-
-		setOverlayOpen(false);
-	};
+		const tag = guest.tag.toLowerCase();
+		if (tag === "wp") return AttendeeType.WP;
+		if (tag === "family") return AttendeeType.FAMILY;
+		return AttendeeType.GUEST;
+	}, [guest]);
 
 	return (
 		<Box>
@@ -39,8 +30,6 @@ const ScheduleV2Page = () => {
 				<Schedule attendeeType={attendeeType} />
 				<RSVPOverlay
 					buttonText="View My Schedule"
-					onSubmit={handleSubmit}
-					open={overlayOpen}
 					title="Please enter your name to view your events"
 				/>
 			</Box>

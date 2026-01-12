@@ -1,21 +1,15 @@
 "use client";
 
 import { Box, Container } from "@chakra-ui/react";
-import { useState } from "react";
 import RSVP from "@/app/rsvp/rsvp";
 import RSVPOverlay from "@/app/rsvp/rsvp-overlay";
 import PageHeader from "@/components/page-header";
 import { BOTTOM_PADDING } from "@/constants/spacing";
-
-type GuestInfo = {
-	firstName: string;
-	lastName: string;
-	group: number;
-	tag: string;
-};
+import { useGuest } from "@/contexts/guest-context";
 
 const RSVPPage = () => {
-	const [guest, setGuest] = useState<GuestInfo | null>(null);
+	const { guest } = useGuest();
+
 	return (
 		<Box pb={BOTTOM_PADDING}>
 			<Container>
@@ -28,17 +22,6 @@ const RSVPPage = () => {
 				</Container>
 				<RSVPOverlay
 					buttonText="View My Schedule"
-					onSubmit={(result) => {
-						if (result.found) {
-							setGuest({
-								firstName: result.firstName,
-								lastName: result.lastName,
-								group: result.group,
-								tag: result.tag,
-							});
-						}
-					}}
-					open={!guest}
 					title="Please enter your name to RSVP"
 				/>
 			</Box>

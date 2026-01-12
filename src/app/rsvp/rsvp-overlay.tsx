@@ -9,31 +9,16 @@ import {
 	VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { useGuest } from "@/contexts/guest-context";
 import { api } from "@/trpc/react";
 
-export type GuestLookupResult =
-	| {
-			found: true;
-			firstName: string;
-			lastName: string;
-			group: number;
-			tag: string;
-	  }
-	| { found: false };
-
 type Props = {
-	open: boolean;
 	title: string;
 	buttonText: string;
-	onSubmit: (result: GuestLookupResult) => void;
 };
 
-const RSVPOverlay: React.FC<Props> = ({
-	open,
-	title,
-	buttonText,
-	onSubmit,
-}) => {
+const RSVPOverlay: React.FC<Props> = ({ title, buttonText }) => {
+	const { guest, setGuest } = useGuest();
 	const [error, setError] = useState<string | null>(null);
 
 	const lookupMutation = api.rsvp.lookupGuest.useMutation({
@@ -43,7 +28,12 @@ const RSVPOverlay: React.FC<Props> = ({
 				return;
 			}
 			setError(null);
-			onSubmit(result);
+			setGuest({
+				firstName: result.firstName,
+				lastName: result.lastName,
+				group: result.group,
+				tag: result.tag,
+			});
 		},
 		onError: () => {
 			setError("An error occurred. Please try again.");
@@ -65,7 +55,7 @@ const RSVPOverlay: React.FC<Props> = ({
 		lookupMutation.mutate({ firstName, lastName });
 	};
 
-	if (!open) return null;
+	if (guest) return null;
 
 	return (
 		<Box
