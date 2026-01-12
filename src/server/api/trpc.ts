@@ -10,6 +10,7 @@ import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
+import { verifyAdminToken } from "@/server/auth/admin";
 import { db } from "@/server/db";
 
 /**
@@ -104,3 +105,31 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
  * are logged in.
  */
 export const publicProcedure = t.procedure.use(timingMiddleware);
+
+/**
+ * Admin middleware - checks for admin token in cookies
+ */
+const adminMiddleware = t.middleware(async ({ ctx, next }) => {
+	const cookieHeader = ctx.headers.get("cookie") ?? "";
+	const cookies = Object.fromEntries(
+		cookieHeader.split("; ").map((c) => {
+			const [key, ...rest] = c.split("=");
+			return [key, rest.join("=")];
+		}),
+	);
+
+	const adminToken = cookies["admin-token"];
+
+	if (!adminToken || !verifyAdminToken(adminToken)) {
+		throw new Error("Unauthorized: Admin access required");
+	}
+
+	return next({ ctx: { ...ctx, isAdmin: true } });
+});
+
+/**
+ * Admin procedure - requires valid admin token
+ */
+export const adminProcedure = t.procedure
+	.use(timingMiddleware)
+	.use(adminMiddleware);

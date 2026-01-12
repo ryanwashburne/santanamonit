@@ -32,7 +32,7 @@ const NotFound = () => {
 					This page doesn&apos;t exist, but we&apos;d love for you to join us at
 					the celebration!
 				</Text>
-				<Button asChild mt={4} size="lg" variant="outline">
+				<Button asChild mt={4} size="lg">
 					<Link href="/">Back to the Wedding</Link>
 				</Button>
 			</VStack>
