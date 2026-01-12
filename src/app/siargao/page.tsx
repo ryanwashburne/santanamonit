@@ -13,10 +13,11 @@ const SiargaoPage = () => {
 			label: "Info",
 			content: <InfoTabContent />,
 		},
-		{
-			label: "Eat",
-			content: <div>Eat content coming soon...</div>,
-		},
+		// TODO: do this later
+		// {
+		// 	label: "Eat",
+		// 	content: <div>Eat content coming soon...</div>,
+		// },
 		{
 			label: "Experience",
 			content: <ExperienceTabContent />,
@@ -39,13 +40,13 @@ const SiargaoPage = () => {
 					<PageHeader title="About Siargao" />
 				</Container>
 
-				<Container maxW="4xl" mt={16}>
+				<Container maxW="6xl" mt={16}>
 					<VStack gap={16}>
 						<Image
 							alt="Siargao Map"
 							asChild
 							borderRadius="lg"
-							maxW="2xl"
+							maxW="4xl"
 							w="full"
 						>
 							<NextImage
@@ -58,7 +59,7 @@ const SiargaoPage = () => {
 							/>
 						</Image>
 
-						<Box bg="background" borderRadius="lg" px={8} py={16}>
+						<Box bg="background" borderRadius="lg" px={24} py={16}>
 							<TabNavigation tabs={tabs} />
 						</Box>
 					</VStack>

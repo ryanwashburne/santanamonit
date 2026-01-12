@@ -1,55 +1,67 @@
 "use client";
 
-import { Container, Grid, VStack } from "@chakra-ui/react";
+import { Box, Container, Grid, Link, Text, VStack } from "@chakra-ui/react";
 import ActivityCard from "@/app/opt-in-activities/activity-card";
 import PageHeader from "@/components/page-header";
 
 const OptInActivitiesPage = () => {
-	const activities = [
-		{
-			image: "https://via.placeholder.com/600x400",
-			title: "Island Hopping Adventure",
-			date: "June 11, 2025",
-			description:
-				"Join us for an exciting island hopping tour visiting three beautiful islands. We'll explore pristine beaches, snorkel in crystal clear waters, and enjoy a delicious lunch on the beach.",
-		},
-		{
-			image: "https://via.placeholder.com/600x400",
-			title: "Sunset Surf Session",
-			date: "June 12, 2025",
-			description:
-				"Experience the magic of surfing at sunset with a professional instructor. Perfect for beginners and intermediate surfers looking to catch some waves during golden hour.",
-		},
-		{
-			image: "https://via.placeholder.com/600x400",
-			title: "North Island Tour",
-			date: "June 13, 2025",
-			description:
-				"Discover the hidden gems of Northern Siargao including the famous Magpupungko Rock Pools, stunning viewpoints, and secluded beaches. Transportation and lunch included.",
-		},
-		{
-			image: "https://via.placeholder.com/600x400",
-			title: "Cave Exploration",
-			date: "June 14, 2025",
-			description:
-				"Explore the mystical caves of Siargao with an experienced guide. Swim in natural pools, discover hidden chambers, and learn about the geological formations.",
-		},
-	];
-
 	return (
-		<Container>
-			<VStack>
+		<VStack align="stretch" fontSize="lg" gap={16}>
+			<Container>
 				<PageHeader title="Extra Adventures" />
+			</Container>
 
-				<Container maxW="7xl" mt={16}>
-					<Grid gap={12} templateColumns="repeat(2, 1fr)" w="full">
-						{activities.map((activity) => (
-							<ActivityCard key={activity.title} {...activity} />
-						))}
+			<Container maxW="5xl">
+				<VStack gap={24}>
+					<Grid gap={16} templateColumns="repeat(2, 1fr)">
+						<Box>
+							<ActivityCard
+								date="June 13th"
+								description="A boat tour that takes you to 3 islands: Guyam Island, Naked Island, and Daku Island. Boats depart around 7-8AM. Boodle lunch will be served. "
+								image="/opt-in-activities/island-hopping.png"
+								title="Island Hopping"
+							/>
+						</Box>
+						<Box>
+							<ActivityCard
+								date="June 14th"
+								description={
+									<Text>
+										{`Some spots to choose from are: Sea of Palm Trees view spot,
+									Magpupunko Rock Pools, Tayangban Cave Pool, Pacifico Beach,
+									Trogon’s Perch for lunch, Alegria Beach, Somyot Cavet, etc.`}
+										<br />
+										<br />
+										{`We will be booking through an operator to take us around.
+									However, you can also choose to motorbike this!`}
+									</Text>
+								}
+								image="/opt-in-activities/north-tour.png"
+								title="North Tour"
+							/>
+						</Box>
 					</Grid>
-				</Container>
-			</VStack>
-		</Container>
+
+					<Container maxW="4xl">
+						<VStack gap={4} textAlign="center">
+							<Text>
+								If you would like to join us on any additional excursions, click
+								the link below and let us know via Google Form. Prices for each
+								activity will be around 1500php per person.
+							</Text>
+
+							<Link
+								color="text"
+								href="https://forms.gle/k9ay8PbFPbbhyzRz8"
+								textDecoration="underline"
+							>
+								RSVP for activities here
+							</Link>
+						</VStack>
+					</Container>
+				</VStack>
+			</Container>
+		</VStack>
 	);
 };
 

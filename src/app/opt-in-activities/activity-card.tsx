@@ -4,7 +4,7 @@ interface ActivityCardProps {
 	image: string;
 	title: string;
 	date: string;
-	description: string;
+	description: string | React.ReactNode;
 }
 
 const ActivityCard = ({
@@ -14,7 +14,7 @@ const ActivityCard = ({
 	description,
 }: ActivityCardProps) => {
 	return (
-		<VStack align="stretch" gap={4}>
+		<VStack align="stretch" gap={8} textAlign="center">
 			<Image
 				alt={title}
 				borderRadius="lg"
@@ -22,15 +22,19 @@ const ActivityCard = ({
 				src={image}
 				w="full"
 			/>
+
 			<VStack align="stretch" gap={2}>
 				<Heading color="primary" fontSize="2xl">
 					{title}
 				</Heading>
-				<Text fontSize="lg" fontWeight="bold">
-					{date}
-				</Text>
+				<Text>{date}</Text>
 			</VStack>
-			<Text fontSize="lg">{description}</Text>
+
+			{typeof description === "string" ? (
+				<Text>{description}</Text>
+			) : (
+				description
+			)}
 		</VStack>
 	);
 };

@@ -33,7 +33,7 @@ const RSVPOverlay: React.FC<Props> = ({
 
 	return (
 		<Box
-			backdropFilter="blur(15px)"
+			backdropFilter="blur(18px)"
 			inset={0}
 			position="absolute"
 			zIndex="overlay"
