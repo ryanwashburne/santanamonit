@@ -12,7 +12,26 @@ const config = defineConfig({
 		},
 	},
 	theme: {
+		keyframes: {
+			treeFromLeft: {
+				"0%": { opacity: "0", transform: "rotate(-30deg)" },
+				"100%": { opacity: "1", transform: "rotate(0deg)" },
+			},
+			treeFromRight: {
+				"0%": { opacity: "0", transform: "rotate(30deg)" },
+				"100%": { opacity: "1", transform: "rotate(0deg)" },
+			},
+			treeFromBottom: {
+				"0%": { opacity: "0", transform: "translateY(20px)" },
+				"100%": { opacity: "1", transform: "translateY(0)" },
+			},
+		},
 		tokens: {
+			animations: {
+				treeFromLeft: { value: "treeFromLeft 0.2s ease-out forwards" },
+				treeFromRight: { value: "treeFromRight 0.2s ease-out forwards" },
+				treeFromBottom: { value: "treeFromBottom 0.2s ease-out forwards" },
+			},
 			fonts: {
 				header: { value: "var(--font-rock-attack), serif" },
 				body: { value: "var(--font-puritan), sans-serif" },
