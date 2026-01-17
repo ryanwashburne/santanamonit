@@ -38,11 +38,90 @@ type ResponseValue = {
 	answer?: string;
 };
 
+type RsvpResponse = {
+	id: string;
+	firstName: string;
+	lastName: string;
+	responses: unknown;
+	submittedBy: string | null;
+	createdAt: Date;
+	updatedAt: Date;
+};
+
 function formatDateTime(date: Date): string {
 	return date.toLocaleString(undefined, {
 		dateStyle: "medium",
 		timeStyle: "short",
 	});
+}
+
+function exportToCsv(responses: RsvpResponse[]) {
+	// Collect all unique event names
+	const allEvents = new Set<string>();
+	for (const response of responses) {
+		const events = response.responses as Record<string, ResponseValue>;
+		for (const event of Object.keys(events)) {
+			allEvents.add(event);
+		}
+	}
+	const eventList = Array.from(allEvents).sort();
+
+	// Build CSV headers
+	const headers = [
+		"First Name",
+		"Last Name",
+		"Submitted By",
+		"Created At",
+		"Updated At",
+		...eventList.flatMap((e) => [`${e} - Attending`, `${e} - Answer`]),
+	];
+
+	// Build CSV rows
+	const rows = responses.map((response) => {
+		const events = response.responses as Record<string, ResponseValue>;
+		const eventCols = eventList.flatMap((event) => {
+			const value = events[event];
+			const attending =
+				value?.attending === true
+					? "Yes"
+					: value?.attending === false
+						? "No"
+						: "";
+			const answer = value?.answer ?? "";
+			return [attending, answer];
+		});
+
+		return [
+			response.firstName,
+			response.lastName,
+			response.submittedBy ?? "",
+			new Date(response.createdAt).toISOString(),
+			new Date(response.updatedAt).toISOString(),
+			...eventCols,
+		];
+	});
+
+	// Escape CSV values
+	const escapeCsv = (val: string) => {
+		if (val.includes(",") || val.includes('"') || val.includes("\n")) {
+			return `"${val.replace(/"/g, '""')}"`;
+		}
+		return val;
+	};
+
+	const csvContent = [
+		headers.map(escapeCsv).join(","),
+		...rows.map((row) => row.map(escapeCsv).join(",")),
+	].join("\n");
+
+	// Download file
+	const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+	const url = URL.createObjectURL(blob);
+	const link = document.createElement("a");
+	link.href = url;
+	link.download = `rsvp-responses-${new Date().toISOString().split("T")[0]}.csv`;
+	link.click();
+	URL.revokeObjectURL(url);
 }
 
 const AdminDashboard: React.FC<{ onLogout: () => void; isDev: boolean }> = ({
@@ -72,6 +151,15 @@ const AdminDashboard: React.FC<{ onLogout: () => void; isDev: boolean }> = ({
 				<HStack justify="space-between">
 					<Heading>Admin Dashboard</Heading>
 					<HStack>
+						{responsesQuery.data && responsesQuery.data.length > 0 && (
+							<Button
+								onClick={() => exportToCsv(responsesQuery.data)}
+								size="sm"
+								variant="outline"
+							>
+								Export CSV
+							</Button>
+						)}
 						{isDev && (
 							<Button
 								colorPalette="red"
