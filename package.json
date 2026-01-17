@@ -20,7 +20,8 @@
 		"preview": "next build && next start",
 		"setup": "vercel link --yes --project santanamonit && mv .env.local .env",
 		"start": "next start",
-		"typecheck": "tsc --noEmit"
+		"typecheck": "tsc --noEmit",
+		"vercel-build": "prisma generate && prisma migrate deploy && next build"
 	},
 	"dependencies": {
 		"@chakra-ui/react": "^3.30.0",
