@@ -36,6 +36,7 @@ const mergeResponses = (
 
 type MemberState = {
 	id: string; // Stable ID for React key
+	displayName: string;
 	firstName: string;
 	lastName: string;
 	isPlaceholder: boolean;
@@ -72,10 +73,10 @@ const MemberSection: React.FC<{
 	onEventChange: (eventId: string) => (value: EventResponse) => void;
 }> = ({ member, isExpanded, onToggle, onNameChange, onEventChange }) => {
 	const label = member.isPlaceholder
-		? member.firstName.trim()
-			? `+ ${member.firstName}`
+		? member.displayName.trim()
+			? `+ ${member.displayName}`
 			: "+ Guest"
-		: `+ ${member.firstName}`;
+		: `+ ${member.displayName}`;
 
 	return (
 		<VStack gap={8} w="full">
@@ -226,7 +227,10 @@ const RSVP: React.FC = () => {
 					r.firstName === member.firstName && r.lastName === member.lastName,
 			);
 			return {
-				...member,
+				displayName: member.displayName,
+				firstName: member.firstName,
+				lastName: member.lastName,
+				isPlaceholder: member.isPlaceholder,
 				id: `member-${idx}`,
 				needsNameInput: member.isPlaceholder && !member.firstName,
 				responses: saved
@@ -299,7 +303,7 @@ const RSVP: React.FC = () => {
 					(event) => member.responses[event.id]?.attending === null,
 				);
 				if (memberUnanswered.length > 0) {
-					const name = member.firstName || "Guest";
+					const name = member.displayName || "Guest";
 					setValidationError(
 						`Please answer all events for ${name} before submitting.`,
 					);
@@ -331,7 +335,7 @@ const RSVP: React.FC = () => {
 		});
 	};
 
-	const displayName = isPreviewMode ? "Jane" : guest?.firstName;
+	const displayName = isPreviewMode ? "Jane" : guest?.displayName;
 	const displayResponses = isPreviewMode ? EMPTY_RESPONSES : myResponses;
 
 	return (

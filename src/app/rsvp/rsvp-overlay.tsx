@@ -29,6 +29,7 @@ const RSVPOverlay: React.FC<Props> = ({ title, buttonText }) => {
 			}
 			setError(null);
 			setGuest({
+				displayName: result.displayName,
 				firstName: result.firstName,
 				lastName: result.lastName,
 				group: result.group,

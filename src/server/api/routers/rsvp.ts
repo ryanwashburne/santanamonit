@@ -45,17 +45,14 @@ function getFirstNameVariants(firstName: string): string[] {
 }
 
 type GroupMember = {
+	displayName: string;
 	firstName: string;
 	lastName: string;
 	isPlaceholder: boolean; // true if this is a plus one slot (no last name)
 };
 
 function loadCSVData() {
-	const csvPath = path.join(
-		process.cwd(),
-		"private",
-		"Wedding Full - Guest List.csv",
-	);
+	const csvPath = path.join(process.cwd(), "private", "Wedding Full.csv");
 	const content = fs.readFileSync(csvPath, "utf-8");
 	return parseCSV(content).slice(7); // Data starts at row 8
 }
@@ -77,8 +74,8 @@ export const rsvpRouter = createTRPCRouter({
 			// First, find the requester and get their group
 			let requesterGroup: number | null = null;
 			for (const row of dataRows) {
-				const firstName = (row[5] ?? "").trim();
-				const lastName = (row[6] ?? "").trim();
+				const firstName = (row[6] ?? "").trim();
+				const lastName = (row[7] ?? "").trim();
 
 				const firstNameVariants = getFirstNameVariants(firstName);
 				const lastNameVariants = lastName
@@ -89,7 +86,7 @@ export const rsvpRouter = createTRPCRouter({
 					firstNameVariants.includes(normalizedInputFirst) &&
 					lastNameVariants.includes(normalizedInputLast)
 				) {
-					requesterGroup = Number.parseInt(row[11] ?? "0", 10);
+					requesterGroup = Number.parseInt(row[12] ?? "0", 10);
 					break;
 				}
 			}
@@ -101,11 +98,12 @@ export const rsvpRouter = createTRPCRouter({
 			// Now get all other members in that group (excluding the requester)
 			const members: GroupMember[] = [];
 			for (const row of dataRows) {
-				const rowGroup = Number.parseInt(row[11] ?? "0", 10);
+				const rowGroup = Number.parseInt(row[12] ?? "0", 10);
 				if (rowGroup !== requesterGroup) continue;
 
-				const firstName = (row[5] ?? "").trim();
-				const lastName = (row[6] ?? "").trim();
+				const displayName = (row[5] ?? "").trim();
+				const firstName = (row[6] ?? "").trim();
+				const lastName = (row[7] ?? "").trim();
 
 				// Skip the requester (empty rows won't match anyway)
 				const firstNameVariants = getFirstNameVariants(firstName);
@@ -121,6 +119,7 @@ export const rsvpRouter = createTRPCRouter({
 				}
 
 				members.push({
+					displayName,
 					firstName,
 					lastName,
 					isPlaceholder: !lastName, // Plus one if no last name
@@ -137,11 +136,11 @@ export const rsvpRouter = createTRPCRouter({
 			const memberKeys: { firstName: string; lastName: string }[] = [];
 
 			for (const row of dataRows) {
-				const rowGroup = Number.parseInt(row[11] ?? "0", 10);
+				const rowGroup = Number.parseInt(row[12] ?? "0", 10);
 				if (rowGroup !== input.group) continue;
 
-				const firstName = (row[5] ?? "").trim();
-				const lastName = (row[6] ?? "").trim();
+				const firstName = (row[6] ?? "").trim();
+				const lastName = (row[7] ?? "").trim();
 
 				// Only fetch responses for defined members (have both names)
 				if (firstName && lastName) {
@@ -267,17 +266,7 @@ export const rsvpRouter = createTRPCRouter({
 			}),
 		)
 		.mutation(({ input }) => {
-			const csvPath = path.join(
-				process.cwd(),
-				"private",
-				"Wedding Full - Guest List.csv",
-			);
-			const content = fs.readFileSync(csvPath, "utf-8");
-			const rows = parseCSV(content);
-
-			// CSV structure: data starts at row 8 (index 7)
-			// Column 5: First Name, Column 6: Last Name, Column 11: Group
-			const dataRows = rows.slice(7);
+			const dataRows = loadCSVData();
 
 			const normalizedFirstName = normalizeString(input.firstName);
 			const normalizedLastName = normalizeString(input.lastName);
@@ -286,8 +275,9 @@ export const rsvpRouter = createTRPCRouter({
 				const row = dataRows[i];
 				if (!row) continue;
 
-				const firstName = row[5] ?? "";
-				const lastName = row[6] ?? "";
+				const displayName = row[5] ?? "";
+				const firstName = row[6] ?? "";
+				const lastName = row[7] ?? "";
 
 				// Support multiple names separated by " / " and space-separated names
 				const firstNameVariants = getFirstNameVariants(firstName);
@@ -300,11 +290,12 @@ export const rsvpRouter = createTRPCRouter({
 				const lastNameMatches = lastNameVariants.includes(normalizedLastName);
 
 				if (firstNameMatches && lastNameMatches) {
-					const group = Number.parseInt(row[11] ?? "0", 10);
-					const tag = (row[7] ?? "guest").trim().toLowerCase();
+					const group = Number.parseInt(row[12] ?? "0", 10);
+					const tag = (row[8] ?? "guest").trim().toLowerCase();
 
 					return {
 						found: true as const,
+						displayName: displayName.trim(),
 						firstName: firstName.trim(),
 						lastName: lastName.trim(),
 						group,

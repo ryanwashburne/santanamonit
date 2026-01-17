@@ -1,7 +1,6 @@
 "use client";
 
 import { Box, Heading, Image, Link, Text, VStack } from "@chakra-ui/react";
-import { useState } from "react";
 import type { Listing as ListingType } from "@/data/accommodations";
 
 const Listing = ({
@@ -13,16 +12,14 @@ const Listing = ({
 	website,
 	links,
 }: ListingType) => {
-	// currently unused
-	const [isHovered] = useState(true);
-
 	return (
 		<Box
+			_hover={{
+				boxShadow: "xl",
+			}}
 			border="1px solid"
 			borderColor="primary"
 			borderRadius="lg"
-			// onMouseEnter={() => setIsHovered(true)}
-			// onMouseLeave={() => setIsHovered(false)}
 			overflow="hidden"
 			position="relative"
 			px={8}
@@ -48,8 +45,6 @@ const Listing = ({
 
 					<Box
 						fontSize="md"
-						maxHeight={isHovered ? "200px" : "0"}
-						opacity={isHovered ? 1 : 0}
 						overflow="hidden"
 						transition="all 0.3s ease-in-out"
 					>

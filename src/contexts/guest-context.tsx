@@ -3,6 +3,7 @@
 import { createContext, useContext, useState } from "react";
 
 export type Guest = {
+	displayName: string;
 	firstName: string;
 	lastName: string;
 	group: number;
