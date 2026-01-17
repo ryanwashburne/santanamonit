@@ -3,7 +3,7 @@
 import { Box, Center, Image } from "@chakra-ui/react";
 import { motion } from "motion/react";
 import NextImage from "next/image";
-
+import Landing from "public/landing.svg";
 import Tree1 from "public/tree1.svg";
 import Tree2 from "public/tree2.svg";
 import Tree3 from "public/tree3.svg";
@@ -100,7 +100,7 @@ const HomePage = () => {
 	return (
 		<Box mt="12vh">
 			<Center>
-				<Image alt="greetings" src="/landing.svg" />
+				<NextImage alt="greetings" src={Landing} />
 			</Center>
 			<TreeFooter />
 		</Box>

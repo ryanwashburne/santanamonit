@@ -10,6 +10,7 @@ const config = {
 	experimental: {
 		optimizePackageImports: ["@chakra-ui/react"],
 	},
+	output: "export",
 };
 
 export default config;
