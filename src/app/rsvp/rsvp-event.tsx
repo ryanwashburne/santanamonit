@@ -19,6 +19,7 @@ const AttendButton: React.FC<{
 }> = ({ selected, onClick, children }) => {
 	return (
 		<Button
+			_hover={{ boxShadow: "xl" }}
 			borderColor="black"
 			borderRadius="lg"
 			color={selected ? "white" : "text"}
@@ -26,6 +27,7 @@ const AttendButton: React.FC<{
 			onClick={onClick}
 			p={0}
 			px={8}
+			transition="all 0.3s ease-in-out"
 			variant={selected ? undefined : "outline"}
 		>
 			{children}

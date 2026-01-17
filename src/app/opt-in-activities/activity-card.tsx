@@ -24,7 +24,7 @@ const ActivityCard = ({
 			/>
 
 			<VStack align="stretch" gap={2}>
-				<Heading color="primary" fontSize="2xl">
+				<Heading color="primary" fontFamily="header" fontSize="2xl">
 					{title}
 				</Heading>
 				<Text>{date}</Text>

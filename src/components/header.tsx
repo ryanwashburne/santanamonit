@@ -121,7 +121,7 @@ const Header = () => {
 					</Drawer.Root>
 				</Box>
 				<VStack gap={8}>
-					<ChakraLink asChild>
+					<ChakraLink _hover={{ textDecoration: "none" }} asChild>
 						<Link href="/">
 							<Heading
 								color="white"
@@ -145,7 +145,7 @@ const Header = () => {
 								<ChakraLink
 									asChild
 									color="inherit"
-									fontWeight={pathname === link.href ? "bold" : undefined}
+									fontWeight={pathname === link.href ? "bold" : 500}
 									key={link.href}
 								>
 									<Link href={link.href}>
