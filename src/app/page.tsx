@@ -2,6 +2,12 @@
 
 import { Box, Center, Image } from "@chakra-ui/react";
 import { motion } from "motion/react";
+import NextImage from "next/image";
+
+import Tree1 from "public/tree1.svg";
+import Tree2 from "public/tree2.svg";
+import Tree3 from "public/tree3.svg";
+import Tree4 from "public/tree4.svg";
 
 const DURATION = 0.5;
 const EASE = "easeInOut";
@@ -33,7 +39,9 @@ const TreeFooter = () => {
 				}}
 				transition={TRANSITION}
 			>
-				<Image alt="" h={OUTER_HEIGHTS} src="/tree1.svg" w="auto" />
+				<Image asChild h={OUTER_HEIGHTS} w="auto">
+					<NextImage alt="Tree1" src={Tree1} />
+				</Image>
 			</motion.div>
 
 			{/* Tree 2 - Left-center */}
@@ -47,7 +55,9 @@ const TreeFooter = () => {
 				}}
 				transition={TRANSITION}
 			>
-				<Image alt="" h={INNER_HEIGHTS} src="/tree2.svg" w="auto" />
+				<Image asChild h={INNER_HEIGHTS} w="auto">
+					<NextImage alt="Tree2" src={Tree2} />
+				</Image>
 			</motion.div>
 
 			{/* Tree 3 - Right-center */}
@@ -61,7 +71,9 @@ const TreeFooter = () => {
 				}}
 				transition={TRANSITION}
 			>
-				<Image alt="" h={INNER_HEIGHTS} src="/tree3.svg" w="auto" />
+				<Image asChild h={INNER_HEIGHTS} w="auto">
+					<NextImage alt="Tree3" src={Tree3} />
+				</Image>
 			</motion.div>
 
 			{/* Tree 4 - Right */}
@@ -76,7 +88,9 @@ const TreeFooter = () => {
 				}}
 				transition={TRANSITION}
 			>
-				<Image alt="" h={OUTER_HEIGHTS} src="/tree4.svg" w="auto" />
+				<Image asChild h={OUTER_HEIGHTS} w="auto">
+					<NextImage alt="Tree4" src={Tree4} />
+				</Image>
 			</motion.div>
 		</Box>
 	);
