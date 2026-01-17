@@ -16,13 +16,15 @@ const AttendButton: React.FC<{
 	selected: boolean;
 	onClick: () => void;
 	children: React.ReactNode;
-}> = ({ selected, onClick, children }) => {
+	disabled?: boolean;
+}> = ({ selected, onClick, children, disabled }) => {
 	return (
 		<Button
-			_hover={{ boxShadow: "xl" }}
+			_hover={{ boxShadow: disabled ? undefined : "xl" }}
 			borderColor="black"
 			borderRadius="lg"
 			color={selected ? "white" : "text"}
+			disabled={disabled}
 			height="34px"
 			onClick={onClick}
 			p={0}
@@ -44,9 +46,15 @@ type RSVPEventProps = {
 	event: Event;
 	value: EventResponse;
 	onChange: (value: EventResponse) => void;
+	disabled?: boolean;
 };
 
-const RSVPEvent: React.FC<RSVPEventProps> = ({ event, value, onChange }) => {
+const RSVPEvent: React.FC<RSVPEventProps> = ({
+	event,
+	value,
+	onChange,
+	disabled,
+}) => {
 	const handleAttendingClick = (attending: boolean) => {
 		return () => {
 			onChange({
@@ -77,12 +85,14 @@ const RSVPEvent: React.FC<RSVPEventProps> = ({ event, value, onChange }) => {
 
 			<ButtonGroup gap={6}>
 				<AttendButton
+					disabled={disabled}
 					onClick={handleAttendingClick(true)}
 					selected={value.attending === true}
 				>
 					Attending
 				</AttendButton>
 				<AttendButton
+					disabled={disabled}
 					onClick={handleAttendingClick(false)}
 					selected={value.attending === false}
 				>
@@ -96,6 +106,7 @@ const RSVPEvent: React.FC<RSVPEventProps> = ({ event, value, onChange }) => {
 					<Textarea
 						bg="#EAE2E2"
 						borderRadius="lg"
+						disabled={disabled}
 						onChange={handleAnswerChange}
 						rows={5}
 						value={value.answer ?? ""}

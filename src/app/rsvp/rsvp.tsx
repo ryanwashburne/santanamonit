@@ -55,6 +55,7 @@ const EventsList: React.FC<{
 	<VStack gap="60px" w="full">
 		{EVENTS.map((event) => (
 			<RSVPEvent
+				disabled={disabled}
 				event={event}
 				key={event.id}
 				onChange={disabled ? () => {} : onChange(event.id)}
@@ -71,7 +72,15 @@ const MemberSection: React.FC<{
 	onToggle: () => void;
 	onNameChange: (field: "firstName" | "lastName", value: string) => void;
 	onEventChange: (eventId: string) => (value: EventResponse) => void;
-}> = ({ member, isExpanded, onToggle, onNameChange, onEventChange }) => {
+	disabled?: boolean;
+}> = ({
+	member,
+	isExpanded,
+	onToggle,
+	onNameChange,
+	onEventChange,
+	disabled,
+}) => {
 	const label = member.isPlaceholder
 		? member.displayName.trim()
 			? `+ ${member.displayName}`
@@ -101,6 +110,7 @@ const MemberSection: React.FC<{
 									<Field.Label>First Name</Field.Label>
 									<Input
 										bg="white"
+										disabled={disabled}
 										onChange={(e) => onNameChange("firstName", e.target.value)}
 										value={member.firstName}
 									/>
@@ -110,13 +120,18 @@ const MemberSection: React.FC<{
 								<Field.Label>Last Name</Field.Label>
 								<Input
 									bg="white"
+									disabled={disabled}
 									onChange={(e) => onNameChange("lastName", e.target.value)}
 									value={member.lastName}
 								/>
 							</Field.Root>
 						</VStack>
 					)}
-					<EventsList onChange={onEventChange} responses={member.responses} />
+					<EventsList
+						disabled={disabled}
+						onChange={onEventChange}
+						responses={member.responses}
+					/>
 				</>
 			)}
 		</VStack>
@@ -356,7 +371,7 @@ const RSVP: React.FC = () => {
 
 							<VStack gap="80px" maxW="300px" mx="auto" w="full">
 								<EventsList
-									disabled={isPreviewMode}
+									disabled={isPreviewMode || isLoading}
 									onChange={handleMyEventChange}
 									responses={displayResponses}
 								/>
@@ -364,6 +379,7 @@ const RSVP: React.FC = () => {
 								{!isPreviewMode &&
 									otherMembers.map((member, index) => (
 										<MemberSection
+											disabled={isLoading}
 											isExpanded={expandedMembers.has(index)}
 											key={member.id}
 											member={member}
