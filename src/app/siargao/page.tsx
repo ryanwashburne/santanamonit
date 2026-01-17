@@ -2,31 +2,13 @@
 
 import { Box, Container, Image, VStack } from "@chakra-ui/react";
 import NextImage from "next/image";
-import ExperienceTabContent from "@/app/siargao/siargao-experience-tab";
-import InfoTabContent from "@/app/siargao/siargao-info-tab";
+import SiargaoContent from "@/app/siargao/siargao-content";
 import PageHeader from "@/components/page-header";
-import TabNavigation from "@/components/tab-navigation";
 import { BOTTOM_PADDING } from "@/constants/spacing";
 
 import siargaoMap from "../../../public/siargao-map.png";
 
 const SiargaoPage = () => {
-	const tabs = [
-		{
-			label: "Info",
-			content: <InfoTabContent />,
-		},
-		// TODO: do this later
-		// {
-		// 	label: "Eat",
-		// 	content: <div>Eat content coming soon...</div>,
-		// },
-		{
-			label: "Experience",
-			content: <ExperienceTabContent />,
-		},
-	];
-
 	return (
 		<Box
 			minH="100vh"
@@ -57,7 +39,7 @@ const SiargaoPage = () => {
 						</Image>
 
 						<Box bg="background" borderRadius="lg" px={24} py={16}>
-							<TabNavigation tabs={tabs} />
+							<SiargaoContent />
 						</Box>
 					</VStack>
 				</Container>
