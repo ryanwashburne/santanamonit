@@ -2,14 +2,16 @@ import { Container, Flex, Image, VStack } from "@chakra-ui/react";
 import IslandHopping from "@/app/schedule/island-hopping";
 import Wedding from "@/app/schedule/wedding";
 import WelcomeParty from "@/app/schedule/welcome-party";
+import AnimateInView from "@/components/animate-in-view";
 import type { AttendeeType } from "@/constants/attendee";
 import { BOTTOM_PADDING } from "@/constants/spacing";
 
 type Props = {
+	enableAnimation: boolean;
 	attendeeType: AttendeeType;
 };
 
-const Schedule: React.FC<Props> = ({ attendeeType }) => {
+const Schedule: React.FC<Props> = ({ enableAnimation, attendeeType }) => {
 	return (
 		<VStack align="stretch" pb={BOTTOM_PADDING}>
 			<Container mb={32} mt={48} w="full">
@@ -19,9 +21,17 @@ const Schedule: React.FC<Props> = ({ attendeeType }) => {
 			</Container>
 
 			<VStack align="stretch" gap={0}>
-				<WelcomeParty />
-				<Wedding />
-				{attendeeType === "wp" && <IslandHopping />}
+				<AnimateInView enabled={enableAnimation}>
+					<WelcomeParty />
+				</AnimateInView>
+				<AnimateInView enabled={enableAnimation}>
+					<Wedding />
+				</AnimateInView>
+				{attendeeType === "wp" && (
+					<AnimateInView enabled={enableAnimation}>
+						<IslandHopping />
+					</AnimateInView>
+				)}
 			</VStack>
 		</VStack>
 	);

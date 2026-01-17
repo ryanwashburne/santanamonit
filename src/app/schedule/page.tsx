@@ -27,7 +27,7 @@ const ScheduleV2Page = () => {
 			</Container>
 
 			<Box bg="background" position="relative">
-				<Schedule attendeeType={attendeeType} />
+				<Schedule attendeeType={attendeeType} enableAnimation={!!guest} />
 				<RSVPOverlay
 					buttonText="View My Schedule"
 					title="Please enter your name to view your events"
