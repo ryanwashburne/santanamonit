@@ -9,7 +9,7 @@ const TRANSITION = { duration: DURATION, ease: EASE } as const;
 
 const OUTER_HEIGHTS = "70vh";
 const INNER_HEIGHTS = "40vh";
-const INNER_DISTANCE = "22vw";
+const INNER_DISTANCE = "20vw";
 
 const TreeFooter = () => {
 	return (
