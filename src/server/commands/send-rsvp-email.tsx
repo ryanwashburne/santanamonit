@@ -8,10 +8,9 @@ import { resend } from "@/server/lib/resend";
 export const sendRSVPEmail = async (input: RSVPEmailPayload) => {
 	try {
 		console.log("Sending RSVP email", input);
-		const to =
-			env.NODE_ENV === "production"
-				? "santanamonit@gmail.com"
-				: "ryan.washburne@gmail.com";
+		const to = env.SEND_RSVP_EMAIL
+			? "santanamonit@gmail.com"
+			: "ryan.washburne@gmail.com";
 		const email = await resend.emails.send({
 			to,
 			from: "no-reply@washburne.dev",

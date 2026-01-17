@@ -13,6 +13,7 @@ export const env = createEnv({
 			.default("development"),
 		RESEND_API_KEY: z.string().min(1),
 		SECRET_ADMIN_KEY: z.string().min(1),
+		SEND_RSVP_EMAIL: z.boolean(),
 	},
 
 	/**
@@ -34,6 +35,7 @@ export const env = createEnv({
 		// NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 		RESEND_API_KEY: process.env.RESEND_API_KEY,
 		SECRET_ADMIN_KEY: process.env.SECRET_ADMIN_KEY,
+		SEND_RSVP_EMAIL: process.env.SEND_RSVP_EMAIL === "true",
 	},
 	/**
 	 * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
