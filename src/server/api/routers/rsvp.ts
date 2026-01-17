@@ -4,6 +4,15 @@ import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 
+// Column indices for the CSV file
+const COL = {
+	DISPLAY_NAME: 5,
+	FIRST_NAME: 6,
+	LAST_NAME: 7,
+	TAG: 8,
+	GROUP: 12,
+} as const;
+
 function parseCSV(content: string): string[][] {
 	const lines = content.split("\n");
 	return lines.map((line) => line.split(","));
@@ -51,10 +60,45 @@ type GroupMember = {
 	isPlaceholder: boolean; // true if this is a plus one slot (no last name)
 };
 
+type ParsedRow = {
+	displayName: string;
+	firstName: string;
+	lastName: string;
+	tag: string;
+	group: number;
+};
+
 function loadCSVData() {
 	const csvPath = path.join(process.cwd(), "private", "Wedding Full.csv");
 	const content = fs.readFileSync(csvPath, "utf-8");
 	return parseCSV(content).slice(7); // Data starts at row 8
+}
+
+function parseRow(row: string[]): ParsedRow {
+	return {
+		displayName: (row[COL.DISPLAY_NAME] ?? "").trim(),
+		firstName: (row[COL.FIRST_NAME] ?? "").trim(),
+		lastName: (row[COL.LAST_NAME] ?? "").trim(),
+		tag: (row[COL.TAG] ?? "guest").trim().toLowerCase(),
+		group: Number.parseInt(row[COL.GROUP] ?? "0", 10),
+	};
+}
+
+function getLastNameVariants(lastName: string): string[] {
+	return lastName.split(" / ").map(normalizeString);
+}
+
+function matchesName(
+	row: ParsedRow,
+	firstName: string,
+	lastName: string,
+): boolean {
+	const firstNameVariants = getFirstNameVariants(row.firstName);
+	const lastNameVariants = getLastNameVariants(row.lastName);
+	return (
+		firstNameVariants.includes(normalizeString(firstName)) &&
+		lastNameVariants.includes(normalizeString(lastName))
+	);
 }
 
 export const rsvpRouter = createTRPCRouter({
@@ -67,86 +111,43 @@ export const rsvpRouter = createTRPCRouter({
 		)
 		.query(({ input }): GroupMember[] => {
 			const dataRows = loadCSVData();
+			const parsedRows = dataRows.map(parseRow);
 
-			const normalizedInputFirst = normalizeString(input.firstName);
-			const normalizedInputLast = normalizeString(input.lastName);
+			// Find the requester and get their group
+			const requester = parsedRows.find((row) =>
+				matchesName(row, input.firstName, input.lastName),
+			);
 
-			// First, find the requester and get their group
-			let requesterGroup: number | null = null;
-			for (const row of dataRows) {
-				const firstName = (row[6] ?? "").trim();
-				const lastName = (row[7] ?? "").trim();
-
-				const firstNameVariants = getFirstNameVariants(firstName);
-				const lastNameVariants = lastName
-					.split(" / ")
-					.map((name) => normalizeString(name));
-
-				if (
-					firstNameVariants.includes(normalizedInputFirst) &&
-					lastNameVariants.includes(normalizedInputLast)
-				) {
-					requesterGroup = Number.parseInt(row[12] ?? "0", 10);
-					break;
-				}
-			}
-
-			if (requesterGroup === null) {
+			if (!requester) {
 				return [];
 			}
 
-			// Now get all other members in that group (excluding the requester)
-			const members: GroupMember[] = [];
-			for (const row of dataRows) {
-				const rowGroup = Number.parseInt(row[12] ?? "0", 10);
-				if (rowGroup !== requesterGroup) continue;
-
-				const displayName = (row[5] ?? "").trim();
-				const firstName = (row[6] ?? "").trim();
-				const lastName = (row[7] ?? "").trim();
-
-				// Skip the requester (empty rows won't match anyway)
-				const firstNameVariants = getFirstNameVariants(firstName);
-				const lastNameVariants = lastName
-					.split(" / ")
-					.map((name) => normalizeString(name));
-
-				if (
-					firstNameVariants.includes(normalizedInputFirst) &&
-					lastNameVariants.includes(normalizedInputLast)
-				) {
-					continue;
-				}
-
-				members.push({
-					displayName,
-					firstName,
-					lastName,
-					isPlaceholder: !lastName, // Plus one if no last name
-				});
-			}
-
-			return members;
+			// Get all other members in that group (excluding the requester)
+			return parsedRows
+				.filter(
+					(row) =>
+						row.group === requester.group &&
+						!matchesName(row, input.firstName, input.lastName),
+				)
+				.map((row) => ({
+					displayName: row.displayName,
+					firstName: row.firstName,
+					lastName: row.lastName,
+					isPlaceholder: !row.lastName,
+				}));
 		}),
 
 	getGroupResponses: publicProcedure
 		.input(z.object({ group: z.number() }))
 		.query(async ({ ctx, input }) => {
-			const dataRows = loadCSVData();
-			const memberKeys: { firstName: string; lastName: string }[] = [];
+			const parsedRows = loadCSVData().map(parseRow);
 
-			for (const row of dataRows) {
-				const rowGroup = Number.parseInt(row[12] ?? "0", 10);
-				if (rowGroup !== input.group) continue;
-
-				const firstName = (row[6] ?? "").trim();
-				const lastName = (row[7] ?? "").trim();
-
-				// Only fetch responses for defined members (have both names)
-				if (firstName && lastName) {
-					memberKeys.push({ firstName, lastName });
-				}
-			}
+			// Only fetch responses for defined members (have both names)
+			const memberKeys = parsedRows
+				.filter(
+					(row) => row.group === input.group && row.firstName && row.lastName,
+				)
+				.map((row) => ({ firstName: row.firstName, lastName: row.lastName }));
 
 			const responses = await ctx.db.rsvpResponse.findMany({
 				where: {
@@ -266,42 +267,21 @@ export const rsvpRouter = createTRPCRouter({
 			}),
 		)
 		.mutation(({ input }) => {
-			const dataRows = loadCSVData();
+			const parsedRows = loadCSVData().map(parseRow);
 
-			const normalizedFirstName = normalizeString(input.firstName);
-			const normalizedLastName = normalizeString(input.lastName);
+			const guest = parsedRows.find((row) =>
+				matchesName(row, input.firstName, input.lastName),
+			);
 
-			for (let i = 0; i < dataRows.length; i++) {
-				const row = dataRows[i];
-				if (!row) continue;
-
-				const displayName = row[5] ?? "";
-				const firstName = row[6] ?? "";
-				const lastName = row[7] ?? "";
-
-				// Support multiple names separated by " / " and space-separated names
-				const firstNameVariants = getFirstNameVariants(firstName);
-				const lastNameVariants = lastName
-					.split(" / ")
-					.map((name) => normalizeString(name));
-
-				const firstNameMatches =
-					firstNameVariants.includes(normalizedFirstName);
-				const lastNameMatches = lastNameVariants.includes(normalizedLastName);
-
-				if (firstNameMatches && lastNameMatches) {
-					const group = Number.parseInt(row[12] ?? "0", 10);
-					const tag = (row[8] ?? "guest").trim().toLowerCase();
-
-					return {
-						found: true as const,
-						displayName: displayName.trim(),
-						firstName: firstName.trim(),
-						lastName: lastName.trim(),
-						group,
-						tag,
-					};
-				}
+			if (guest) {
+				return {
+					found: true as const,
+					displayName: guest.displayName,
+					firstName: guest.firstName,
+					lastName: guest.lastName,
+					group: guest.group,
+					tag: guest.tag,
+				};
 			}
 
 			return {
