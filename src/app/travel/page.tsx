@@ -2,26 +2,13 @@
 
 import { Box, Container, Image, Text, VStack } from "@chakra-ui/react";
 import NextImage from "next/image";
-import InternationalTravel from "@/app/travel/international-travel";
-import LocalTravel from "@/app/travel/local-travel";
-import TabNavigation from "@/components/tab-navigation";
+import TravelContent from "@/app/travel/travel-content";
 import { BOTTOM_PADDING } from "@/constants/spacing";
 
 import greetings from "../../../public/greetings.svg";
 import travel from "../../../public/travel.png";
 
 const TravelPage = () => {
-	const tabs = [
-		{
-			label: "International",
-			content: <InternationalTravel />,
-		},
-		{
-			label: "Local",
-			content: <LocalTravel />,
-		},
-	];
-
 	return (
 		<Container pb={BOTTOM_PADDING}>
 			<VStack gap={16}>
@@ -31,7 +18,7 @@ const TravelPage = () => {
 
 				<Container maxW="4xl">
 					<VStack gap={16}>
-						<TabNavigation tabs={tabs} />
+						<TravelContent />
 
 						<VStack fontSize="xl">
 							<Text textAlign="center">
