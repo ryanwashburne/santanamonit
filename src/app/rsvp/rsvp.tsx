@@ -398,7 +398,7 @@ const RSVP: React.FC = () => {
 								<VStack gap={4} w="100%">
 									<Button
 										borderRadius="lg"
-										disabled={submitMutation.isPending || isLoading}
+										disabled={submitMutation.isPending || isLoading || !isDirty}
 										h="36px"
 										type="submit"
 										width="100%"

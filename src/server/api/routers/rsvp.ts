@@ -3,6 +3,7 @@ import path from "node:path";
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
+import { sendRSVPEmail } from "@/server/commands/send-rsvp-email";
 
 // Column indices for the CSV file
 const COL = {
@@ -203,6 +204,9 @@ export const rsvpRouter = createTRPCRouter({
 					}),
 				),
 			);
+
+			await sendRSVPEmail(input);
+
 			return results;
 		}),
 
@@ -220,40 +224,6 @@ export const rsvpRouter = createTRPCRouter({
 						firstName: input.firstName,
 						lastName: input.lastName,
 					},
-				},
-			});
-			return response;
-		}),
-
-	submitResponse: publicProcedure
-		.input(
-			z.object({
-				firstName: z.string().min(1),
-				lastName: z.string().min(1),
-				responses: z.record(
-					z.string(),
-					z.object({
-						attending: z.boolean().nullable(),
-						answer: z.string().optional(),
-					}),
-				),
-			}),
-		)
-		.mutation(async ({ ctx, input }) => {
-			const response = await ctx.db.rsvpResponse.upsert({
-				where: {
-					firstName_lastName: {
-						firstName: input.firstName,
-						lastName: input.lastName,
-					},
-				},
-				create: {
-					firstName: input.firstName,
-					lastName: input.lastName,
-					responses: input.responses,
-				},
-				update: {
-					responses: input.responses,
 				},
 			});
 			return response;
