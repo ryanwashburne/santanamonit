@@ -34,12 +34,12 @@ const Listing = ({
 				borderRadius="lg"
 				overflow="hidden"
 				position="relative"
-				px={8}
-				py={8}
+				px={{ base: 4, md: 8 }}
+				py={{ base: 4, md: 8 }}
 				transition="all 0.3s ease-in-out"
 				w="full"
 			>
-				<VStack align="stretch" gap={16}>
+				<VStack align="stretch" gap={{ base: 8, md: 16 }}>
 					<Heading color="primary" fontSize="xl" fontWeight="normal">
 						{title}
 					</Heading>

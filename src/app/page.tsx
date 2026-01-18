@@ -13,20 +13,13 @@ const DURATION = 0.5;
 const EASE = "easeInOut";
 const TRANSITION = { duration: DURATION, ease: EASE } as const;
 
-const OUTER_HEIGHTS = "70vh";
-const INNER_HEIGHTS = "40vh";
+const OUTER_HEIGHTS = { base: "60vh", lg: "70vh" };
+const INNER_HEIGHTS = { base: "0vh", lg: "40vh" };
 const INNER_DISTANCE = "20vw";
 
 const TreeFooter = () => {
 	return (
-		<Box
-			bottom={0}
-			h="50vh"
-			left={0}
-			pointerEvents="none"
-			position="fixed"
-			right={0}
-		>
+		<Box bottom={0} left={0} pointerEvents="none" position="fixed" right={0}>
 			{/* Tree 1 - Left */}
 			<motion.div
 				animate={{ opacity: 1, rotate: 0 }}
@@ -99,7 +92,7 @@ const TreeFooter = () => {
 const HomePage = () => {
 	return (
 		<Box mt="12vh">
-			<Center>
+			<Center px={4}>
 				<NextImage alt="greetings" src={Landing} />
 			</Center>
 			<TreeFooter />

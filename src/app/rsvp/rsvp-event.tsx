@@ -28,7 +28,7 @@ const AttendButton: React.FC<{
 			height="34px"
 			onClick={onClick}
 			p={0}
-			px={8}
+			px={{ base: 4, md: 8 }}
 			transition="all 0.3s ease-in-out"
 			variant={selected ? undefined : "outline"}
 		>

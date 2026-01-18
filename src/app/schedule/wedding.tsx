@@ -3,22 +3,37 @@ import EventDetail from "./event-detail";
 
 const Wedding = () => {
 	return (
-		<VStack bg="#AAB25F" color="background" fontSize="lg" gap={16} py={16}>
-			<VStack color="primary" gap={8}>
-				<Heading fontSize="8xl" lineHeight={1} textTransform="uppercase">
+		<VStack
+			bg="#AAB25F"
+			color="background"
+			fontSize={{ base: "md", md: "lg" }}
+			gap={{ base: 8, md: 16 }}
+			px={{ base: 4, md: 0 }}
+			py={{ base: 8, md: 16 }}
+		>
+			<VStack color="primary" gap={{ base: 4, md: 8 }}>
+				<Heading
+					fontSize={{ base: "4xl", md: "8xl" }}
+					lineHeight={1}
+					textTransform="uppercase"
+				>
 					Wedding
 				</Heading>
-				<VStack fontSize="xl" gap={0}>
+				<VStack fontSize={{ base: "lg", md: "xl" }} gap={0}>
 					<Text fontFamily="heading">June 11th | Thursday</Text>
 					<Text>Bayay Dhyana Villa</Text>
 				</VStack>
 			</VStack>
 
 			<Box>
-				<Image alt="fish" src="/fish.svg" />
+				<Image
+					alt="fish"
+					maxW={{ base: "200px", md: "full" }}
+					src="/fish.svg"
+				/>
 			</Box>
 
-			<VStack gap={8}>
+			<VStack gap={{ base: 4, md: 8 }}>
 				<EventDetail label="Ceremony" textAlign="center">
 					<Text>3:30PM</Text>
 				</EventDetail>

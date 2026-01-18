@@ -11,8 +11,8 @@ const AccommodationsPage = () => {
 			<VStack>
 				<PageHeader title="Accommodations" />
 
-				<Container maxW="7xl" mt={16}>
-					<VStack gap={16}>
+				<Container maxW="7xl" mt={{ base: 8, md: 16 }}>
+					<VStack gap={{ base: 8, md: 16 }}>
 						<AccommodationsContent />
 					</VStack>
 				</Container>

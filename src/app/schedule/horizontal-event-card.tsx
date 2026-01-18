@@ -21,14 +21,32 @@ const HorizontalEventCard = ({
 	children,
 }: HorizontalEventCardProps) => {
 	const imageElement = (
-		<Image alt={imageAlt} objectFit="contain" src={imageSrc} w="45vw" />
+		<Image
+			alt={imageAlt}
+			objectFit="contain"
+			src={imageSrc}
+			w={{ base: "full", md: "45vw" }}
+		/>
 	);
 
 	const contentElement = (
-		<Flex align="center" flex={1} px={32}>
-			<VStack align="stretch" fontSize="xl" gap={8}>
+		<Flex
+			align="center"
+			flex={1}
+			px={{ base: 8, md: 32 }}
+			py={{ base: 8, md: 0 }}
+		>
+			<VStack
+				align="stretch"
+				fontSize={{ base: "lg", md: "xl" }}
+				gap={{ base: 4, md: 8 }}
+			>
 				<VStack align="stretch" gap={0}>
-					<Heading fontWeight="normal" textTransform="uppercase">
+					<Heading
+						fontSize={{ base: "2xl", md: "3xl" }}
+						fontWeight="normal"
+						textTransform="uppercase"
+					>
 						{title}
 					</Heading>
 					<Text>{date}</Text>
@@ -40,7 +58,11 @@ const HorizontalEventCard = ({
 	);
 
 	return (
-		<Flex bg="primary" color="background">
+		<Flex
+			bg="primary"
+			color="background"
+			direction={{ base: "column", md: "row" }}
+		>
 			{imagePosition === "left" ? (
 				<>
 					{imageElement}
@@ -48,8 +70,9 @@ const HorizontalEventCard = ({
 				</>
 			) : (
 				<>
-					{contentElement}
+					<Flex display={{ base: "none", md: "flex" }}>{contentElement}</Flex>
 					{imageElement}
+					<Flex display={{ base: "flex", md: "none" }}>{contentElement}</Flex>
 				</>
 			)}
 		</Flex>

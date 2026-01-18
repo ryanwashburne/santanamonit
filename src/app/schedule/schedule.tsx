@@ -14,7 +14,7 @@ type Props = {
 const Schedule: React.FC<Props> = ({ enableAnimation, attendeeType }) => {
 	return (
 		<VStack align="stretch" pb={BOTTOM_PADDING}>
-			<Container mb={32} mt={48} w="full">
+			<Container mb={32} mt={{ base: 8, md: 48 }} w="full">
 				<Flex justify="center" w="full">
 					<Image src={`/schedule/${attendeeType}.svg`} />
 				</Flex>

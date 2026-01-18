@@ -14,7 +14,7 @@ const ActivityCard = ({
 	description,
 }: ActivityCardProps) => {
 	return (
-		<VStack align="stretch" gap={8} textAlign="center">
+		<VStack align="stretch" gap={{ base: 4, md: 8 }} textAlign="center">
 			<Image
 				alt={title}
 				borderRadius="lg"
@@ -24,7 +24,11 @@ const ActivityCard = ({
 			/>
 
 			<VStack align="stretch" gap={2}>
-				<Heading color="primary" fontFamily="header" fontSize="2xl">
+				<Heading
+					color="primary"
+					fontFamily="header"
+					fontSize={{ base: "xl", md: "2xl" }}
+				>
 					{title}
 				</Heading>
 				<Text>{date}</Text>

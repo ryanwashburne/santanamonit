@@ -10,7 +10,7 @@ const PageHeader: React.FC<Props> = ({ title }) => {
 			<Heading
 				color="primary"
 				fontFamily="cursive"
-				fontSize="6xl"
+				fontSize={{ base: "4xl", md: "6xl" }}
 				fontWeight="normal"
 				lineHeight={2}
 				textTransform="uppercase"

@@ -63,6 +63,7 @@ const RSVPOverlay: React.FC<Props> = ({ title, buttonText }) => {
 			backdropFilter="blur(18px)"
 			inset={0}
 			position="absolute"
+			px={8}
 			zIndex="overlay"
 		>
 			<form onSubmit={handleSubmit}>

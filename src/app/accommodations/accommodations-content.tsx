@@ -15,11 +15,12 @@ const AccommodationsContent = () => {
 	const listings = isResorts ? resortListings : airbnbListings;
 
 	return (
-		<VStack gap={16}>
-			<HStack fontSize="xl" gap={4}>
+		<VStack gap={{ base: 8, md: 16 }}>
+			<HStack fontSize={{ base: "lg", md: "xl" }} gap={4}>
 				<Link onClick={() => setType("resorts")}>
 					<Heading
 						color="primary"
+						fontSize={{ base: "lg", md: "xl" }}
 						fontWeight={isResorts ? undefined : "normal"}
 						textTransform="uppercase"
 					>
@@ -32,6 +33,7 @@ const AccommodationsContent = () => {
 				<Link onClick={() => setType("airbnbs")}>
 					<Heading
 						color="primary"
+						fontSize={{ base: "lg", md: "xl" }}
 						fontWeight={!isResorts ? undefined : "normal"}
 						textTransform="uppercase"
 					>
@@ -49,7 +51,15 @@ const AccommodationsContent = () => {
 					style={{ width: "100%" }}
 					transition={{ duration: 0.25, ease: "easeOut" }}
 				>
-					<Grid gap={8} templateColumns="repeat(3, 1fr)" w="full">
+					<Grid
+						gap={{ base: 4, md: 8 }}
+						templateColumns={{
+							base: "1fr",
+							md: "repeat(2, 1fr)",
+							lg: "repeat(3, 1fr)",
+						}}
+						w="full"
+					>
 						{listings.map((listing, index) => (
 							<Listing key={listing.title} {...listing} index={index} />
 						))}

@@ -38,7 +38,12 @@ const SiargaoPage = () => {
 							<NextImage alt="Siargao Map" src={siargaoMap} />
 						</Image>
 
-						<Box bg="background" borderRadius="lg" px={24} py={16}>
+						<Box
+							bg="background"
+							borderRadius="lg"
+							px={{ base: 8, md: 24 }}
+							py={16}
+						>
 							<SiargaoContent />
 						</Box>
 					</VStack>

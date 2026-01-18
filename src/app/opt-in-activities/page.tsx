@@ -8,14 +8,21 @@ import { BOTTOM_PADDING } from "@/constants/spacing";
 const OptInActivitiesPage = () => {
 	return (
 		<Box pb={BOTTOM_PADDING}>
-			<VStack align="stretch" fontSize="lg" gap={16}>
+			<VStack
+				align="stretch"
+				fontSize={{ base: "md", md: "lg" }}
+				gap={{ base: 8, md: 16 }}
+			>
 				<Container>
 					<PageHeader title="Extra Adventures" />
 				</Container>
 
 				<Container maxW="5xl">
-					<VStack gap={24}>
-						<Grid gap={16} templateColumns="repeat(2, 1fr)">
+					<VStack gap={{ base: 12, md: 24 }}>
+						<Grid
+							gap={{ base: 8, md: 16 }}
+							templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }}
+						>
 							<Box>
 								<ActivityCard
 									date="June 13th"
