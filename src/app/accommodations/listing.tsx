@@ -1,7 +1,12 @@
 "use client";
 
 import { Box, Heading, Image, Link, Text, VStack } from "@chakra-ui/react";
+import { motion } from "motion/react";
 import type { Listing as ListingType } from "@/data/accommodations";
+
+type Props = ListingType & {
+	index?: number;
+};
 
 const Listing = ({
 	title,
@@ -11,88 +16,96 @@ const Listing = ({
 	phone,
 	website,
 	links,
-}: ListingType) => {
+	index = 0,
+}: Props) => {
 	return (
-		<Box
-			_hover={{
-				boxShadow: "xl",
-			}}
-			border="1px solid"
-			borderColor="primary"
-			borderRadius="lg"
-			overflow="hidden"
-			position="relative"
-			px={8}
-			py={8}
-			transition="all 0.3s ease-in-out"
-			w="full"
+		<motion.div
+			initial={{ opacity: 0, y: 24 }}
+			transition={{ duration: 0.3, ease: "easeOut", delay: index * 0.1 }}
+			viewport={{ once: true, amount: 0.3 }}
+			whileInView={{ opacity: 1, y: 0 }}
 		>
-			<VStack align="stretch" gap={16}>
-				<Heading color="primary" fontSize="xl" fontWeight="normal">
-					{title}
-				</Heading>
+			<Box
+				_hover={{
+					boxShadow: "xl",
+				}}
+				border="1px solid"
+				borderColor="primary"
+				borderRadius="lg"
+				overflow="hidden"
+				position="relative"
+				px={8}
+				py={8}
+				transition="all 0.3s ease-in-out"
+				w="full"
+			>
+				<VStack align="stretch" gap={16}>
+					<Heading color="primary" fontSize="xl" fontWeight="normal">
+						{title}
+					</Heading>
 
-				<Image
-					alt={title}
-					borderRadius="lg"
-					objectFit="cover"
-					src={coverPhoto}
-					w="full"
-				/>
+					<Image
+						alt={title}
+						borderRadius="lg"
+						objectFit="cover"
+						src={coverPhoto}
+						w="full"
+					/>
 
-				<VStack align="stretch" gap={3} transition="all 0.3s ease-in-out">
-					<Text fontSize="lg">{description}</Text>
+					<VStack align="stretch" gap={3} transition="all 0.3s ease-in-out">
+						<Text fontSize="lg">{description}</Text>
 
-					<Box
-						fontSize="md"
-						overflow="hidden"
-						transition="all 0.3s ease-in-out"
-					>
-						<VStack align="stretch" gap={0}>
-							{location && (
-								<Link
-									color="text"
-									display="flex"
-									gap={2}
-									href={location.url}
-									target="_blank"
-									textDecoration="underline"
-								>
-									<Text>📍 {location.name}</Text>
-								</Link>
-							)}
-
-							{phone && <Text>{phone}</Text>}
-
-							{website && (
-								<Link
-									color="text"
-									href={website}
-									target="_blank"
-									textDecoration="underline"
-								>
-									{website}
-								</Link>
-							)}
-
-							{links &&
-								links.length > 0 &&
-								links.map((link) => (
+						<Box
+							fontSize="md"
+							overflow="hidden"
+							transition="all 0.3s ease-in-out"
+						>
+							<VStack align="stretch" gap={0}>
+								{location && (
 									<Link
 										color="text"
-										href={link.url}
-										key={link.name}
+										display="flex"
+										gap={2}
+										href={location.url}
 										target="_blank"
 										textDecoration="underline"
 									>
-										{link.name}
+										<Text>📍 {location.name}</Text>
 									</Link>
-								))}
-						</VStack>
-					</Box>
+								)}
+
+								{phone && <Text>{phone}</Text>}
+
+								{website && (
+									<Link
+										color="text"
+										href={website}
+										target="_blank"
+										textDecoration="underline"
+									>
+										{website}
+									</Link>
+								)}
+
+								{links &&
+									links.length > 0 &&
+									links.map((link) => (
+										<Link
+											color="text"
+											href={link.url}
+											key={link.name}
+											target="_blank"
+											textDecoration="underline"
+										>
+											{link.name}
+										</Link>
+									))}
+							</VStack>
+						</Box>
+					</VStack>
 				</VStack>
-			</VStack>
-		</Box>
+			</Box>
+		</motion.div>
 	);
 };
 

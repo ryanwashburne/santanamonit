@@ -50,8 +50,8 @@ const AccommodationsContent = () => {
 					transition={{ duration: 0.25, ease: "easeOut" }}
 				>
 					<Grid gap={8} templateColumns="repeat(3, 1fr)" w="full">
-						{listings.map((listing) => (
-							<Listing key={listing.title} {...listing} />
+						{listings.map((listing, index) => (
+							<Listing key={listing.title} {...listing} index={index} />
 						))}
 					</Grid>
 				</motion.div>

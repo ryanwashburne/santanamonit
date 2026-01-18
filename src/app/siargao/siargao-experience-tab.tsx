@@ -1,3 +1,5 @@
+"use client";
+
 import { VStack } from "@chakra-ui/react";
 import {
 	InfoSection,
@@ -8,7 +10,7 @@ import {
 const ExperienceTabContent = () => {
 	return (
 		<VStack align="stretch" gap={24}>
-			<InfoSection title="Surfing">
+			<InfoSection index={0} title="Surfing">
 				<InfoSubsection label="Cloud 9">
 					The most popular and well-known surfing spot in the Philippines. If
 					you're a beginner you can also take lessons here.
@@ -24,7 +26,7 @@ const ExperienceTabContent = () => {
 				</InfoSubsection>
 			</InfoSection>
 
-			<InfoSection title="Beach (Laying Out)">
+			<InfoSection index={1} title="Beach (Laying Out)">
 				<InfoSubsection label="Cloud 9">
 					You can lay out here and there's also a tower to watch the surfers.
 				</InfoSubsection>
@@ -45,13 +47,13 @@ const ExperienceTabContent = () => {
 				</InfoSubsection>
 			</InfoSection>
 
-			<InfoSection title="Sunset Spots">
+			<InfoSection index={2} title="Sunset Spots">
 				<InfoText>Catagnan Bridge</InfoText>
 				<InfoText>Ocean 9</InfoText>
 				<InfoText>Jacking Horse / Ocean 101</InfoText>
 			</InfoSection>
 
-			<InfoSection title="Island Tours / Day Trips">
+			<InfoSection index={3} title="Island Tours / Day Trips">
 				<InfoSubsection label="Tri Island Tour">
 					Boat tour to: Naked Island, Daku Island, and Guyam Island.
 				</InfoSubsection>

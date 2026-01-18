@@ -1,4 +1,7 @@
+"use client";
+
 import { Text, VStack } from "@chakra-ui/react";
+import { motion } from "motion/react";
 import {
 	InfoSection,
 	InfoSubsection,
@@ -8,7 +11,7 @@ import {
 const InfoTabContent = () => {
 	return (
 		<VStack align="stretch" gap={24}>
-			<InfoSection title="Getting Around">
+			<InfoSection index={0} title="Getting Around">
 				<InfoSubsection label="Trike">
 					The easiest and most common way of getting around is by tricycle,
 					which can be hailed from the main road. The fare depends on the
@@ -32,7 +35,7 @@ const InfoTabContent = () => {
 				</InfoSubsection>
 			</InfoSection>
 
-			<InfoSection title="Phone / SIM Info">
+			<InfoSection index={1} title="Phone / SIM Info">
 				<InfoText>
 					SIM cards can be bought at the airport upon arrival. We recommend
 					Smart or Globe for carriers. Please note that your phone must be
@@ -40,7 +43,7 @@ const InfoTabContent = () => {
 				</InfoText>
 			</InfoSection>
 
-			<InfoSection title="Cash / ATM's">
+			<InfoSection index={2} title="Cash / ATM's">
 				<InfoSubsection label="Credit / Debit Cards">
 					Hotels and larger establishments (such as large grocery stores and
 					some popular restaurants) will accept credit cards. A lot of
@@ -69,22 +72,29 @@ const InfoTabContent = () => {
 				</InfoSubsection>
 			</InfoSection>
 
-			<VStack
-				align="stretch"
-				fontSize="xl"
-				fontStyle="italic"
-				gap={2}
-				textAlign="center"
+			<motion.div
+				initial={{ opacity: 0, y: 24 }}
+				transition={{ duration: 0.3, ease: "easeOut", delay: 0.3 }}
+				viewport={{ once: true, amount: 0.3 }}
+				whileInView={{ opacity: 1, y: 0 }}
 			>
-				<Text>
-					If you have any questions feel free to contact either of us on
-					Whatsapp!
-				</Text>
-				<Text>
-					Nicole: +1 (925) 915- 4912 <br />
-					Zach: +81 70-1071-6063
-				</Text>
-			</VStack>
+				<VStack
+					align="stretch"
+					fontSize="xl"
+					fontStyle="italic"
+					gap={2}
+					textAlign="center"
+				>
+					<Text>
+						If you have any questions feel free to contact either of us on
+						Whatsapp!
+					</Text>
+					<Text>
+						Nicole: +1 (925) 915- 4912 <br />
+						Zach: +81 70-1071-6063
+					</Text>
+				</VStack>
+			</motion.div>
 		</VStack>
 	);
 };

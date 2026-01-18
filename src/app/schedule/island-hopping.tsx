@@ -6,7 +6,7 @@ const IslandHopping = () => {
 			date="June 13th | Saturday"
 			imageAlt="island hopping"
 			imagePosition="right"
-			imageSrc="/island-hopping.png"
+			imageSrc="/boat.svg"
 			time="8AM"
 			title="Island Hopping"
 		/>

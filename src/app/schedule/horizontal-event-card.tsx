@@ -21,7 +21,7 @@ const HorizontalEventCard = ({
 	children,
 }: HorizontalEventCardProps) => {
 	const imageElement = (
-		<Image alt={imageAlt} fit="cover" src={imageSrc} w="900px" />
+		<Image alt={imageAlt} objectFit="contain" src={imageSrc} w="45vw" />
 	);
 
 	const contentElement = (
@@ -40,7 +40,7 @@ const HorizontalEventCard = ({
 	);
 
 	return (
-		<Flex bg="primary" color="background" maxH="800px">
+		<Flex bg="primary" color="background">
 			{imagePosition === "left" ? (
 				<>
 					{imageElement}
