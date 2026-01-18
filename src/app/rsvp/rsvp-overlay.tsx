@@ -74,12 +74,12 @@ const RSVPOverlay: React.FC<Props> = ({ title, buttonText }) => {
 
 						<Field.Root required>
 							<Field.Label>First Name</Field.Label>
-							<Input bg="white" name="first_name" required />
+							<Input bg="#E2DECD" name="first_name" required />
 						</Field.Root>
 
 						<Field.Root required>
 							<Field.Label>Last Name</Field.Label>
-							<Input bg="white" name="last_name" required />
+							<Input bg="#E2DECD" name="last_name" required />
 						</Field.Root>
 
 						{error && (
