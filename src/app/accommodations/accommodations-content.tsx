@@ -79,7 +79,7 @@ const AccommodationsContent = () => {
 					transition={{ duration: 0.25, ease: "easeOut" }}
 				>
 					{isMobile ? (
-						<VStack gap={4} w="full">
+						<VStack gap="50px" w="full">
 							{listings.map((listing) => (
 								<motion.div
 									initial={{ opacity: 0, y: 24 }}
@@ -107,7 +107,7 @@ const AccommodationsContent = () => {
 									whileInView={{ opacity: 1, y: 0 }}
 								>
 									<Grid
-										gap={8}
+										gap="50px"
 										templateColumns={{
 											md: "repeat(2, 1fr)",
 											lg: "repeat(3, 1fr)",
