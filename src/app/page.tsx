@@ -91,7 +91,7 @@ const TreeFooter = () => {
 
 const HomePage = () => {
 	return (
-		<Box mt="15vh">
+		<Box mt="12vh">
 			<Center px={4}>
 				<NextImage alt="greetings" src={Landing} />
 			</Center>
