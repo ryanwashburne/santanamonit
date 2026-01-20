@@ -30,7 +30,11 @@ const OptInActivitiesPage = () => {
 					<PageHeader title="Extra Adventures" />
 				</Container>
 
-				<Container maxW={{ base: "md", md: "5xl" }} px={8}>
+				<Container
+					maxW={{ base: "md", md: "5xl" }}
+					mt={{ base: 16, md: 0 }}
+					px={8}
+				>
 					<VStack gap={{ base: 12, md: 24 }}>
 						<Grid
 							gap={{ base: 8, md: 16 }}
