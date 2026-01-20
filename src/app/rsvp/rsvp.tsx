@@ -109,7 +109,8 @@ const MemberSection: React.FC<{
 								<Field.Root>
 									<Field.Label>First Name</Field.Label>
 									<Input
-										bg="#E2DECD"
+										bg="#EAE2E2"
+										border="none"
 										disabled={disabled}
 										onChange={(e) => onNameChange("firstName", e.target.value)}
 										value={member.firstName}
@@ -119,7 +120,8 @@ const MemberSection: React.FC<{
 							<Field.Root>
 								<Field.Label>Last Name</Field.Label>
 								<Input
-									bg="#E2DECD"
+									bg="#EAE2E2"
+									border="none"
 									disabled={disabled}
 									onChange={(e) => onNameChange("lastName", e.target.value)}
 									value={member.lastName}

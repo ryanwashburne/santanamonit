@@ -1,18 +1,47 @@
 "use client";
 
-import { Grid, Heading, HStack, Link, Text, VStack } from "@chakra-ui/react";
+import {
+	Box,
+	Grid,
+	Heading,
+	HStack,
+	Link,
+	Text,
+	VStack,
+} from "@chakra-ui/react";
 import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Listing from "@/app/accommodations/listing";
+import type { Listing as ListingType } from "@/data/accommodations";
 import { airbnbListings, resortListings } from "@/data/accommodations";
 
 type AccommodationType = "resorts" | "airbnbs";
 
+const ITEMS_PER_ROW = 3;
+const MD_BREAKPOINT = 768;
+
+function chunkArray<T>(array: T[], size: number): T[][] {
+	const chunks: T[][] = [];
+	for (let i = 0; i < array.length; i += size) {
+		chunks.push(array.slice(i, i + size));
+	}
+	return chunks;
+}
+
 const AccommodationsContent = () => {
 	const [type, setType] = useState<AccommodationType>("resorts");
+	const [isMobile, setIsMobile] = useState(false);
 	const isResorts = type === "resorts";
 
+	useEffect(() => {
+		const checkMobile = () => setIsMobile(window.innerWidth < MD_BREAKPOINT);
+		checkMobile();
+		window.addEventListener("resize", checkMobile);
+		return () => window.removeEventListener("resize", checkMobile);
+	}, []);
+
 	const listings = isResorts ? resortListings : airbnbListings;
+	const rows = chunkArray<ListingType>(listings, ITEMS_PER_ROW);
 
 	return (
 		<VStack gap={{ base: 8, md: 16 }}>
@@ -51,19 +80,50 @@ const AccommodationsContent = () => {
 					style={{ width: "100%" }}
 					transition={{ duration: 0.25, ease: "easeOut" }}
 				>
-					<Grid
-						gap={{ base: 4, md: 8 }}
-						templateColumns={{
-							base: "1fr",
-							md: "repeat(2, 1fr)",
-							lg: "repeat(3, 1fr)",
-						}}
-						w="full"
-					>
-						{listings.map((listing, index) => (
-							<Listing key={listing.title} {...listing} index={index} />
-						))}
-					</Grid>
+					{isMobile ? (
+						<VStack gap={4} w="full">
+							{listings.map((listing) => (
+								<motion.div
+									initial={{ opacity: 0, y: 24 }}
+									key={listing.title}
+									style={{ width: "100%" }}
+									transition={{ duration: 0.3, ease: "easeOut" }}
+									viewport={{ once: true, amount: 0.3 }}
+									whileInView={{ opacity: 1, y: 0 }}
+								>
+									<Box w="full">
+										<Listing {...listing} />
+									</Box>
+								</motion.div>
+							))}
+						</VStack>
+					) : (
+						<VStack gap={8} w="full">
+							{rows.map((row) => (
+								<motion.div
+									initial={{ opacity: 0, y: 24 }}
+									key={row[0]?.title}
+									style={{ width: "100%" }}
+									transition={{ duration: 0.3, ease: "easeOut" }}
+									viewport={{ once: true, amount: 0.3 }}
+									whileInView={{ opacity: 1, y: 0 }}
+								>
+									<Grid
+										gap={8}
+										templateColumns={{
+											md: "repeat(2, 1fr)",
+											lg: "repeat(3, 1fr)",
+										}}
+										w="full"
+									>
+										{row.map((listing) => (
+											<Listing key={listing.title} {...listing} />
+										))}
+									</Grid>
+								</motion.div>
+							))}
+						</VStack>
+					)}
 				</motion.div>
 			</AnimatePresence>
 		</VStack>

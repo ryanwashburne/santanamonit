@@ -2,6 +2,7 @@
 
 import {
 	Box,
+	Center,
 	Link as ChakraLink,
 	CloseButton,
 	Container,
@@ -54,13 +55,13 @@ const Header = () => {
 	const [open, setOpen] = useState(false);
 
 	return (
-		<Box bg="#AAB25F" overflow="hidden">
-			<Container pb={8} position="relative" pt={{ base: 8, lg: 16 }}>
+		<Center bg="#AAB25F" h="120px">
+			<Container>
 				<Box
 					display={{ base: "block", lg: "none" }}
 					position="absolute"
 					right={4}
-					top="26px"
+					top="-8px"
 				>
 					<Drawer.Root onOpenChange={(e) => setOpen(e.open)} open={open}>
 						<Drawer.Trigger asChild>
@@ -120,11 +121,11 @@ const Header = () => {
 						</Portal>
 					</Drawer.Root>
 				</Box>
-				<VStack gap={8}>
+				<VStack gap={4}>
 					<ChakraLink _hover={{ textDecoration: "none" }} asChild>
 						<Link href="/">
 							<Heading
-								color="white"
+								color="#E2DECD"
 								fontFamily="header"
 								fontSize="2xl"
 								fontWeight="normal"
@@ -137,12 +138,13 @@ const Header = () => {
 					<HStack
 						display={{ base: "none", lg: "flex" }}
 						fontFamily="heading"
-						fontSize="lg"
+						fontSize="md"
 						gap="80px"
 					>
 						{LINKS.map((link) => {
 							return (
 								<ChakraLink
+									_hover={{ textDecoration: "none" }}
 									asChild
 									color="inherit"
 									fontWeight={pathname === link.href ? "bold" : 500}
@@ -157,7 +159,7 @@ const Header = () => {
 					</HStack>
 				</VStack>
 			</Container>
-		</Box>
+		</Center>
 	);
 };
 

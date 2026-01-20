@@ -1,10 +1,14 @@
 "use client";
 
-import { Box, Container, Image, Text } from "@chakra-ui/react";
+import { Box, Container, Image, Text, VStack } from "@chakra-ui/react";
+import { motion } from "motion/react";
 import NextImage from "next/image";
+import { useEffect, useState } from "react";
 import AnimateInView from "@/components/animate-in-view";
 import PageHeader from "@/components/page-header";
 import { BOTTOM_PADDING } from "@/constants/spacing";
+
+const MD_BREAKPOINT = 768;
 
 import image1 from "../../../public/attire/image1.png";
 import image2 from "../../../public/attire/image2.png";
@@ -43,6 +47,15 @@ const images = [
 ];
 
 const AttirePage = () => {
+	const [isMobile, setIsMobile] = useState(false);
+
+	useEffect(() => {
+		const checkMobile = () => setIsMobile(window.innerWidth < MD_BREAKPOINT);
+		checkMobile();
+		window.addEventListener("resize", checkMobile);
+		return () => window.removeEventListener("resize", checkMobile);
+	}, []);
+
 	return (
 		<Container pb={BOTTOM_PADDING}>
 			<PageHeader title="Wedding Attire" />
@@ -52,22 +65,41 @@ const AttirePage = () => {
 				<Text>Men: suit (tie optional) or barong</Text>
 			</Box>
 
-			<Box
-				css={{
-					columnCount: 3,
-					columnGap: "1rem",
-				}}
-			>
-				{images.map((image) => (
-					<AnimateInView enabled key={image.id}>
-						<Box css={{ breakInside: "avoid" }} mb={4}>
+			{isMobile ? (
+				<VStack gap={4} w="full">
+					{images.map((image) => (
+						<motion.div
+							initial={{ opacity: 0, y: 24 }}
+							key={image.id}
+							style={{ width: "100%" }}
+							transition={{ duration: 0.3, ease: "easeOut" }}
+							viewport={{ once: true, amount: 0.3 }}
+							whileInView={{ opacity: 1, y: 0 }}
+						>
 							<Image alt={image.id} asChild borderRadius="md">
 								<NextImage alt={image.id} src={image.src} />
 							</Image>
-						</Box>
-					</AnimateInView>
-				))}
-			</Box>
+						</motion.div>
+					))}
+				</VStack>
+			) : (
+				<Box
+					css={{
+						columnCount: 3,
+						columnGap: "1rem",
+					}}
+				>
+					{images.map((image) => (
+						<AnimateInView enabled key={image.id}>
+							<Box css={{ breakInside: "avoid" }} mb={4}>
+								<Image alt={image.id} asChild borderRadius="md">
+									<NextImage alt={image.id} src={image.src} />
+								</Image>
+							</Box>
+						</AnimateInView>
+					))}
+				</Box>
+			)}
 		</Container>
 	);
 };
