@@ -55,7 +55,7 @@ const Header = () => {
 	const [open, setOpen] = useState(false);
 
 	return (
-		<Center bg="#AAB25F" h="120px">
+		<Center bg="#AAB25F" h={{ base: "90px", md: "120px" }}>
 			<Container>
 				<Box
 					display={{ base: "block", lg: "none" }}

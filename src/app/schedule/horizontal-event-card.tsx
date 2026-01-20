@@ -1,11 +1,12 @@
 import { Flex, Heading, Image, Text, VStack } from "@chakra-ui/react";
+import NextImage, { type StaticImageData } from "next/image";
 import type { ReactNode } from "react";
 
 interface HorizontalEventCardProps {
 	title: string;
 	date: string;
 	time?: string;
-	imageSrc: string;
+	imageSrc: string | StaticImageData;
 	imageAlt: string;
 	imagePosition?: "left" | "right";
 	children?: ReactNode;
@@ -21,12 +22,9 @@ const HorizontalEventCard = ({
 	children,
 }: HorizontalEventCardProps) => {
 	const imageElement = (
-		<Image
-			alt={imageAlt}
-			objectFit="contain"
-			src={imageSrc}
-			w={{ base: "full", md: "45vw" }}
-		/>
+		<Image asChild objectFit="cover" w={{ base: "full", md: "45vw" }}>
+			<NextImage alt={imageAlt} src={imageSrc} />
+		</Image>
 	);
 
 	const contentElement = (
@@ -70,9 +68,8 @@ const HorizontalEventCard = ({
 				</>
 			) : (
 				<>
-					<Flex display={{ base: "none", md: "flex" }}>{contentElement}</Flex>
+					{contentElement}
 					{imageElement}
-					<Flex display={{ base: "flex", md: "none" }}>{contentElement}</Flex>
 				</>
 			)}
 		</Flex>

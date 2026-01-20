@@ -13,6 +13,9 @@ import ActivityCard from "@/app/opt-in-activities/activity-card";
 import PageHeader from "@/components/page-header";
 import { BOTTOM_PADDING } from "@/constants/spacing";
 
+import islandHopping from "../../../public/opt-in-activities/island-hopping.png";
+import northTour from "../../../public/opt-in-activities/north-tour.png";
+
 const WHITE_FILTER =
 	"brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%)";
 
@@ -44,7 +47,7 @@ const OptInActivitiesPage = () => {
 								<ActivityCard
 									date="June 13th"
 									description="A boat tour that takes you to 3 islands: Guyam Island, Naked Island, and Daku Island. Boats depart around 7-8AM. Boodle lunch will be served. "
-									image="/opt-in-activities/island-hopping.png"
+									image={islandHopping}
 									title="Island Hopping"
 								/>
 							</Box>
@@ -62,7 +65,7 @@ const OptInActivitiesPage = () => {
 									However, you can also choose to motorbike this!`}
 										</Text>
 									}
-									image="/opt-in-activities/north-tour.png"
+									image={northTour}
 									title="North Tour"
 								/>
 							</Box>

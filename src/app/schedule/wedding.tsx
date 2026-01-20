@@ -1,4 +1,7 @@
-import { Flex, Heading, Image, Text, VStack } from "@chakra-ui/react";
+import { Flex, Heading, Text, VStack } from "@chakra-ui/react";
+import Image from "next/image";
+
+import fish from "../../../public/fish.svg";
 import EventDetail from "./event-detail";
 
 const Wedding = () => {
@@ -26,7 +29,7 @@ const Wedding = () => {
 			</VStack>
 
 			<Flex justify="center">
-				<Image alt="fish" src="/fish.svg" />
+				<Image alt="fish" src={fish} />
 			</Flex>
 
 			<VStack gap={{ base: 4, md: 8 }}>

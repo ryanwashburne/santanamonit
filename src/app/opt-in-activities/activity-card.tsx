@@ -1,7 +1,9 @@
 import { Heading, Image, Text, VStack } from "@chakra-ui/react";
 
+import NextImage, { type StaticImageData } from "next/image";
+
 interface ActivityCardProps {
-	image: string;
+	image: string | StaticImageData;
 	title: string;
 	date: string;
 	description: string | React.ReactNode;
@@ -15,13 +17,9 @@ const ActivityCard = ({
 }: ActivityCardProps) => {
 	return (
 		<VStack align="stretch" gap={{ base: 4, md: 8 }} textAlign="center">
-			<Image
-				alt={title}
-				borderRadius="lg"
-				objectFit="cover"
-				src={image}
-				w="full"
-			/>
+			<Image asChild borderRadius="lg" objectFit="cover" w="full">
+				<NextImage alt={title} src={image} />
+			</Image>
 
 			<VStack align="stretch" gap={2}>
 				<Heading

@@ -1,4 +1,5 @@
 import { Text } from "@chakra-ui/react";
+import harana from "public/harana.png";
 import EventDetail from "./event-detail";
 import HorizontalEventCard from "./horizontal-event-card";
 
@@ -8,7 +9,7 @@ const WelcomeParty = () => {
 			date="June 10th | Wednesday"
 			imageAlt="welcome party"
 			imagePosition="left"
-			imageSrc="/harana.png"
+			imageSrc={harana}
 			title="Rehersal Brunch & Welcome Party"
 		>
 			<EventDetail label="Brunch">

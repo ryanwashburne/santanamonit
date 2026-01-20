@@ -1,3 +1,4 @@
+import boat from "../../../public/boat.svg";
 import HorizontalEventCard from "./horizontal-event-card";
 
 const IslandHopping = () => {
@@ -6,7 +7,7 @@ const IslandHopping = () => {
 			date="June 13th | Saturday"
 			imageAlt="island hopping"
 			imagePosition="right"
-			imageSrc="/boat.svg"
+			imageSrc={boat}
 			time="8AM"
 			title="Island Hopping"
 		/>
