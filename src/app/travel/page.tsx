@@ -1,12 +1,28 @@
 "use client";
 
-import { Box, Container, Image, Text, VStack } from "@chakra-ui/react";
+import {
+	Box,
+	Container,
+	Image,
+	SimpleGrid,
+	Text,
+	VStack,
+} from "@chakra-ui/react";
+import { motion } from "motion/react";
 import NextImage from "next/image";
 import TravelContent from "@/app/travel/travel-content";
 import { BOTTOM_PADDING } from "@/constants/spacing";
 
 import greetings from "../../../public/greetings.svg";
-import travel from "../../../public/travel.png";
+import travel1 from "../../../public/travel/1.png";
+import travel2 from "../../../public/travel/2.png";
+import travel3 from "../../../public/travel/3.png";
+
+const travelImages = [
+	{ id: "travel-1", src: travel1 },
+	{ id: "travel-2", src: travel2 },
+	{ id: "travel-3", src: travel3 },
+];
 
 const TravelPage = () => {
 	return (
@@ -32,11 +48,21 @@ const TravelPage = () => {
 					</VStack>
 				</Container>
 
-				<Box>
-					<Image alt="travel footer" asChild>
-						<NextImage alt="travel footer" src={travel} />
-					</Image>
-				</Box>
+				<SimpleGrid columns={{ base: 1, lg: 3 }} gap={4} w="full">
+					{travelImages.map((image, index) => (
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							key={image.id}
+							transition={{ duration: 0.5 }}
+							viewport={{ once: true, margin: "-100px" }}
+							whileInView={{ opacity: 1, y: 0 }}
+						>
+							<Image alt={`Travel photo ${index + 1}`} asChild>
+								<NextImage alt={`Travel photo ${index + 1}`} src={image.src} />
+							</Image>
+						</motion.div>
+					))}
+				</SimpleGrid>
 			</VStack>
 		</Container>
 	);

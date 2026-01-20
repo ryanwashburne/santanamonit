@@ -100,6 +100,7 @@ const Header = () => {
 										<VStack align="stretch" gap={4}>
 											{LINKS.map((link) => (
 												<ChakraLink
+													_hover={{ textDecoration: "none" }}
 													asChild
 													color="white"
 													fontFamily="heading"
