@@ -36,7 +36,7 @@ const TravelPage = () => {
 					<VStack gap={16}>
 						<TravelContent />
 
-						<VStack fontSize="xl">
+						<VStack>
 							<Text textAlign="center">
 								Our flight information to Siargao
 								<br />

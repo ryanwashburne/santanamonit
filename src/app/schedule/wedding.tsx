@@ -9,7 +9,6 @@ const Wedding = () => {
 		<VStack
 			bg="#AAB25F"
 			color="background"
-			fontSize={{ base: "md", md: "lg" }}
 			gap={{ base: 8, md: 16 }}
 			px={{ base: 4, md: 0 }}
 			py={{ base: 8, md: 16 }}
@@ -22,7 +21,7 @@ const Wedding = () => {
 				>
 					Wedding
 				</Heading>
-				<VStack fontSize={{ base: "lg", md: "xl" }} gap={0}>
+				<VStack gap={0}>
 					<Text fontFamily="heading">June 11th | Thursday</Text>
 					<Text>Bayay Dhyana Villa</Text>
 				</VStack>

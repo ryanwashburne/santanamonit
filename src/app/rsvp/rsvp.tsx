@@ -93,7 +93,6 @@ const MemberSection: React.FC<{
 			<Link
 				color="primary"
 				cursor="pointer"
-				fontSize="lg"
 				fontStyle="italic"
 				onClick={onToggle}
 				textDecoration="underline"

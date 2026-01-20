@@ -14,7 +14,7 @@ const SiargaoContent = () => {
 
 	return (
 		<VStack gap={16}>
-			<HStack fontSize="xl" gap={4}>
+			<HStack gap={4}>
 				<Link onClick={() => setTab("info")}>
 					<Heading
 						color="primary"

@@ -31,14 +31,12 @@ const HorizontalEventCard = ({
 		<Flex
 			align="center"
 			flex={1}
+			justify={{ base: "center", md: "space-between" }}
 			px={{ base: 8, md: 32 }}
-			py={{ base: 8, md: 0 }}
+			py={{ base: 16, md: 0 }}
+			textAlign={{ base: "center", md: "left" }}
 		>
-			<VStack
-				align="stretch"
-				fontSize={{ base: "lg", md: "xl" }}
-				gap={{ base: 4, md: 8 }}
-			>
+			<VStack align="stretch" gap={{ base: 4, md: 8 }}>
 				<VStack align="stretch" gap={0}>
 					<Heading
 						fontSize={{ base: "2xl", md: "3xl" }}
@@ -47,7 +45,7 @@ const HorizontalEventCard = ({
 					>
 						{title}
 					</Heading>
-					<Text>{date}</Text>
+					<Text mt={3}>{date}</Text>
 					{time && <Text>{time}</Text>}
 				</VStack>
 				{children}

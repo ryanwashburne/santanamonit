@@ -19,7 +19,7 @@ const TravelContent = () => {
 
 	return (
 		<VStack gap={16}>
-			<HStack fontSize="xl" gap={4}>
+			<HStack gap={4}>
 				<Link onClick={() => setMode("international")}>
 					<Heading
 						color="primary"
@@ -47,7 +47,7 @@ const TravelContent = () => {
 				<Collapsible.Root open={isInternational}>
 					<Collapsible.Content>
 						<VStack gap="80px" textAlign="center">
-							<Text fontSize="xl">
+							<Text>
 								Siargao is a domestic airport, you will likely transit through
 								one of these two main International Airports in the Philippines,
 								depending on where you are coming from.

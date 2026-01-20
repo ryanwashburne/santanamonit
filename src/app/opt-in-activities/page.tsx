@@ -24,7 +24,6 @@ const OptInActivitiesPage = () => {
 		<Box overflow="hidden" pb={BOTTOM_PADDING} position="relative">
 			<VStack
 				align="stretch"
-				fontSize={{ base: "md", md: "lg" }}
 				gap={{ base: 8, md: 16 }}
 				position="relative"
 				zIndex={1}

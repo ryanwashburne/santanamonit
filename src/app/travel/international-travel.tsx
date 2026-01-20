@@ -3,7 +3,7 @@ import { Heading, Image, Text, VStack } from "@chakra-ui/react";
 const InternationalTravel = () => {
 	return (
 		<VStack gap="80px" textAlign="center">
-			<Text fontSize="xl">
+			<Text>
 				Siargao is a domestic airport, you will likely transit through one of
 				these two main International Airports in the Philippines, depending on
 				where you are coming from.

@@ -55,13 +55,13 @@ const Header = () => {
 	const [open, setOpen] = useState(false);
 
 	return (
-		<Center bg="#AAB25F" h={{ base: "90px", md: "120px" }}>
+		<Center bg="#AAB25F" h={{ base: "80px", md: "120px" }}>
 			<Container>
 				<Box
 					display={{ base: "block", lg: "none" }}
 					left={4}
 					position="absolute"
-					top="-8px"
+					top="-13px"
 				>
 					<Drawer.Root
 						onOpenChange={(e) => setOpen(e.open)}
@@ -75,8 +75,8 @@ const Header = () => {
 									bg: "primary",
 								}}
 								aria-label="Open menu"
-								color="white"
-								size="sm"
+								color="#E2DECD"
+								size="xl"
 								variant="ghost"
 							>
 								<LuMenu />
@@ -85,14 +85,14 @@ const Header = () => {
 						<Portal>
 							<Drawer.Backdrop />
 							<Drawer.Positioner>
-								<Drawer.Content bg="#AAB25F">
+								<Drawer.Content bg="background">
 									<Drawer.CloseTrigger
 										asChild
 										position="absolute"
 										right={4}
 										top={4}
 									>
-										<CloseButton color="white" size="md" />
+										<CloseButton color="text" size="md" />
 									</Drawer.CloseTrigger>
 									<Drawer.Body>
 										<VStack align="center" gap={6} mt={24}>
@@ -100,9 +100,8 @@ const Header = () => {
 												<ChakraLink
 													_hover={{ textDecoration: "none" }}
 													asChild
-													color="white"
+													color="text"
 													fontFamily="heading"
-													fontSize="xl"
 													fontWeight={
 														pathname === link.href ? "bold" : undefined
 													}
@@ -127,7 +126,7 @@ const Header = () => {
 							<Heading
 								color="#E2DECD"
 								fontFamily="header"
-								fontSize="2xl"
+								fontSize={{ base: "lg", md: "2xl" }}
 								fontWeight="normal"
 								textTransform="uppercase"
 							>
@@ -138,7 +137,6 @@ const Header = () => {
 					<HStack
 						display={{ base: "none", lg: "flex" }}
 						fontFamily="heading"
-						fontSize="md"
 						gap="80px"
 					>
 						{LINKS.map((link) => {

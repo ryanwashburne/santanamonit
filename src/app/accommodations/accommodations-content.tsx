@@ -45,11 +45,10 @@ const AccommodationsContent = () => {
 
 	return (
 		<VStack gap={{ base: 8, md: 16 }}>
-			<HStack fontSize={{ base: "lg", md: "xl" }} gap={4}>
+			<HStack gap={4}>
 				<Link onClick={() => setType("resorts")}>
 					<Heading
 						color="primary"
-						fontSize={{ base: "lg", md: "xl" }}
 						fontWeight={isResorts ? undefined : "normal"}
 						textTransform="uppercase"
 					>
@@ -62,7 +61,6 @@ const AccommodationsContent = () => {
 				<Link onClick={() => setType("airbnbs")}>
 					<Heading
 						color="primary"
-						fontSize={{ base: "lg", md: "xl" }}
 						fontWeight={!isResorts ? undefined : "normal"}
 						textTransform="uppercase"
 					>
@@ -98,7 +96,7 @@ const AccommodationsContent = () => {
 							))}
 						</VStack>
 					) : (
-						<VStack gap={8} w="full">
+						<VStack gap="50px" w="full">
 							{rows.map((row) => (
 								<motion.div
 									initial={{ opacity: 0, y: 24 }}

@@ -25,13 +25,13 @@ const Listing = ({
 			h="full"
 			overflow="hidden"
 			position="relative"
-			px={{ base: 4, md: 8 }}
-			py={{ base: 4, md: 8 }}
+			px={8}
+			py={8}
 			transition="all 0.3s ease-in-out"
 			w="full"
 		>
-			<VStack align="stretch" gap={{ base: 8, md: 16 }}>
-				<Heading color="primary" fontSize="xl" fontWeight="normal">
+			<VStack align="stretch" gap={8}>
+				<Heading color="primary" fontWeight="normal">
 					{title}
 				</Heading>
 
@@ -44,13 +44,9 @@ const Listing = ({
 				/>
 
 				<VStack align="stretch" gap={3} transition="all 0.3s ease-in-out">
-					<Text fontSize="lg">{description}</Text>
+					<Text>{description}</Text>
 
-					<Box
-						fontSize="md"
-						overflow="hidden"
-						transition="all 0.3s ease-in-out"
-					>
+					<Box overflow="hidden" transition="all 0.3s ease-in-out">
 						<VStack align="stretch" gap={0}>
 							{location && (
 								<Link

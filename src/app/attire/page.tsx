@@ -60,7 +60,7 @@ const AttirePage = () => {
 		<Container pb={BOTTOM_PADDING}>
 			<PageHeader title="Wedding Attire" />
 
-			<Box fontSize="lg" my={12} textAlign="center">
+			<Box my={12} textAlign="center">
 				<Text>Women: formal, floor or ankle length dresses</Text>
 				<Text>Men: suit (tie optional) or barong</Text>
 			</Box>

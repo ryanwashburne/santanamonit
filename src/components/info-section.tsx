@@ -22,7 +22,7 @@ export const InfoSection = ({
 			whileInView={{ opacity: 1, y: 0 }}
 		>
 			<VStack align="stretch" gap={6}>
-				<Heading color="primary" fontFamily="header" fontSize="2xl">
+				<Heading color="primary" fontFamily="header">
 					{title}
 				</Heading>
 				<VStack align="stretch" gap={4}>
@@ -41,10 +41,10 @@ interface InfoSubsectionProps {
 export const InfoSubsection = ({ label, children }: InfoSubsectionProps) => {
 	return (
 		<VStack align="stretch" gap={2}>
-			<Text fontFamily="body" fontSize="xl" fontWeight="bold">
+			<Text fontFamily="body" fontWeight="bold">
 				{label}
 			</Text>
-			<Text fontSize="xl">{children}</Text>
+			<Text>{children}</Text>
 		</VStack>
 	);
 };
@@ -54,5 +54,5 @@ interface InfoTextProps {
 }
 
 export const InfoText = ({ children }: InfoTextProps) => {
-	return <Text fontSize="xl">{children}</Text>;
+	return <Text>{children}</Text>;
 };

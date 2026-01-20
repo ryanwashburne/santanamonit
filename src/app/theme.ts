@@ -5,6 +5,7 @@ const config = defineConfig({
 		body: {
 			backgroundColor: "bg",
 			color: "text",
+			fontSize: "16px",
 		},
 		"*:focus, *:focus-visible, *:focus-within": {
 			outline: "none !important",

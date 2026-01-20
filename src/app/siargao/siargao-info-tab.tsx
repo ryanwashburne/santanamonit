@@ -78,13 +78,7 @@ const InfoTabContent = () => {
 				viewport={{ once: true, amount: 0.3 }}
 				whileInView={{ opacity: 1, y: 0 }}
 			>
-				<VStack
-					align="stretch"
-					fontSize="xl"
-					fontStyle="italic"
-					gap={2}
-					textAlign="center"
-				>
+				<VStack align="stretch" fontStyle="italic" gap={2} textAlign="center">
 					<Text>
 						If you have any questions feel free to contact either of us on
 						Whatsapp!
