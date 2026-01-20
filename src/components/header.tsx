@@ -66,7 +66,8 @@ const Header = () => {
 					<Drawer.Root
 						onOpenChange={(e) => setOpen(e.open)}
 						open={open}
-						placement="start"
+						placement="top"
+						size="full"
 					>
 						<Drawer.Trigger asChild>
 							<IconButton
@@ -85,26 +86,23 @@ const Header = () => {
 							<Drawer.Backdrop />
 							<Drawer.Positioner>
 								<Drawer.Content bg="#AAB25F">
-									<Drawer.Header>
-										<Drawer.Title
-											color="white"
-											fontFamily="header"
-											fontSize="xl"
-											fontWeight="normal"
-											textTransform="uppercase"
-										>
-											Menu
-										</Drawer.Title>
-									</Drawer.Header>
+									<Drawer.CloseTrigger
+										asChild
+										position="absolute"
+										right={4}
+										top={4}
+									>
+										<CloseButton color="white" size="md" />
+									</Drawer.CloseTrigger>
 									<Drawer.Body>
-										<VStack align="stretch" gap={4}>
+										<VStack align="center" gap={6} mt={24}>
 											{LINKS.map((link) => (
 												<ChakraLink
 													_hover={{ textDecoration: "none" }}
 													asChild
 													color="white"
 													fontFamily="heading"
-													fontSize="lg"
+													fontSize="xl"
 													fontWeight={
 														pathname === link.href ? "bold" : undefined
 													}
@@ -118,9 +116,6 @@ const Header = () => {
 											))}
 										</VStack>
 									</Drawer.Body>
-									<Drawer.CloseTrigger asChild>
-										<CloseButton color="white" size="sm" />
-									</Drawer.CloseTrigger>
 								</Drawer.Content>
 							</Drawer.Positioner>
 						</Portal>
