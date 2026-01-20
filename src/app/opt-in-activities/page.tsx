@@ -1,23 +1,36 @@
 "use client";
 
-import { Box, Container, Grid, Link, Text, VStack } from "@chakra-ui/react";
+import {
+	Box,
+	Container,
+	Grid,
+	Image,
+	Link,
+	Text,
+	VStack,
+} from "@chakra-ui/react";
 import ActivityCard from "@/app/opt-in-activities/activity-card";
 import PageHeader from "@/components/page-header";
 import { BOTTOM_PADDING } from "@/constants/spacing";
 
+const WHITE_FILTER =
+	"brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%)";
+
 const OptInActivitiesPage = () => {
 	return (
-		<Box pb={BOTTOM_PADDING}>
+		<Box overflow="hidden" pb={BOTTOM_PADDING} position="relative">
 			<VStack
 				align="stretch"
 				fontSize={{ base: "md", md: "lg" }}
 				gap={{ base: 8, md: 16 }}
+				position="relative"
+				zIndex={1}
 			>
 				<Container>
 					<PageHeader title="Extra Adventures" />
 				</Container>
 
-				<Container maxW="5xl">
+				<Container maxW={{ base: "md", md: "5xl" }} px={8}>
 					<VStack gap={{ base: 12, md: 24 }}>
 						<Grid
 							gap={{ base: 8, md: 16 }}
@@ -52,7 +65,7 @@ const OptInActivitiesPage = () => {
 						</Grid>
 
 						<Container maxW="4xl">
-							<VStack gap={4} textAlign="center">
+							<VStack gap={4} mt={{ base: 4, md: 0 }} textAlign="center">
 								<Text>
 									If you would like to join us on any additional excursions,
 									click the link below and let us know via Google Form. Prices
@@ -71,6 +84,50 @@ const OptInActivitiesPage = () => {
 					</VStack>
 				</Container>
 			</VStack>
+
+			{/* Tree Right - Top Right */}
+			<Image
+				alt="tree decoration"
+				css={{ filter: WHITE_FILTER }}
+				h="auto"
+				pointerEvents="none"
+				position="absolute"
+				right={0}
+				src="/opt-in-activities/tree-right.svg"
+				top={0}
+				w={{ base: "40vw", md: "30vw" }}
+				zIndex={0}
+			/>
+
+			{/* Tree Left - Middle Left (mobile) / Bottom Left (desktop) */}
+			<Image
+				alt="tree decoration"
+				bottom={{ base: "auto", md: 0 }}
+				css={{ filter: WHITE_FILTER }}
+				h="auto"
+				left={0}
+				pointerEvents="none"
+				position="absolute"
+				src="/opt-in-activities/tree-left.svg"
+				top={{ base: "50vh", md: "auto" }}
+				w={{ base: "40vw", md: "30vw" }}
+				zIndex={0}
+			/>
+
+			{/* Tree Right - Bottom Right (mobile only) */}
+			<Image
+				alt="tree decoration"
+				bottom={0}
+				css={{ filter: WHITE_FILTER }}
+				display={{ base: "block", md: "none" }}
+				h="auto"
+				pointerEvents="none"
+				position="absolute"
+				right={0}
+				src="/opt-in-activities/tree-right.svg"
+				w="40vw"
+				zIndex={0}
+			/>
 		</Box>
 	);
 };

@@ -13,7 +13,7 @@ const TravelPage = () => {
 		<Container pb={BOTTOM_PADDING}>
 			<VStack gap={16}>
 				<Box mt={16}>
-					<NextImage alt="greetings" src={greetings} />
+					<NextImage alt="greetings" loading="lazy" src={greetings} />
 				</Box>
 
 				<Container maxW="4xl">

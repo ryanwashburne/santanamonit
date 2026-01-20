@@ -59,11 +59,15 @@ const Header = () => {
 			<Container>
 				<Box
 					display={{ base: "block", lg: "none" }}
+					left={4}
 					position="absolute"
-					right={4}
 					top="-8px"
 				>
-					<Drawer.Root onOpenChange={(e) => setOpen(e.open)} open={open}>
+					<Drawer.Root
+						onOpenChange={(e) => setOpen(e.open)}
+						open={open}
+						placement="start"
+					>
 						<Drawer.Trigger asChild>
 							<IconButton
 								_hover={{
