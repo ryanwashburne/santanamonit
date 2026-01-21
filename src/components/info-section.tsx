@@ -18,7 +18,7 @@ export const InfoSection = ({
 		<motion.div
 			initial={{ opacity: 0, y: 24 }}
 			transition={{ duration: 0.3, ease: "easeOut", delay: index * 0.1 }}
-			viewport={{ once: true, amount: 0.3 }}
+			viewport={{ once: true, amount: 0.3, margin: "100px 0px 0px 0px" }}
 			whileInView={{ opacity: 1, y: 0 }}
 		>
 			<VStack align="stretch" gap={6}>

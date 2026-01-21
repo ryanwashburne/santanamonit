@@ -80,46 +80,64 @@ const AccommodationsContent = () => {
 				>
 					{isMobile ? (
 						<VStack gap="50px" w="full">
-							{listings.map((listing) => (
-								<motion.div
-									initial={{ opacity: 0, y: 24 }}
-									key={listing.title}
-									style={{ width: "100%" }}
-									transition={{ duration: 0.3, ease: "easeOut" }}
-									viewport={{ once: true, amount: 0.3 }}
-									whileInView={{ opacity: 1, y: 0 }}
-								>
-									<Box w="full">
-										<Listing {...listing} />
-									</Box>
-								</motion.div>
-							))}
+							{listings.map((listing, index) => {
+								const isAboveFold = index < 2;
+								return (
+									<motion.div
+										{...(isAboveFold
+											? { animate: { opacity: 1, y: 0 } }
+											: { whileInView: { opacity: 1, y: 0 } })}
+										initial={{ opacity: 0, y: 24 }}
+										key={listing.title}
+										style={{ width: "100%" }}
+										transition={{
+											duration: 0.3,
+											ease: "easeOut",
+											delay: isAboveFold ? index * 0.1 : 0,
+										}}
+										viewport={{ once: true, amount: 0.3 }}
+									>
+										<Box w="full">
+											<Listing {...listing} />
+										</Box>
+									</motion.div>
+								);
+							})}
 						</VStack>
 					) : (
 						<VStack gap="50px" w="full">
-							{rows.map((row) => (
-								<motion.div
-									initial={{ opacity: 0, y: 24 }}
-									key={row[0]?.title}
-									style={{ width: "100%" }}
-									transition={{ duration: 0.3, ease: "easeOut" }}
-									viewport={{ once: true, amount: 0.3 }}
-									whileInView={{ opacity: 1, y: 0 }}
-								>
-									<Grid
-										gap="50px"
-										templateColumns={{
-											md: "repeat(2, 1fr)",
-											lg: "repeat(3, 1fr)",
+							{rows.map((row, index) => {
+								const isAboveFold = index < 2;
+								return (
+									<motion.div
+										{...(isAboveFold
+											? { animate: { opacity: 1, y: 0 } }
+											: { whileInView: { opacity: 1, y: 0 } })}
+										initial={{ opacity: 0, y: 24 }}
+										key={row[0]?.title}
+										style={{ width: "100%" }}
+										transition={{
+											duration: 0.3,
+											ease: "easeOut",
+											delay: isAboveFold ? index * 0.1 : 0,
 										}}
-										w="full"
+										viewport={{ once: true, amount: 0.3 }}
 									>
-										{row.map((listing) => (
-											<Listing key={listing.title} {...listing} />
-										))}
-									</Grid>
-								</motion.div>
-							))}
+										<Grid
+											gap="50px"
+											templateColumns={{
+												md: "repeat(2, 1fr)",
+												lg: "repeat(3, 1fr)",
+											}}
+											w="full"
+										>
+											{row.map((listing) => (
+												<Listing key={listing.title} {...listing} />
+											))}
+										</Grid>
+									</motion.div>
+								);
+							})}
 						</VStack>
 					)}
 				</motion.div>

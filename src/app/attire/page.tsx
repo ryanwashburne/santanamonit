@@ -67,20 +67,29 @@ const AttirePage = () => {
 
 			{isMobile ? (
 				<VStack gap={4} w="full">
-					{images.map((image) => (
-						<motion.div
-							initial={{ opacity: 0, y: 24 }}
-							key={image.id}
-							style={{ width: "100%" }}
-							transition={{ duration: 0.3, ease: "easeOut" }}
-							viewport={{ once: true, amount: 0.3 }}
-							whileInView={{ opacity: 1, y: 0 }}
-						>
-							<Image alt={image.id} asChild borderRadius="md">
-								<NextImage alt={image.id} src={image.src} />
-							</Image>
-						</motion.div>
-					))}
+					{images.map((image, index) => {
+						const isAboveFold = index < 3;
+						return (
+							<motion.div
+								{...(isAboveFold
+									? { animate: { opacity: 1, y: 0 } }
+									: { whileInView: { opacity: 1, y: 0 } })}
+								initial={{ opacity: 0, y: 24 }}
+								key={image.id}
+								style={{ width: "100%" }}
+								transition={{
+									duration: 0.3,
+									ease: "easeOut",
+									delay: isAboveFold ? index * 0.1 : 0,
+								}}
+								viewport={{ once: true, amount: 0.3 }}
+							>
+								<Image alt={image.id} asChild borderRadius="md">
+									<NextImage alt={image.id} src={image.src} />
+								</Image>
+							</motion.div>
+						);
+					})}
 				</VStack>
 			) : (
 				<Box
@@ -89,8 +98,13 @@ const AttirePage = () => {
 						columnGap: "1rem",
 					}}
 				>
-					{images.map((image) => (
-						<AnimateInView enabled key={image.id}>
+					{images.map((image, index) => (
+						<AnimateInView
+							delay={index < 6 ? index * 0.05 : 0}
+							enabled
+							immediate={index < 6}
+							key={image.id}
+						>
 							<Box css={{ breakInside: "avoid" }} mb={4}>
 								<Image alt={image.id} asChild borderRadius="md">
 									<NextImage alt={image.id} src={image.src} />

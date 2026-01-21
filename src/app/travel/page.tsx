@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { motion } from "motion/react";
 import NextImage from "next/image";
+import { useState } from "react";
 import TravelContent from "@/app/travel/travel-content";
 import { BOTTOM_PADDING } from "@/constants/spacing";
 
@@ -25,11 +26,23 @@ const travelImages = [
 ];
 
 const TravelPage = () => {
+	const [svgLoaded, setSvgLoaded] = useState(false);
+
 	return (
 		<Container pb={BOTTOM_PADDING}>
 			<VStack gap={16}>
 				<Box mt={16}>
-					<NextImage alt="greetings" loading="lazy" src={greetings} />
+					<motion.div
+						animate={svgLoaded ? { opacity: 1 } : { opacity: 0 }}
+						initial={{ opacity: 0 }}
+						transition={{ duration: 0.5, ease: "easeInOut" }}
+					>
+						<NextImage
+							alt="greetings"
+							onLoad={() => setSvgLoaded(true)}
+							src={greetings}
+						/>
+					</motion.div>
 				</Box>
 
 				<Container maxW="4xl">
@@ -54,7 +67,7 @@ const TravelPage = () => {
 							initial={{ opacity: 0, y: 20 }}
 							key={image.id}
 							transition={{ duration: 0.5 }}
-							viewport={{ once: true, margin: "-100px" }}
+							viewport={{ once: true, margin: "100px 0px 0px 0px" }}
 							whileInView={{ opacity: 1, y: 0 }}
 						>
 							<Image alt={`Travel photo ${index + 1}`} asChild>

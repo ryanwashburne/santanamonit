@@ -26,7 +26,7 @@ const SiargaoPage = () => {
 					<PageHeader title="About Siargao" />
 				</Container>
 
-				<Container maxW="6xl" mt={16}>
+				<Container maxW="6xl" mt={{ base: 4, md: 16 }}>
 					<VStack gap={16}>
 						<Image
 							alt="Siargao Map"

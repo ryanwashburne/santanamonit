@@ -8,6 +8,7 @@ import Tree1 from "public/tree1.svg";
 import Tree2 from "public/tree2.svg";
 import Tree3 from "public/tree3.svg";
 import Tree4 from "public/tree4.svg";
+import { useCallback, useState } from "react";
 
 const DURATION = 0.5;
 const EASE = "easeInOut";
@@ -17,12 +18,22 @@ const OUTER_HEIGHTS = { base: "60vh", lg: "min(80vh, 60vw)" };
 const INNER_HEIGHTS = { base: "0vh", lg: "min(50vh, 40vw)" };
 const INNER_DISTANCE = "18vw";
 
-const TreeFooter = () => {
+const TOTAL_IMAGES = 5;
+
+const TreeFooter = ({
+	ready,
+	onImageLoad,
+}: {
+	ready: boolean;
+	onImageLoad: () => void;
+}) => {
 	return (
 		<Box bottom={0} left={0} pointerEvents="none" position="fixed" right={0}>
 			{/* Tree 1 - Left */}
 			<motion.div
-				animate={{ opacity: 1, rotate: 0 }}
+				animate={
+					ready ? { opacity: 1, rotate: 0 } : { opacity: 0, rotate: -30 }
+				}
 				initial={{ opacity: 0, rotate: -30 }}
 				style={{
 					position: "absolute",
@@ -33,13 +44,13 @@ const TreeFooter = () => {
 				transition={TRANSITION}
 			>
 				<Image asChild h={OUTER_HEIGHTS} w="auto">
-					<NextImage alt="Tree1" src={Tree1} />
+					<NextImage alt="Tree1" onLoad={onImageLoad} src={Tree1} />
 				</Image>
 			</motion.div>
 
 			{/* Tree 2 - Left-center */}
 			<motion.div
-				animate={{ opacity: 1, y: 0 }}
+				animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
 				initial={{ opacity: 0, y: 20 }}
 				style={{
 					position: "absolute",
@@ -49,13 +60,13 @@ const TreeFooter = () => {
 				transition={TRANSITION}
 			>
 				<Image asChild h={INNER_HEIGHTS} w="auto">
-					<NextImage alt="Tree2" src={Tree2} />
+					<NextImage alt="Tree2" onLoad={onImageLoad} src={Tree2} />
 				</Image>
 			</motion.div>
 
 			{/* Tree 3 - Right-center */}
 			<motion.div
-				animate={{ opacity: 1, y: 0 }}
+				animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
 				initial={{ opacity: 0, y: 20 }}
 				style={{
 					position: "absolute",
@@ -65,13 +76,13 @@ const TreeFooter = () => {
 				transition={TRANSITION}
 			>
 				<Image asChild h={INNER_HEIGHTS} w="auto">
-					<NextImage alt="Tree3" src={Tree3} />
+					<NextImage alt="Tree3" onLoad={onImageLoad} src={Tree3} />
 				</Image>
 			</motion.div>
 
 			{/* Tree 4 - Right */}
 			<motion.div
-				animate={{ opacity: 1, rotate: 0 }}
+				animate={ready ? { opacity: 1, rotate: 0 } : { opacity: 0, rotate: 30 }}
 				initial={{ opacity: 0, rotate: 30 }}
 				style={{
 					position: "absolute",
@@ -82,7 +93,7 @@ const TreeFooter = () => {
 				transition={TRANSITION}
 			>
 				<Image asChild h={OUTER_HEIGHTS} w="auto">
-					<NextImage alt="Tree4" src={Tree4} />
+					<NextImage alt="Tree4" onLoad={onImageLoad} src={Tree4} />
 				</Image>
 			</motion.div>
 		</Box>
@@ -90,12 +101,25 @@ const TreeFooter = () => {
 };
 
 const HomePage = () => {
+	const [loadedCount, setLoadedCount] = useState(0);
+	const ready = loadedCount >= TOTAL_IMAGES;
+
+	const handleImageLoad = useCallback(() => {
+		setLoadedCount((prev) => prev + 1);
+	}, []);
+
 	return (
 		<Box mt="12vh">
 			<Center px={4}>
-				<NextImage alt="greetings" src={Landing} />
+				<motion.div
+					animate={ready ? { opacity: 1 } : { opacity: 0 }}
+					initial={{ opacity: 0 }}
+					transition={TRANSITION}
+				>
+					<NextImage alt="greetings" onLoad={handleImageLoad} src={Landing} />
+				</motion.div>
 			</Center>
-			<TreeFooter />
+			<TreeFooter onImageLoad={handleImageLoad} ready={ready} />
 		</Box>
 	);
 };
