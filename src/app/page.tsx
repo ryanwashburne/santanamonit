@@ -13,9 +13,9 @@ const DURATION = 0.5;
 const EASE = "easeInOut";
 const TRANSITION = { duration: DURATION, ease: EASE } as const;
 
-const OUTER_HEIGHTS = { base: "60vh", lg: "70vh" };
-const INNER_HEIGHTS = { base: "0vh", lg: "40vh" };
-const INNER_DISTANCE = "20vw";
+const OUTER_HEIGHTS = { base: "60vh", lg: "min(80vh, 60vw)" };
+const INNER_HEIGHTS = { base: "0vh", lg: "min(50vh, 40vw)" };
+const INNER_DISTANCE = "18vw";
 
 const TreeFooter = () => {
 	return (
