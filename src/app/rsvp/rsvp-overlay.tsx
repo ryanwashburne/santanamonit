@@ -69,7 +69,7 @@ const RSVPOverlay: React.FC<Props> = ({ title, buttonText }) => {
 			<form onSubmit={handleSubmit}>
 				<Container maxW="lg" mt={32}>
 					<VStack gap={6}>
-						<Heading color="primary" fontWeight="normal">
+						<Heading color="primary" fontSize="16px" fontWeight="normal">
 							{title}
 						</Heading>
 

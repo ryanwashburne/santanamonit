@@ -12,6 +12,7 @@ import {
 	VStack,
 } from "@chakra-ui/react";
 import NextImage, { type StaticImageData } from "next/image";
+import AnimateInView from "@/components/animate-in-view";
 
 import alma from "../../../public/siargao/alma.png";
 import cev from "../../../public/siargao/cev.png";
@@ -158,8 +159,11 @@ const EatTabContent = () => {
 						</Heading>
 					)}
 					<Grid
-						gap="40px"
-						templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }}
+						gap={{ base: "15px", md: "40px" }}
+						templateColumns={{
+							base: "repeat(2, minmax(0, 1fr))",
+							md: "repeat(3, minmax(0, 1fr))",
+						}}
 						templateRows="auto"
 					>
 						{section.tiles.map((tile, index) => (
@@ -170,44 +174,45 @@ const EatTabContent = () => {
 								justifyContent={tile.text ? "center" : undefined}
 								key={tile.title ?? tile.text ?? index}
 								rowSpan={tile.span2 ? 2 : undefined}
-								w="200px"
 							>
-								{tile.text ? (
-									<Center maxW="140px" pt="80px">
-										<Heading
-											color="primary"
-											fontFamily="header"
-											textAlign="center"
-										>
-											{tile.text}
-										</Heading>
-									</Center>
-								) : (
-									<>
-										{tile.imageSrc && (
-											<Box
-												aspectRatio={tile.span2 ? "1/2" : "1/1"}
-												borderRadius="lg"
-												overflow="hidden"
-												position="relative"
-												w="full"
+								<AnimateInView enabled>
+									{tile.text ? (
+										<Center maxW="140px" pt="80px">
+											<Heading
+												color="primary"
+												fontFamily="header"
+												textAlign="center"
 											>
-												<Image asChild h="full" objectFit="cover" w="full">
-													<NextImage
-														alt={tile.title ?? ""}
-														fill
-														src={tile.imageSrc}
-														style={{ objectFit: "cover" }}
-													/>
-												</Image>
-											</Box>
-										)}
-										<VStack align="stretch" gap={1} pt={1}>
-											<Text fontWeight="bold">{tile.title}</Text>
-											<Text lineHeight={1.1}>{tile.description}</Text>
-										</VStack>
-									</>
-								)}
+												{tile.text}
+											</Heading>
+										</Center>
+									) : (
+										<>
+											{tile.imageSrc && (
+												<Box
+													aspectRatio={tile.span2 ? "1/2" : "1/1"}
+													borderRadius="lg"
+													overflow="hidden"
+													position="relative"
+													w="full"
+												>
+													<Image asChild h="full" objectFit="cover" w="full">
+														<NextImage
+															alt={tile.title ?? ""}
+															fill
+															src={tile.imageSrc}
+															style={{ objectFit: "cover" }}
+														/>
+													</Image>
+												</Box>
+											)}
+											<VStack align="stretch" gap={1} pt={1}>
+												<Text fontWeight="bold">{tile.title}</Text>
+												<Text lineHeight={1.1}>{tile.description}</Text>
+											</VStack>
+										</>
+									)}
+								</AnimateInView>
 							</GridItem>
 						))}
 					</Grid>

@@ -1,47 +1,18 @@
 "use client";
 
-import {
-	Box,
-	Grid,
-	Heading,
-	HStack,
-	Link,
-	Text,
-	VStack,
-} from "@chakra-ui/react";
-import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { Grid, Heading, HStack, Link, Text, VStack } from "@chakra-ui/react";
+import { useState } from "react";
 import Listing from "@/app/accommodations/listing";
-import type { Listing as ListingType } from "@/data/accommodations";
+import AnimateInView from "@/components/animate-in-view";
 import { airbnbListings, resortListings } from "@/data/accommodations";
 
 type AccommodationType = "resorts" | "airbnbs";
 
-const ITEMS_PER_ROW = 3;
-const MD_BREAKPOINT = 768;
-
-function chunkArray<T>(array: T[], size: number): T[][] {
-	const chunks: T[][] = [];
-	for (let i = 0; i < array.length; i += size) {
-		chunks.push(array.slice(i, i + size));
-	}
-	return chunks;
-}
-
 const AccommodationsContent = () => {
 	const [type, setType] = useState<AccommodationType>("resorts");
-	const [isMobile, setIsMobile] = useState(false);
 	const isResorts = type === "resorts";
 
-	useEffect(() => {
-		const checkMobile = () => setIsMobile(window.innerWidth < MD_BREAKPOINT);
-		checkMobile();
-		window.addEventListener("resize", checkMobile);
-		return () => window.removeEventListener("resize", checkMobile);
-	}, []);
-
 	const listings = isResorts ? resortListings : airbnbListings;
-	const rows = chunkArray<ListingType>(listings, ITEMS_PER_ROW);
 
 	return (
 		<VStack gap={{ base: 8, md: 16 }}>
@@ -52,6 +23,7 @@ const AccommodationsContent = () => {
 				>
 					<Heading
 						color="primary"
+						fontSize={{ base: "16px", md: "20px" }}
 						fontWeight={isResorts ? undefined : "normal"}
 						textTransform="uppercase"
 					>
@@ -67,6 +39,7 @@ const AccommodationsContent = () => {
 				>
 					<Heading
 						color="primary"
+						fontSize={{ base: "16px", md: "20px" }}
 						fontWeight={!isResorts ? undefined : "normal"}
 						textTransform="uppercase"
 					>
@@ -75,79 +48,19 @@ const AccommodationsContent = () => {
 				</Link>
 			</HStack>
 
-			<AnimatePresence mode="wait">
-				<motion.div
-					animate={{ opacity: 1, y: 0 }}
-					exit={{ opacity: 0, y: -12 }}
-					initial={{ opacity: 0, y: 12 }}
-					key={type}
-					style={{ width: "100%" }}
-					transition={{ duration: 0.25, ease: "easeOut" }}
-				>
-					{isMobile ? (
-						<VStack gap="50px" w="full">
-							{listings.map((listing, index) => {
-								const isAboveFold = index < 2;
-								return (
-									<motion.div
-										{...(isAboveFold
-											? { animate: { opacity: 1, y: 0 } }
-											: { whileInView: { opacity: 1, y: 0 } })}
-										initial={{ opacity: 0, y: 24 }}
-										key={listing.title}
-										style={{ width: "100%" }}
-										transition={{
-											duration: 0.3,
-											ease: "easeOut",
-											delay: isAboveFold ? index * 0.1 : 0,
-										}}
-										viewport={{ once: true, amount: 0.3 }}
-									>
-										<Box w="full">
-											<Listing {...listing} />
-										</Box>
-									</motion.div>
-								);
-							})}
-						</VStack>
-					) : (
-						<VStack gap="50px" w="full">
-							{rows.map((row, index) => {
-								const isAboveFold = index < 2;
-								return (
-									<motion.div
-										{...(isAboveFold
-											? { animate: { opacity: 1, y: 0 } }
-											: { whileInView: { opacity: 1, y: 0 } })}
-										initial={{ opacity: 0, y: 24 }}
-										key={row[0]?.title}
-										style={{ width: "100%" }}
-										transition={{
-											duration: 0.3,
-											ease: "easeOut",
-											delay: isAboveFold ? index * 0.1 : 0,
-										}}
-										viewport={{ once: true, amount: 0.3 }}
-									>
-										<Grid
-											gap="50px"
-											templateColumns={{
-												md: "repeat(2, 1fr)",
-												lg: "repeat(3, 1fr)",
-											}}
-											w="full"
-										>
-											{row.map((listing) => (
-												<Listing key={listing.title} {...listing} />
-											))}
-										</Grid>
-									</motion.div>
-								);
-							})}
-						</VStack>
-					)}
-				</motion.div>
-			</AnimatePresence>
+			<Grid
+				gap="50px"
+				templateColumns={{
+					md: "repeat(2, 1fr)",
+					lg: "repeat(3, 1fr)",
+				}}
+			>
+				{listings.map((listing) => (
+					<AnimateInView enabled key={listing.title}>
+						<Listing {...listing} />
+					</AnimateInView>
+				))}
+			</Grid>
 		</VStack>
 	);
 };

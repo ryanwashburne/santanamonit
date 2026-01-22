@@ -32,6 +32,7 @@ const SiargaoContent = () => {
 				>
 					<Heading
 						color="primary"
+						fontSize={{ base: "16px", md: "20px" }}
 						fontWeight={tab === "info" ? undefined : "normal"}
 						textTransform="uppercase"
 					>
@@ -44,6 +45,7 @@ const SiargaoContent = () => {
 				<Link _hover={{ textDecoration: "none" }} onClick={() => setTab("eat")}>
 					<Heading
 						color="primary"
+						fontSize={{ base: "16px", md: "20px" }}
 						fontWeight={tab === "eat" ? undefined : "normal"}
 						textTransform="uppercase"
 					>
@@ -59,6 +61,7 @@ const SiargaoContent = () => {
 				>
 					<Heading
 						color="primary"
+						fontSize={{ base: "16px", md: "20px" }}
 						fontWeight={tab === "experience" ? undefined : "normal"}
 						textTransform="uppercase"
 					>

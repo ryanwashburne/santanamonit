@@ -22,12 +22,7 @@ const Listing = ({
 			border="1px solid"
 			borderColor="primary"
 			borderRadius="lg"
-			h="full"
-			overflow="hidden"
-			position="relative"
-			px={8}
-			py={8}
-			transition="all 0.3s ease-in-out"
+			p={8}
 			w="full"
 		>
 			<VStack align="stretch" gap={8}>
@@ -67,6 +62,7 @@ const Listing = ({
 								<Link
 									color="text"
 									href={website}
+									lineBreak="anywhere"
 									target="_blank"
 									textDecoration="underline"
 								>

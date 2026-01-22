@@ -62,7 +62,7 @@ const TravelPage = () => {
 					</VStack>
 				</Container>
 
-				<SimpleGrid columns={{ base: 1, lg: 3 }} gap={4} w="full">
+				<SimpleGrid columns={{ base: 1, lg: 3 }} gap="30px" w="full">
 					{travelImages.map((image, index) => (
 						<motion.div
 							initial={{ opacity: 0, y: 20 }}

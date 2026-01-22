@@ -26,6 +26,7 @@ const TravelContent = () => {
 				>
 					<Heading
 						color="primary"
+						fontSize={{ base: "16px", md: "20px" }}
 						fontWeight={isInternational ? undefined : "normal"}
 						textTransform="uppercase"
 					>
@@ -41,6 +42,7 @@ const TravelContent = () => {
 				>
 					<Heading
 						color="primary"
+						fontSize={{ base: "16px", md: "20px" }}
 						fontWeight={!isInternational ? undefined : "normal"}
 						textTransform="uppercase"
 					>

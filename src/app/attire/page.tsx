@@ -1,7 +1,6 @@
 "use client";
 
-import { Box, Container, Image, Text, VStack } from "@chakra-ui/react";
-import { motion } from "motion/react";
+import { Box, Container, Image, Text } from "@chakra-ui/react";
 import NextImage from "next/image";
 import { useEffect, useState } from "react";
 import AnimateInView from "@/components/animate-in-view";
@@ -65,55 +64,22 @@ const AttirePage = () => {
 				<Text>Men: suit (tie optional) or barong</Text>
 			</Box>
 
-			{isMobile ? (
-				<VStack gap={4} w="full">
-					{images.map((image, index) => {
-						const isAboveFold = index < 3;
-						return (
-							<motion.div
-								{...(isAboveFold
-									? { animate: { opacity: 1, y: 0 } }
-									: { whileInView: { opacity: 1, y: 0 } })}
-								initial={{ opacity: 0, y: 24 }}
-								key={image.id}
-								style={{ width: "100%" }}
-								transition={{
-									duration: 0.3,
-									ease: "easeOut",
-									delay: isAboveFold ? index * 0.1 : 0,
-								}}
-								viewport={{ once: true, amount: 0.3 }}
-							>
-								<Image alt={image.id} asChild borderRadius="md">
-									<NextImage alt={image.id} src={image.src} />
-								</Image>
-							</motion.div>
-						);
-					})}
-				</VStack>
-			) : (
-				<Box
-					css={{
-						columnCount: 3,
-						columnGap: "1rem",
-					}}
-				>
-					{images.map((image, index) => (
-						<AnimateInView
-							delay={index < 6 ? index * 0.05 : 0}
-							enabled
-							immediate={index < 6}
-							key={image.id}
-						>
-							<Box css={{ breakInside: "avoid" }} mb={4}>
-								<Image alt={image.id} asChild borderRadius="md">
-									<NextImage alt={image.id} src={image.src} />
-								</Image>
-							</Box>
-						</AnimateInView>
-					))}
-				</Box>
-			)}
+			<Box
+				css={{
+					columnCount: isMobile ? 2 : 3,
+					columnGap: "1rem",
+				}}
+			>
+				{images.map((image) => (
+					<AnimateInView enabled key={image.id}>
+						<Box css={{ breakInside: "avoid" }} mb={4}>
+							<Image alt={image.id} asChild borderRadius="md">
+								<NextImage alt={image.id} src={image.src} />
+							</Image>
+						</Box>
+					</AnimateInView>
+				))}
+			</Box>
 		</Container>
 	);
 };

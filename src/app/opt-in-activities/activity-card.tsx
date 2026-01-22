@@ -22,7 +22,11 @@ const ActivityCard = ({
 			</Image>
 
 			<VStack align="stretch" gap={2}>
-				<Heading color="primary" fontFamily="header">
+				<Heading
+					color="primary"
+					fontFamily="header"
+					mt={{ base: "30px", md: "0px" }}
+				>
 					{title}
 				</Heading>
 				<Text>{date}</Text>

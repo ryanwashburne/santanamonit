@@ -68,6 +68,7 @@ const Header = () => {
 						onOpenChange={(e) => setOpen(e.open)}
 						open={open}
 						placement="start"
+						size="full"
 					>
 						<Drawer.Trigger asChild>
 							<IconButton

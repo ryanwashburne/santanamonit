@@ -35,7 +35,7 @@ const OptInActivitiesPage = () => {
 				<Container maxW={{ base: "md", md: "5xl" }} px={8}>
 					<VStack gap={{ base: 12, md: 24 }}>
 						<Grid
-							gap={{ base: 8, md: 16 }}
+							gap={{ base: "80px", md: 16 }}
 							templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }}
 						>
 							<Box>
@@ -96,8 +96,8 @@ const OptInActivitiesPage = () => {
 				position="absolute"
 				right={0}
 				src="/opt-in-activities/tree-right.svg"
-				top={0}
-				w={{ base: "40vw", md: "30vw" }}
+				top={{ base: -140, md: 0 }}
+				w={{ base: "90vw", md: "30vw" }}
 				zIndex={0}
 			/>
 
@@ -107,12 +107,12 @@ const OptInActivitiesPage = () => {
 				bottom={{ base: "auto", md: 0 }}
 				css={{ filter: WHITE_FILTER }}
 				h="auto"
-				left={0}
+				left={{ base: -10, md: 0 }}
 				pointerEvents="none"
 				position="absolute"
 				src="/opt-in-activities/tree-left.svg"
 				top={{ base: "50vh", md: "auto" }}
-				w={{ base: "40vw", md: "30vw" }}
+				w={{ base: "90vw", md: "30vw" }}
 				zIndex={0}
 			/>
 
@@ -127,7 +127,7 @@ const OptInActivitiesPage = () => {
 				position="absolute"
 				right={0}
 				src="/opt-in-activities/tree-right.svg"
-				w="40vw"
+				w="90vw"
 				zIndex={0}
 			/>
 		</Box>
