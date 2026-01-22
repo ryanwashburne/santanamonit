@@ -3,22 +3,36 @@
 import { Heading, HStack, Link, Text, VStack } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
+import EatTabContent from "@/app/siargao/siargao-eat-tab";
 import ExperienceTabContent from "@/app/siargao/siargao-experience-tab";
 import InfoTabContent from "@/app/siargao/siargao-info-tab";
 
-type SiargaoTab = "info" | "experience";
+type SiargaoTab = "info" | "eat" | "experience";
 
 const SiargaoContent = () => {
 	const [tab, setTab] = useState<SiargaoTab>("info");
-	const isInfo = tab === "info";
+
+	const renderTabContent = () => {
+		switch (tab) {
+			case "info":
+				return <InfoTabContent />;
+			case "eat":
+				return <EatTabContent />;
+			case "experience":
+				return <ExperienceTabContent />;
+		}
+	};
 
 	return (
 		<VStack gap={16}>
 			<HStack gap={4}>
-				<Link onClick={() => setTab("info")}>
+				<Link
+					_hover={{ textDecoration: "none" }}
+					onClick={() => setTab("info")}
+				>
 					<Heading
 						color="primary"
-						fontWeight={isInfo ? undefined : "normal"}
+						fontWeight={tab === "info" ? undefined : "normal"}
 						textTransform="uppercase"
 					>
 						Info
@@ -27,10 +41,25 @@ const SiargaoContent = () => {
 				<Text color="primary" pb={2}>
 					|
 				</Text>
-				<Link onClick={() => setTab("experience")}>
+				<Link _hover={{ textDecoration: "none" }} onClick={() => setTab("eat")}>
 					<Heading
 						color="primary"
-						fontWeight={!isInfo ? undefined : "normal"}
+						fontWeight={tab === "eat" ? undefined : "normal"}
+						textTransform="uppercase"
+					>
+						Eat
+					</Heading>
+				</Link>
+				<Text color="primary" pb={2}>
+					|
+				</Text>
+				<Link
+					_hover={{ textDecoration: "none" }}
+					onClick={() => setTab("experience")}
+				>
+					<Heading
+						color="primary"
+						fontWeight={tab === "experience" ? undefined : "normal"}
 						textTransform="uppercase"
 					>
 						Experience
@@ -47,7 +76,7 @@ const SiargaoContent = () => {
 					style={{ width: "100%" }}
 					transition={{ duration: 0.25, ease: "easeOut" }}
 				>
-					{isInfo ? <InfoTabContent /> : <ExperienceTabContent />}
+					{renderTabContent()}
 				</motion.div>
 			</AnimatePresence>
 		</VStack>

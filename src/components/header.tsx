@@ -56,18 +56,18 @@ const Header = () => {
 
 	return (
 		<Center bg="#AAB25F" h={{ base: "80px", md: "120px" }}>
-			<Container>
+			<Container position="relative">
 				<Box
 					display={{ base: "block", lg: "none" }}
 					left={4}
 					position="absolute"
-					top="-13px"
+					top="50%"
+					transform="translateY(-50%)"
 				>
 					<Drawer.Root
 						onOpenChange={(e) => setOpen(e.open)}
 						open={open}
-						placement="top"
-						size="full"
+						placement="start"
 					>
 						<Drawer.Trigger asChild>
 							<IconButton
@@ -128,7 +128,9 @@ const Header = () => {
 								fontFamily="header"
 								fontSize={{ base: "lg", md: "2xl" }}
 								fontWeight="normal"
+								lineHeight="1"
 								textTransform="uppercase"
+								transform="translateY(3px)"
 							>
 								The Monits
 							</Heading>

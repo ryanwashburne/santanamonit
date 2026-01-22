@@ -39,7 +39,7 @@ const HorizontalEventCard = ({
 			<VStack align="stretch" gap={{ base: 4, md: 8 }}>
 				<VStack align="stretch" gap={0}>
 					<Heading
-						fontSize={{ base: "2xl", md: "3xl" }}
+						fontSize="20px"
 						fontWeight="normal"
 						textTransform="uppercase"
 					>

@@ -14,7 +14,7 @@ import { useState } from "react";
 import TravelContent from "@/app/travel/travel-content";
 import { BOTTOM_PADDING } from "@/constants/spacing";
 
-import greetings from "../../../public/greetings.svg";
+import greetings from "../../../public/greetings.png";
 import travel1 from "../../../public/travel/1.png";
 import travel2 from "../../../public/travel/2.png";
 import travel3 from "../../../public/travel/3.png";
@@ -26,20 +26,21 @@ const travelImages = [
 ];
 
 const TravelPage = () => {
-	const [svgLoaded, setSvgLoaded] = useState(false);
+	const [pngLoaded, setPngLoaded] = useState(false);
 
 	return (
 		<Container pb={BOTTOM_PADDING}>
 			<VStack gap={16}>
-				<Box mt={16}>
+				<Box maxW="xl" mt={16}>
 					<motion.div
-						animate={svgLoaded ? { opacity: 1 } : { opacity: 0 }}
+						animate={pngLoaded ? { opacity: 1 } : { opacity: 0 }}
 						initial={{ opacity: 0 }}
 						transition={{ duration: 0.5, ease: "easeInOut" }}
 					>
 						<NextImage
 							alt="greetings"
-							onLoad={() => setSvgLoaded(true)}
+							onLoad={() => setPngLoaded(true)}
+							quality={100}
 							src={greetings}
 						/>
 					</motion.div>

@@ -46,7 +46,10 @@ const AccommodationsContent = () => {
 	return (
 		<VStack gap={{ base: 8, md: 16 }}>
 			<HStack gap={4}>
-				<Link onClick={() => setType("resorts")}>
+				<Link
+					_hover={{ textDecoration: "none" }}
+					onClick={() => setType("resorts")}
+				>
 					<Heading
 						color="primary"
 						fontWeight={isResorts ? undefined : "normal"}
@@ -58,7 +61,10 @@ const AccommodationsContent = () => {
 				<Text color="primary" pb={2}>
 					|
 				</Text>
-				<Link onClick={() => setType("airbnbs")}>
+				<Link
+					_hover={{ textDecoration: "none" }}
+					onClick={() => setType("airbnbs")}
+				>
 					<Heading
 						color="primary"
 						fontWeight={!isResorts ? undefined : "normal"}

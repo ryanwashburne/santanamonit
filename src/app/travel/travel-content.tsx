@@ -20,7 +20,10 @@ const TravelContent = () => {
 	return (
 		<VStack gap={16}>
 			<HStack gap={4}>
-				<Link onClick={() => setMode("international")}>
+				<Link
+					_hover={{ textDecoration: "none" }}
+					onClick={() => setMode("international")}
+				>
 					<Heading
 						color="primary"
 						fontWeight={isInternational ? undefined : "normal"}
@@ -32,7 +35,10 @@ const TravelContent = () => {
 				<Text color="primary" pb={2}>
 					|
 				</Text>
-				<Link onClick={() => setMode("local")}>
+				<Link
+					_hover={{ textDecoration: "none" }}
+					onClick={() => setMode("local")}
+				>
 					<Heading
 						color="primary"
 						fontWeight={!isInternational ? undefined : "normal"}
@@ -43,10 +49,10 @@ const TravelContent = () => {
 				</Link>
 			</HStack>
 
-			<VStack gap="80px" textAlign="center">
+			<VStack textAlign="center">
 				<Collapsible.Root open={isInternational}>
 					<Collapsible.Content>
-						<VStack gap="80px" textAlign="center">
+						<VStack gap="80px" mb="80px" textAlign="center">
 							<Text>
 								Siargao is a domestic airport, you will likely transit through
 								one of these two main International Airports in the Philippines,
@@ -65,24 +71,26 @@ const TravelContent = () => {
 					</Collapsible.Content>
 				</Collapsible.Root>
 
-				<VStack>
+				<VStack gap="80px">
+					<VStack>
+						<Heading color="primary" fontWeight="normal">
+							Manila International Airport (MNL) / Clark International Airport
+							(CRK)
+						</Heading>
+						<Text>OR</Text>
+						<Heading color="primary" fontWeight="normal">
+							Mactan - Cebu International Airport (MCIA)
+						</Heading>
+					</VStack>
+
+					<Image alt="arrow down right" src="/arrow-down-right.svg" />
+
 					<Heading color="primary" fontWeight="normal">
-						Manila International Airport (MNL) / Clark International Airport
-						(CRK)
+						Siargao Sayak Airport (IAO)
 					</Heading>
-					<Text>OR</Text>
-					<Heading color="primary" fontWeight="normal">
-						Mactan - Cebu International Airport (MCIA)
-					</Heading>
+
+					<Image alt="surfboard" src="/surfboard.svg" />
 				</VStack>
-
-				<Image alt="arrow down right" src="/arrow-down-right.svg" />
-
-				<Heading color="primary" fontWeight="normal">
-					Siargao Sayak Airport (IAO)
-				</Heading>
-
-				<Image alt="surfboard" src="/surfboard.svg" />
 			</VStack>
 		</VStack>
 	);
