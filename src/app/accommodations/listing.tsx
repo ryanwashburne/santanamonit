@@ -38,10 +38,10 @@ const Listing = ({
 					w="full"
 				/>
 
-				<VStack align="stretch" gap={3} transition="all 0.3s ease-in-out">
+				<VStack align="stretch" gap={3}>
 					<Text>{description}</Text>
 
-					<Box overflow="hidden" transition="all 0.3s ease-in-out">
+					<Box fontSize="12px" opacity={0.8} overflow="hidden">
 						<VStack align="stretch" gap={0}>
 							{location && (
 								<Link

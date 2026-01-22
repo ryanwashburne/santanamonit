@@ -114,6 +114,7 @@ const HomePage = () => {
 				<motion.div
 					animate={ready ? { opacity: 1 } : { opacity: 0 }}
 					initial={{ opacity: 0 }}
+					style={{ maxWidth: 900 }}
 					transition={TRANSITION}
 				>
 					<NextImage alt="greetings" onLoad={handleImageLoad} src={Landing} />
