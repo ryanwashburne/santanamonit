@@ -132,18 +132,18 @@ const MobileHome = () => {
 				{/* Tree 1 - Left */}
 				<motion.div
 					animate={
-						ready ? { opacity: 1, rotate: 0 } : { opacity: 0, rotate: -30 }
+						ready ? { opacity: 1, rotate: 5 } : { opacity: 0, rotate: -30 }
 					}
 					initial={{ opacity: 0, rotate: -30 }}
 					style={{
 						position: "absolute",
-						bottom: 0,
-						left: "10vw",
+						bottom: "-2vh",
+						left: -30,
 						transformOrigin: "bottom left",
 					}}
 					transition={TRANSITION}
 				>
-					<Image asChild h="40vh" scale={1.5} w="auto">
+					<Image asChild h="50vh" w="auto">
 						<NextImage alt="Tree1" onLoad={handleImageLoad} src={Tree1} />
 					</Image>
 				</motion.div>
@@ -156,13 +156,13 @@ const MobileHome = () => {
 					initial={{ opacity: 0, rotate: 30 }}
 					style={{
 						position: "absolute",
-						bottom: 0,
-						right: "5vw",
+						bottom: "-10vh",
+						right: 0,
 						transformOrigin: "bottom right",
 					}}
 					transition={TRANSITION}
 				>
-					<Image asChild h="35vh" scale={1.4} w="auto">
+					<Image asChild h="40vh" scale={1} w="auto">
 						<NextImage alt="Tree4" onLoad={handleImageLoad} src={Tree4} />
 					</Image>
 				</motion.div>
