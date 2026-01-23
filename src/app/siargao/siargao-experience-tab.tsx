@@ -42,8 +42,14 @@ const ExperienceTabContent = () => {
 				</InfoSubsection>
 
 				<InfoSubsection label="Ocean 9">
-					15 min North of General Luna, Ocean 9 is a small resort with
-					beachfront access and a pool.
+					15 min North of General Luna, Ocean 9 is a surfing resort with
+					beachfront access.
+				</InfoSubsection>
+
+				<InfoSubsection label="Secret Beach">
+					15 min from town in Malinao, Secret Beach also known as Doot Beach is
+					a chill spot to lay out amongst the mangroves. [Possible closure
+					during this time of year]
 				</InfoSubsection>
 			</InfoSection>
 
@@ -66,7 +72,7 @@ const ExperienceTabContent = () => {
 				<InfoSubsection label="North Siargao Tour">
 					Notable Spots: Sea of Palm Trees view spot, Magkakapupunko Rock Pools,
 					Tayangaban Cave Pool, Pacifico Beach, Trogon's Perch for lunch,
-					Alegria Beach, Somyot Cavet, etc.
+					Alegria Beach, Somyot Cave, etc.
 					<br />
 					<br />
 					*you can rent a car or motorbike to explore on your own or book

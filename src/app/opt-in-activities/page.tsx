@@ -41,7 +41,7 @@ const OptInActivitiesPage = () => {
 							<Box>
 								<ActivityCard
 									date="June 13th"
-									description="A boat tour that takes you to 3 islands: Guyam Island, Naked Island, and Daku Island. Boats depart around 7-8AM. Boodle lunch will be served. "
+									description="A boat tour that takes you to 3 islands: Guyam Island, Naked Island, and Daku Island. Boats depart around 7-8AM. Boodle lunch will be served."
 									image={islandHopping}
 									title="Island Hopping"
 								/>
@@ -51,13 +51,10 @@ const OptInActivitiesPage = () => {
 									date="June 14th"
 									description={
 										<Text>
-											{`Some spots to choose from are: Sea of Palm Trees view spot,
-									Magpupunko Rock Pools, Tayangban Cave Pool, Pacifico Beach,
-									Trogon’s Perch for lunch, Alegria Beach, Somyot Cavet, etc.`}
+											{`We will be driving to the North of the island to explore all the island has to offer! We will be booking through an operator to take us around via van. However, you can also choose to motorbike this!`}
 											<br />
 											<br />
-											{`We will be booking through an operator to take us around.
-									However, you can also choose to motorbike this!`}
+											{`Some key spots in the north include: the Sea of Palm Trees view spot, Magpupunko Rock Pools, Maasin River, Pacifico Beach, Trogon’s Perch, Alegria Beach, Somyot Cave, and more.`}
 										</Text>
 									}
 									image={northTour}

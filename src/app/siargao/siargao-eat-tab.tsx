@@ -52,24 +52,26 @@ const EAT_SECTIONS: EatSection[] = [
 			{
 				imageSrc: spottedPig,
 				title: "Spotted Pig",
-				description: "We love the mushroom toast here!",
+				description:
+					"Some of the best coffee on the island! It’s a small cafe with great breakfast. We love the mushroom toast here.",
 			},
 			{
 				imageSrc: mondays,
 				title: "Mondays",
-				description: "Good for french toast!",
+				description:
+					"Healthy and plentiful brunch options. We love the French toast!",
 			},
 			{
 				imageSrc: cocoFrio,
 				title: "Coco Frio",
 				description:
-					"A popular spot for coffee as well as coconut based drinks. Very yummy coconut ice cream too!",
+					"An iconic haunt in Siargao. Come here for coconut based coffee drinks - the coconut ice cream is great as well.",
 			},
 			{
 				imageSrc: goodies,
 				title: "Goodies",
 				description:
-					"Lots of salads and healthy options here! We also like the eggplant tortilla open toast and the pancakes.",
+					"A popular place for breakfast, salads and healthy options ! We love the eggplant tortilla open toast and the pancakes.",
 			},
 			{
 				imageSrc: shaka,
@@ -116,14 +118,12 @@ const EAT_SECTIONS: EatSection[] = [
 			{
 				imageSrc: kermit,
 				title: "Kermit",
-				description:
-					"Pizza if you're craving it! Kermit is also a surf resort.",
+				description: "Pizza if you're craving it!",
 			},
 			{
 				imageSrc: lasBarricas,
 				title: "Las Barricas",
-				description:
-					"Tapas restaurant that also serves tacos (not mexican) (they're good).",
+				description: "Small tapas restaurant that has great food and tacos.",
 				span2: true,
 			},
 			{

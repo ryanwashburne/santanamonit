@@ -20,10 +20,10 @@ const InfoTabContent = () => {
 					bills for this.
 				</InfoSubsection>
 
-				<InfoSubsection label="Scooter">
-					You can rent a scooter for a day or for your whole trip! This is a
+				<InfoSubsection label="Motorbike">
+					You can rent a motorbike for a day or for your whole trip! This is a
 					great way to travel to further areas of the island. While riding a
-					scooter is fun and easy, please always wear a helmet and be careful.
+					motorbike is fun and easy, please always wear a helmet and be careful.
 					Daily rates range from 300-500 pesos, and you can buy fuel from gas
 					stations or roadside stalls in clear bottles.
 				</InfoSubsection>
