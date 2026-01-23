@@ -26,24 +26,67 @@ import image14 from "../../../public/attire/image14.png";
 import image16 from "../../../public/attire/image16.png";
 import image17 from "../../../public/attire/image17.png";
 
-const images = [
-	{ id: "image1", src: image1 },
-	{ id: "image14", src: image14 },
-	{ id: "image5", src: image5 },
-	{ id: "image12", src: image12 },
-	{ id: "image16", src: image16 },
-	{ id: "image8", src: image8 },
-	{ id: "image4", src: image4 },
-	{ id: "image2", src: image2 },
-	{ id: "image3", src: image3 },
-	{ id: "image10", src: image10 },
-	{ id: "image11", src: image11 },
-	{ id: "image13", src: image13 },
-	{ id: "image9", src: image9 },
-	{ id: "image6", src: image6 },
-	{ id: "image7", src: image7 },
-	{ id: "image17", src: image17 },
+const imageMap = {
+	image1,
+	image2,
+	image3,
+	image4,
+	image5,
+	image6,
+	image7,
+	image8,
+	image9,
+	image10,
+	image11,
+	image12,
+	image13,
+	image14,
+	image16,
+	image17,
+};
+
+// Desktop order - 3 columns
+const desktopOrder = [
+	"image1",
+	"image14",
+	"image5",
+	"image12",
+	"image16",
+	"image8",
+	"image4",
+	"image2",
+	"image3",
+	"image10",
+	"image11",
+	"image13",
+	"image9",
+	"image6",
+	"image7",
+	"image17",
 ];
+
+// Mobile order - 2 columns (customize this array to change mobile order)
+const mobileOrder = [
+	"image1",
+	"image13",
+	"image9",
+	"image5",
+	"image6",
+	"image12",
+	"image16",
+	"image17",
+	"image4",
+	"image2",
+	"image14",
+	"image3",
+	"image10",
+	"image7",
+	"image11",
+	"image8",
+];
+
+const getImages = (order: string[]) =>
+	order.map((id) => ({ id, src: imageMap[id as keyof typeof imageMap] }));
 
 const AttirePage = () => {
 	const [isMobile, setIsMobile] = useState(false);
@@ -54,6 +97,8 @@ const AttirePage = () => {
 		window.addEventListener("resize", checkMobile);
 		return () => window.removeEventListener("resize", checkMobile);
 	}, []);
+
+	const images = getImages(isMobile ? mobileOrder : desktopOrder);
 
 	return (
 		<Container pb={BOTTOM_PADDING}>
