@@ -65,8 +65,8 @@ const desktopOrder = [
 	"image17",
 ];
 
-// Mobile order - 2 columns (customize this array to change mobile order)
-const mobileOrder = [
+// Mobile order - explicitly define left and right columns for predictable layout
+const mobileLeftColumn = [
 	"image1",
 	"image13",
 	"image9",
@@ -75,6 +75,8 @@ const mobileOrder = [
 	"image12",
 	"image16",
 	"image17",
+];
+const mobileRightColumn = [
 	"image4",
 	"image2",
 	"image14",
@@ -88,6 +90,9 @@ const mobileOrder = [
 const getImages = (order: string[]) =>
 	order.map((id) => ({ id, src: imageMap[id as keyof typeof imageMap] }));
 
+const getColumnImages = (column: string[]) =>
+	column.map((id) => ({ id, src: imageMap[id as keyof typeof imageMap] }));
+
 const AttirePage = () => {
 	const [isMobile, setIsMobile] = useState(false);
 
@@ -98,7 +103,19 @@ const AttirePage = () => {
 		return () => window.removeEventListener("resize", checkMobile);
 	}, []);
 
-	const images = getImages(isMobile ? mobileOrder : desktopOrder);
+	const desktopImages = getImages(desktopOrder);
+	const mobileLeft = getColumnImages(mobileLeftColumn);
+	const mobileRight = getColumnImages(mobileRightColumn);
+
+	const renderImage = (image: { id: string; src: typeof image1 }) => (
+		<AnimateInView enabled key={image.id}>
+			<Box css={{ breakInside: "avoid" }} mb={4}>
+				<Image alt={image.id} asChild borderRadius="md">
+					<NextImage alt={image.id} src={image.src} />
+				</Image>
+			</Box>
+		</AnimateInView>
+	);
 
 	return (
 		<Container pb={BOTTOM_PADDING}>
@@ -109,22 +126,21 @@ const AttirePage = () => {
 				<Text>Men: suit (tie optional) or barong</Text>
 			</Box>
 
-			<Box
-				css={{
-					columnCount: isMobile ? 2 : 3,
-					columnGap: "1rem",
-				}}
-			>
-				{images.map((image) => (
-					<AnimateInView enabled key={image.id}>
-						<Box css={{ breakInside: "avoid" }} mb={4}>
-							<Image alt={image.id} asChild borderRadius="md">
-								<NextImage alt={image.id} src={image.src} />
-							</Image>
-						</Box>
-					</AnimateInView>
-				))}
-			</Box>
+			{isMobile ? (
+				<Box display="flex" gap={4}>
+					<Box flex={1}>{mobileLeft.map(renderImage)}</Box>
+					<Box flex={1}>{mobileRight.map(renderImage)}</Box>
+				</Box>
+			) : (
+				<Box
+					css={{
+						columnCount: 3,
+						columnGap: "1rem",
+					}}
+				>
+					{desktopImages.map(renderImage)}
+				</Box>
+			)}
 		</Container>
 	);
 };
