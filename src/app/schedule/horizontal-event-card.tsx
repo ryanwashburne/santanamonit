@@ -6,9 +6,10 @@ interface HorizontalEventCardProps {
 	title: string;
 	date: string;
 	time?: string;
-	imageSrc: string | StaticImageData;
-	imageAlt: string;
+	imageSrc?: string | StaticImageData;
+	imageAlt?: string;
 	imagePosition?: "left" | "right";
+	customImageElement?: ReactNode;
 	children?: ReactNode;
 }
 
@@ -19,13 +20,16 @@ const HorizontalEventCard = ({
 	imageSrc,
 	imageAlt,
 	imagePosition = "right",
+	customImageElement,
 	children,
 }: HorizontalEventCardProps) => {
-	const imageElement = (
-		<Image asChild objectFit="cover" w={{ base: "full", md: "45vw" }}>
-			<NextImage alt={imageAlt} src={imageSrc} />
-		</Image>
-	);
+	const imageElement =
+		customImageElement ??
+		(imageSrc && (
+			<Image asChild objectFit="cover" w={{ base: "full", md: "45vw" }}>
+				<NextImage alt={imageAlt ?? ""} src={imageSrc} />
+			</Image>
+		));
 
 	const contentElement = (
 		<Flex
