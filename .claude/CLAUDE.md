@@ -57,10 +57,18 @@ const { data } = api.post.getLatest.useQuery();
 const data = await api.post.getLatest();
 ```
 
+### tRPC Procedures
+
+- `publicProcedure` - Unauthenticated, available to all
+- `adminProcedure` - Requires admin token in cookies (uses `admin-token` cookie)
+
 ### Environment Variables
 
 Validated via `@t3-oss/env-nextjs` in `src/env.js`. Required:
 - `DATABASE_URL` - PostgreSQL connection string
+- `RESEND_API_KEY` - Resend email API key
+- `SECRET_ADMIN_KEY` - Admin authentication key
+- `SEND_RSVP_EMAIL` - Boolean to enable/disable RSVP emails
 
 ### Import Alias
 
