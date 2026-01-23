@@ -55,7 +55,7 @@ const Header = () => {
 	const [open, setOpen] = useState(false);
 
 	return (
-		<Center bg="#AAB25F" h={{ base: "80px", md: "120px" }}>
+		<Center bg="#AAB25F" h={{ base: "80px", lg: "120px" }}>
 			<Container position="relative">
 				<Box
 					display={{ base: "block", lg: "none" }}
@@ -130,6 +130,7 @@ const Header = () => {
 								fontSize={{ base: "lg", md: "2xl" }}
 								fontWeight="normal"
 								lineHeight="1"
+								pl={3} // not sure why this is needed
 								textTransform="uppercase"
 								transform="translateY(3px)"
 							>

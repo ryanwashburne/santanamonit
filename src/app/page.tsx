@@ -15,10 +15,10 @@ const EASE = "easeInOut";
 const TRANSITION = { duration: DURATION, ease: EASE } as const;
 
 const OUTER_HEIGHTS = { base: "60vh", lg: "min(80vh, 60vw)" };
-const INNER_HEIGHTS = { base: "0vh", lg: "min(50vh, 40vw)" };
-const INNER_DISTANCE = "18vw";
+const INNER_HEIGHTS = { base: "0vh", lg: "min(60vh, 40vw)" };
+const INNER_DISTANCE = "15vw";
 
-const TOTAL_IMAGES = 5;
+const DESKTOP_TOTAL_IMAGES = 5;
 
 const TreeFooter = ({
 	ready,
@@ -100,17 +100,88 @@ const TreeFooter = ({
 	);
 };
 
-const HomePage = () => {
+const MOBILE_TOTAL_IMAGES = 3;
+
+const MobileHome = () => {
 	const [loadedCount, setLoadedCount] = useState(0);
-	const ready = loadedCount >= TOTAL_IMAGES;
+	const ready = loadedCount >= MOBILE_TOTAL_IMAGES;
 
 	const handleImageLoad = useCallback(() => {
 		setLoadedCount((prev) => prev + 1);
 	}, []);
 
 	return (
-		<Box mt="12vh">
-			<Center px={4}>
+		<Box display={{ base: "block", md: "none" }}>
+			<Center
+				h="calc(100dvh - 81px)" // not sure why 1px is needed to be added
+				px={4}
+				w="100%"
+			>
+				<motion.div
+					animate={ready ? { opacity: 1 } : { opacity: 0 }}
+					initial={{ opacity: 0 }}
+					style={{ maxWidth: 400, width: "100%" }}
+					transition={TRANSITION}
+				>
+					<NextImage alt="greetings" onLoad={handleImageLoad} src={Landing} />
+				</motion.div>
+			</Center>
+
+			{/* Mobile trees */}
+			<Box bottom={0} left={0} pointerEvents="none" position="fixed" right={0}>
+				{/* Tree 1 - Left */}
+				<motion.div
+					animate={
+						ready ? { opacity: 1, rotate: 0 } : { opacity: 0, rotate: -30 }
+					}
+					initial={{ opacity: 0, rotate: -30 }}
+					style={{
+						position: "absolute",
+						bottom: 0,
+						left: "10vw",
+						transformOrigin: "bottom left",
+					}}
+					transition={TRANSITION}
+				>
+					<Image asChild h="40vh" scale={1.5} w="auto">
+						<NextImage alt="Tree1" onLoad={handleImageLoad} src={Tree1} />
+					</Image>
+				</motion.div>
+
+				{/* Tree 4 - Right */}
+				<motion.div
+					animate={
+						ready ? { opacity: 1, rotate: 0 } : { opacity: 0, rotate: 30 }
+					}
+					initial={{ opacity: 0, rotate: 30 }}
+					style={{
+						position: "absolute",
+						bottom: 0,
+						right: "5vw",
+						transformOrigin: "bottom right",
+					}}
+					transition={TRANSITION}
+				>
+					<Image asChild h="35vh" scale={1.4} w="auto">
+						<NextImage alt="Tree4" onLoad={handleImageLoad} src={Tree4} />
+					</Image>
+				</motion.div>
+			</Box>
+		</Box>
+	);
+};
+
+const DesktopHome = () => {
+	const [loadedCount, setLoadedCount] = useState(0);
+	const ready = loadedCount >= DESKTOP_TOTAL_IMAGES;
+
+	const handleImageLoad = useCallback(() => {
+		setLoadedCount((prev) => prev + 1);
+	}, []);
+
+	return (
+		<Box display={{ base: "none", md: "block" }} mt="12vh">
+			<Center>
 				<motion.div
 					animate={ready ? { opacity: 1 } : { opacity: 0 }}
 					initial={{ opacity: 0 }}
@@ -122,6 +193,15 @@ const HomePage = () => {
 			</Center>
 			<TreeFooter onImageLoad={handleImageLoad} ready={ready} />
 		</Box>
+	);
+};
+
+const HomePage = () => {
+	return (
+		<>
+			<MobileHome />
+			<DesktopHome />
+		</>
 	);
 };
 
