@@ -1,10 +1,20 @@
 import { Container, Flex, Image, VStack } from "@chakra-ui/react";
+import NextImage from "next/image";
+import familySchedule from "public/schedule/family.png";
+import guestSchedule from "public/schedule/guest.png";
+import wpSchedule from "public/schedule/wp.png";
 import IslandHopping from "@/app/schedule/island-hopping";
 import Wedding from "@/app/schedule/wedding";
 import WelcomeParty from "@/app/schedule/welcome-party";
 import AnimateInView from "@/components/animate-in-view";
-import type { AttendeeType } from "@/constants/attendee";
+import { AttendeeType } from "@/constants/attendee";
 import { BOTTOM_PADDING } from "@/constants/spacing";
+
+const scheduleImages = {
+	[AttendeeType.WP]: wpSchedule,
+	[AttendeeType.FAMILY]: familySchedule,
+	[AttendeeType.GUEST]: guestSchedule,
+};
 
 type Props = {
 	enableAnimation: boolean;
@@ -14,22 +24,15 @@ type Props = {
 const Schedule: React.FC<Props> = ({ enableAnimation, attendeeType }) => {
 	return (
 		<VStack align="stretch" pb={BOTTOM_PADDING}>
-			{/* Desktop */}
-			<Container
-				display={{ base: "none", md: "block" }}
-				mb={32}
-				mt={{ base: 8, md: 48 }}
-				w="full"
-			>
+			<Container>
 				<Flex justify="center" w="full">
-					<Image src={`/schedule/${attendeeType}.svg`} />
-				</Flex>
-			</Container>
-
-			{/* Mobile */}
-			<Container display={{ base: "block", md: "none" }}>
-				<Flex justify="center" w="full">
-					<Image src={`/schedule/mobile-${attendeeType}.svg`} />
+					<Image asChild>
+						<NextImage
+							alt="schedule"
+							quality={100}
+							src={scheduleImages[attendeeType]}
+						/>
+					</Image>
 				</Flex>
 			</Container>
 

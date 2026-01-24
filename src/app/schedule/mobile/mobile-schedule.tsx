@@ -14,10 +14,19 @@ import NextImage from "next/image";
 import harana from "public/harana.png";
 import boat1 from "public/schedule/boat1.png";
 import boat2 from "public/schedule/boat2.png";
+import familySchedule from "public/schedule/mobile-family.png";
+import guestSchedule from "public/schedule/mobile-guest.png";
+import wpSchedule from "public/schedule/mobile-wp.png";
 import Wedding from "@/app/schedule/wedding";
 import AnimateInView from "@/components/animate-in-view";
 import { AttendeeType } from "@/constants/attendee";
 import { BOTTOM_PADDING } from "@/constants/spacing";
+
+const scheduleImages = {
+	[AttendeeType.WP]: wpSchedule,
+	[AttendeeType.FAMILY]: familySchedule,
+	[AttendeeType.GUEST]: guestSchedule,
+};
 
 type Props = {
 	enableAnimation: boolean;
@@ -45,7 +54,13 @@ const MobileSchedule: React.FC<Props> = ({ attendeeType, enableAnimation }) => {
 		<VStack align="stretch" pb={BOTTOM_PADDING}>
 			<Container mb={8}>
 				<Flex justify="center" w="full">
-					<Image src={`/schedule/mobile-${attendeeType}.svg`} />
+					<Image asChild>
+						<NextImage
+							alt="schedule"
+							quality={100}
+							src={scheduleImages[attendeeType]}
+						/>
+					</Image>
 				</Flex>
 			</Container>
 
