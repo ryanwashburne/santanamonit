@@ -9,11 +9,15 @@ const Wedding = () => {
 		<VStack
 			bg="#AAB25F"
 			color="background"
-			gap={{ base: 8, md: 16 }}
+			gap={{ base: "50px", md: 16 }}
 			px={{ base: 4, md: 0 }}
-			py={{ base: 8, md: 16 }}
+			py={{ base: 0, md: 16 }}
 		>
-			<VStack color="primary" gap={{ base: 4, md: 8 }}>
+			<VStack
+				color="primary"
+				gap={{ base: 4, md: 8 }}
+				pb={{ base: "30px", md: 0 }}
+			>
 				<Heading
 					fontSize={{ base: "4xl", md: "8xl" }}
 					lineHeight={1}
@@ -31,7 +35,7 @@ const Wedding = () => {
 				<Image alt="fish" src={fish} />
 			</Flex>
 
-			<VStack gap={{ base: 4, md: 8 }}>
+			<VStack gap={{ base: "30px", md: 8 }}>
 				<EventDetail label="Ceremony" textAlign="center">
 					<Text>3:30PM</Text>
 				</EventDetail>
