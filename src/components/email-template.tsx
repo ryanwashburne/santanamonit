@@ -1,3 +1,5 @@
+import { EVENTS, isEvent } from "@/constants/event";
+
 type EventResponse = {
 	attending: boolean | null;
 	answer?: string;
@@ -13,6 +15,8 @@ export type RSVPEmailPayload = {
 	submittedBy: string;
 	members: MemberResponse[];
 };
+
+const getItemById = (id: string) => EVENTS.find((item) => item.id === id);
 
 export function EmailTemplate({ submittedBy, members }: RSVPEmailPayload) {
 	return (
@@ -75,7 +79,7 @@ export function EmailTemplate({ submittedBy, members }: RSVPEmailPayload) {
 										color: "#666",
 									}}
 								>
-									Event
+									Item
 								</th>
 								<th
 									style={{
@@ -85,75 +89,70 @@ export function EmailTemplate({ submittedBy, members }: RSVPEmailPayload) {
 										color: "#666",
 									}}
 								>
-									Attending
-								</th>
-								<th
-									style={{
-										textAlign: "left",
-										padding: "8px",
-										borderBottom: "1px solid #ddd",
-										color: "#666",
-									}}
-								>
-									Notes
+									Response
 								</th>
 							</tr>
 						</thead>
 						<tbody>
-							{Object.entries(member.responses).map(([event, response]) => (
-								<tr key={event}>
-									<td
-										style={{
-											padding: "8px",
-											borderBottom: "1px solid #eee",
-										}}
-									>
-										{event}
-									</td>
-									<td
-										style={{
-											padding: "8px",
-											borderBottom: "1px solid #eee",
-										}}
-									>
-										<span
+							{Object.entries(member.responses).map(([eventId, response]) => {
+								const item = getItemById(eventId);
+								if (!item) return null;
+
+								const label = isEvent(item) ? item.title : item.question;
+								const displayValue = isEvent(item)
+									? response.attending === true
+										? "Yes"
+										: response.attending === false
+											? "No"
+											: "Pending"
+									: response.answer || "—";
+
+								return (
+									<tr key={eventId}>
+										<td
 											style={{
-												display: "inline-block",
-												padding: "2px 8px",
-												borderRadius: "4px",
-												fontSize: "14px",
-												backgroundColor:
-													response.attending === true
-														? "#d4edda"
-														: response.attending === false
-															? "#f8d7da"
-															: "#fff3cd",
-												color:
-													response.attending === true
-														? "#155724"
-														: response.attending === false
-															? "#721c24"
-															: "#856404",
+												padding: "8px",
+												borderBottom: "1px solid #eee",
 											}}
 										>
-											{response.attending === true
-												? "Yes"
-												: response.attending === false
-													? "No"
-													: "Pending"}
-										</span>
-									</td>
-									<td
-										style={{
-											padding: "8px",
-											borderBottom: "1px solid #eee",
-											color: "#666",
-										}}
-									>
-										{response.answer || "—"}
-									</td>
-								</tr>
-							))}
+											{label}
+										</td>
+										<td
+											style={{
+												padding: "8px",
+												borderBottom: "1px solid #eee",
+											}}
+										>
+											{isEvent(item) ? (
+												<span
+													style={{
+														display: "inline-block",
+														padding: "2px 8px",
+														borderRadius: "4px",
+														fontSize: "14px",
+														backgroundColor:
+															response.attending === true
+																? "#d4edda"
+																: response.attending === false
+																	? "#f8d7da"
+																	: "#fff3cd",
+														color:
+															response.attending === true
+																? "#155724"
+																: response.attending === false
+																	? "#721c24"
+																	: "#856404",
+													}}
+												>
+													{displayValue}
+												</span>
+											) : (
+												<span style={{ color: "#666" }}>{displayValue}</span>
+											)}
+										</td>
+									</tr>
+								);
+							})}
 						</tbody>
 					</table>
 				</div>

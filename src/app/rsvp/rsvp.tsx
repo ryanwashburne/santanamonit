@@ -13,7 +13,7 @@ import {
 import { useEffect, useState } from "react";
 import RSVPEvent, { type EventResponse } from "@/app/rsvp/rsvp-event";
 import { AttendeeType } from "@/constants/attendee";
-import { EVENTS } from "@/constants/event";
+import { EVENTS, isEvent } from "@/constants/event";
 import { useGuest } from "@/contexts/guest-context";
 import { api } from "@/trpc/react";
 
@@ -297,11 +297,12 @@ const RSVP: React.FC = () => {
 		setValidationError(null);
 
 		// Filter to only events visible to this attendee type
-		const visibleEvents = EVENTS.filter((event) =>
-			event.condition(guest.attendeeType),
+		const visibleItems = EVENTS.filter((item) =>
+			item.condition(guest.attendeeType),
 		);
+		const visibleEvents = visibleItems.filter(isEvent);
 
-		// Validate main user's responses
+		// Validate main user's responses - only events need attending response
 		const unansweredEvents = visibleEvents.filter(
 			(event) => myResponses[event.id]?.attending === null,
 		);
@@ -328,7 +329,7 @@ const RSVP: React.FC = () => {
 					}
 				}
 
-				// Check all events answered
+				// Check all events answered - only events need attending response
 				const memberUnanswered = visibleEvents.filter(
 					(event) => member.responses[event.id]?.attending === null,
 				);

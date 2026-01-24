@@ -10,7 +10,7 @@ import {
 	Textarea,
 	VStack,
 } from "@chakra-ui/react";
-import type { Event } from "@/constants/event";
+import { type EventItem, isEvent } from "@/constants/event";
 
 const AttendButton: React.FC<{
 	selected: boolean;
@@ -43,7 +43,7 @@ export type EventResponse = {
 };
 
 type RSVPEventProps = {
-	event: Event;
+	event: EventItem;
 	value: EventResponse;
 	onChange: (value: EventResponse) => void;
 	disabled?: boolean;
@@ -71,48 +71,55 @@ const RSVPEvent: React.FC<RSVPEventProps> = ({
 		});
 	};
 
+	if (isEvent(event)) {
+		return (
+			<VStack gap={4} width="100%">
+				<Heading color="primary" fontSize="xl" fontWeight="normal">
+					{event.title}
+				</Heading>
+
+				<HStack fontSize="xl">
+					<Text>{event.date}</Text>
+					<Text>|</Text>
+					<Text>{event.time}</Text>
+				</HStack>
+
+				<ButtonGroup gap={6}>
+					<AttendButton
+						disabled={disabled}
+						onClick={handleAttendingClick(true)}
+						selected={value.attending === true}
+					>
+						Attending
+					</AttendButton>
+					<AttendButton
+						disabled={disabled}
+						onClick={handleAttendingClick(false)}
+						selected={value.attending === false}
+					>
+						Not Attending
+					</AttendButton>
+				</ButtonGroup>
+			</VStack>
+		);
+	}
+
+	// Question type
 	return (
 		<VStack gap={4} width="100%">
-			<Heading color="primary" fontSize="xl" fontWeight="normal">
-				{event.title}
-			</Heading>
-
-			<HStack fontSize="xl">
-				<Text>{event.date}</Text>
-				<Text>|</Text>
-				<Text>{event.time}</Text>
-			</HStack>
-
-			<ButtonGroup gap={6}>
-				<AttendButton
+			<Field.Root>
+				<Field.Label color="primary" fontSize="xl" fontWeight="normal">
+					{event.question}
+				</Field.Label>
+				<Textarea
+					bg="#EAE2E2"
+					borderRadius="lg"
 					disabled={disabled}
-					onClick={handleAttendingClick(true)}
-					selected={value.attending === true}
-				>
-					Attending
-				</AttendButton>
-				<AttendButton
-					disabled={disabled}
-					onClick={handleAttendingClick(false)}
-					selected={value.attending === false}
-				>
-					Not Attending
-				</AttendButton>
-			</ButtonGroup>
-
-			{event.additionalQuestion && (
-				<Field.Root mt={8}>
-					<Field.Label>{event.additionalQuestion}</Field.Label>
-					<Textarea
-						bg="#EAE2E2"
-						borderRadius="lg"
-						disabled={disabled}
-						onChange={handleAnswerChange}
-						rows={5}
-						value={value.answer ?? ""}
-					/>
-				</Field.Root>
-			)}
+					onChange={handleAnswerChange}
+					rows={5}
+					value={value.answer ?? ""}
+				/>
+			</Field.Root>
 		</VStack>
 	);
 };
