@@ -9,7 +9,7 @@ export interface Event {
 export const EVENTS: Event[] = [
 	{
 		id: "rehearsal-brunch",
-		title: "Rehersal Brunch",
+		title: "Rehearsal Brunch",
 		date: "June 10",
 		time: "10AM",
 	},

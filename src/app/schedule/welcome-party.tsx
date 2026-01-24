@@ -10,7 +10,7 @@ const WelcomeParty = () => {
 			imageAlt="welcome party"
 			imagePosition="left"
 			imageSrc={harana}
-			title="Rehersal Brunch & Welcome Party"
+			title="Rehearsal Brunch & Welcome Party"
 		>
 			<EventDetail label="Brunch">
 				<Text>Bravo Resort 10AM</Text>
