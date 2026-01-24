@@ -108,7 +108,12 @@ const RSVPEvent: React.FC<RSVPEventProps> = ({
 	return (
 		<VStack gap={4} width="100%">
 			<Field.Root>
-				<Field.Label color="primary" fontSize="xl" fontWeight="normal">
+				<Field.Label
+					color="text"
+					fontSize="15px"
+					fontWeight="normal"
+					opacity={0.8}
+				>
 					{event.question}
 				</Field.Label>
 				<Textarea

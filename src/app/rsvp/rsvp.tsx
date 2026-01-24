@@ -99,7 +99,7 @@ const MemberSection: React.FC<{
 		<VStack gap={8} w="full">
 			<Separator borderColor="#AAB25F" w="full" />
 			<Link
-				color="primary"
+				color="text"
 				cursor="pointer"
 				fontStyle="italic"
 				onClick={onToggle}
