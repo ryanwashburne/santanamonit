@@ -33,7 +33,7 @@ const RSVPOverlay: React.FC<Props> = ({ title, buttonText }) => {
 				firstName: result.firstName,
 				lastName: result.lastName,
 				group: result.group,
-				tag: result.tag,
+				attendeeType: result.tag,
 			});
 		},
 		onError: () => {

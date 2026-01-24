@@ -1,13 +1,14 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
+import type { AttendeeType } from "@/constants/attendee";
 
 export type Guest = {
 	displayName: string;
 	firstName: string;
 	lastName: string;
 	group: number;
-	tag: string;
+	attendeeType: AttendeeType;
 };
 
 type GuestContextValue = {

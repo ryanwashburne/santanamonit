@@ -35,7 +35,7 @@ const Schedule: React.FC<Props> = ({ enableAnimation, attendeeType }) => {
 
 			<VStack align="stretch" gap={0}>
 				<AnimateInView enabled={enableAnimation}>
-					<WelcomeParty />
+					<WelcomeParty attendeeType={attendeeType} />
 				</AnimateInView>
 				<AnimateInView enabled={enableAnimation}>
 					<Wedding />

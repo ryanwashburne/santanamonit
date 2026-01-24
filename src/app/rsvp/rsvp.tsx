@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import RSVPEvent, { type EventResponse } from "@/app/rsvp/rsvp-event";
+import { AttendeeType } from "@/constants/attendee";
 import { EVENTS } from "@/constants/event";
 import { useGuest } from "@/contexts/guest-context";
 import { api } from "@/trpc/react";
@@ -51,19 +52,24 @@ const EventsList: React.FC<{
 	responses: Record<string, EventResponse>;
 	onChange: (eventId: string) => (value: EventResponse) => void;
 	disabled?: boolean;
-}> = ({ responses, onChange, disabled }) => (
-	<VStack gap="60px" w="full">
-		{EVENTS.map((event) => (
-			<RSVPEvent
-				disabled={disabled}
-				event={event}
-				key={event.id}
-				onChange={disabled ? () => {} : onChange(event.id)}
-				value={responses[event.id] ?? { attending: null }}
-			/>
-		))}
-	</VStack>
-);
+	attendeeType: AttendeeType;
+}> = ({ responses, onChange, disabled, attendeeType }) => {
+	const visibleEvents = EVENTS.filter((event) => event.condition(attendeeType));
+
+	return (
+		<VStack gap="60px" w="full">
+			{visibleEvents.map((event) => (
+				<RSVPEvent
+					disabled={disabled}
+					event={event}
+					key={event.id}
+					onChange={disabled ? () => {} : onChange(event.id)}
+					value={responses[event.id] ?? { attending: null }}
+				/>
+			))}
+		</VStack>
+	);
+};
 
 // Collapsible section for a group member
 const MemberSection: React.FC<{
@@ -73,6 +79,7 @@ const MemberSection: React.FC<{
 	onNameChange: (field: "firstName" | "lastName", value: string) => void;
 	onEventChange: (eventId: string) => (value: EventResponse) => void;
 	disabled?: boolean;
+	attendeeType: AttendeeType;
 }> = ({
 	member,
 	isExpanded,
@@ -80,6 +87,7 @@ const MemberSection: React.FC<{
 	onNameChange,
 	onEventChange,
 	disabled,
+	attendeeType,
 }) => {
 	const label = member.isPlaceholder
 		? member.displayName.trim()
@@ -129,6 +137,7 @@ const MemberSection: React.FC<{
 						</VStack>
 					)}
 					<EventsList
+						attendeeType={attendeeType}
 						disabled={disabled}
 						onChange={onEventChange}
 						responses={member.responses}
@@ -287,8 +296,13 @@ const RSVP: React.FC = () => {
 		if (!guest) return;
 		setValidationError(null);
 
+		// Filter to only events visible to this attendee type
+		const visibleEvents = EVENTS.filter((event) =>
+			event.condition(guest.attendeeType),
+		);
+
 		// Validate main user's responses
-		const unansweredEvents = EVENTS.filter(
+		const unansweredEvents = visibleEvents.filter(
 			(event) => myResponses[event.id]?.attending === null,
 		);
 		if (unansweredEvents.length > 0) {
@@ -298,7 +312,7 @@ const RSVP: React.FC = () => {
 
 		// Validate other members
 		for (const member of otherMembers) {
-			const hasAnyResponse = EVENTS.some(
+			const hasAnyResponse = visibleEvents.some(
 				(event) => member.responses[event.id]?.attending !== null,
 			);
 
@@ -315,7 +329,7 @@ const RSVP: React.FC = () => {
 				}
 
 				// Check all events answered
-				const memberUnanswered = EVENTS.filter(
+				const memberUnanswered = visibleEvents.filter(
 					(event) => member.responses[event.id]?.attending === null,
 				);
 				if (memberUnanswered.length > 0) {
@@ -353,6 +367,7 @@ const RSVP: React.FC = () => {
 
 	const displayName = isPreviewMode ? "Jane" : guest?.displayName;
 	const displayResponses = isPreviewMode ? EMPTY_RESPONSES : myResponses;
+	const attendeeType = guest?.attendeeType ?? AttendeeType.GUEST;
 
 	return (
 		<Box maxW="950px" mx="auto" w="100%">
@@ -372,6 +387,7 @@ const RSVP: React.FC = () => {
 
 							<VStack gap="80px" maxW="300px" mx="auto" w="full">
 								<EventsList
+									attendeeType={attendeeType}
 									disabled={isPreviewMode || isLoading}
 									onChange={handleMyEventChange}
 									responses={displayResponses}
@@ -380,6 +396,7 @@ const RSVP: React.FC = () => {
 								{!isPreviewMode &&
 									otherMembers.map((member, index) => (
 										<MemberSection
+											attendeeType={attendeeType}
 											disabled={isLoading}
 											isExpanded={expandedMembers.has(index)}
 											key={member.id}

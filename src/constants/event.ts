@@ -1,9 +1,12 @@
+import { AttendeeType } from "@/constants/attendee";
+
 export interface Event {
 	id: string;
 	title: string;
 	date: string;
 	time: string;
 	additionalQuestion?: string;
+	condition: (attendeeType: AttendeeType) => boolean;
 }
 
 export const EVENTS: Event[] = [
@@ -12,12 +15,14 @@ export const EVENTS: Event[] = [
 		title: "Rehearsal Brunch",
 		date: "June 10",
 		time: "10AM",
+		condition: (attendeeType) => attendeeType !== AttendeeType.GUEST,
 	},
 	{
 		id: "welcome-party",
 		title: "Welcome Party",
 		date: "June 10",
 		time: "4PM",
+		condition: () => true,
 	},
 	{
 		id: "wedding-day",
@@ -25,6 +30,7 @@ export const EVENTS: Event[] = [
 		date: "June 11",
 		time: "3:30PM",
 		additionalQuestion: "Preferred drink(s) of choice",
+		condition: () => true,
 	},
 	{
 		id: "island-hopping",
@@ -32,5 +38,6 @@ export const EVENTS: Event[] = [
 		date: "June 13",
 		time: "8AM",
 		additionalQuestion: "Diet Restrictions / Allergies / Notes",
+		condition: (attendeeType) => attendeeType === AttendeeType.WP,
 	},
 ];

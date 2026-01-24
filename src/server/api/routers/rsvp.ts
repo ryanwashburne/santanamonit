@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { z } from "zod";
-
+import type { AttendeeType } from "@/constants/attendee";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { sendRSVPEmail } from "@/server/commands/send-rsvp-email";
 
@@ -250,7 +250,7 @@ export const rsvpRouter = createTRPCRouter({
 					firstName: guest.firstName,
 					lastName: guest.lastName,
 					group: guest.group,
-					tag: guest.tag,
+					tag: guest.tag.toLowerCase() as AttendeeType,
 				};
 			}
 
