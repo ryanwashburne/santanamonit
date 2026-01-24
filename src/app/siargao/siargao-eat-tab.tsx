@@ -71,7 +71,7 @@ const EAT_SECTIONS: EatSection[] = [
 				imageSrc: goodies,
 				title: "Goodies",
 				description:
-					"A popular place for breakfast, salads and healthy options ! We love the eggplant tortilla open toast and the pancakes.",
+					"A popular place for breakfast, salads and healthy options! We love the eggplant tortilla open toast and the pancakes.",
 			},
 			{
 				imageSrc: shaka,

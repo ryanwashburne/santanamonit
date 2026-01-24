@@ -49,7 +49,7 @@ const ExperienceTabContent = () => {
 				<InfoSubsection label="Secret Beach">
 					15 min from town in Malinao, Secret Beach also known as Doot Beach is
 					a chill spot to lay out amongst the mangroves. [Possible closure
-					during this time of year]
+					during this time of year].
 				</InfoSubsection>
 			</InfoSection>
 
