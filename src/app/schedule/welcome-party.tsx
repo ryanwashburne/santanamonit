@@ -18,7 +18,7 @@ const WelcomeParty = ({ attendeeType }: Props) => {
 			title={
 				attendeeType !== AttendeeType.GUEST
 					? "Rehearsal Brunch & Welcome Party"
-					: "Rehearsal Brunch"
+					: "Welcome Party"
 			}
 		>
 			{attendeeType !== AttendeeType.GUEST && (
