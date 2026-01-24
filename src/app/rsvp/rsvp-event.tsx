@@ -20,7 +20,10 @@ const AttendButton: React.FC<{
 }> = ({ selected, onClick, children, disabled }) => {
 	return (
 		<Button
-			_hover={{ boxShadow: disabled ? undefined : "xl" }}
+			_hover={{
+				boxShadow: disabled ? undefined : "xl",
+				background: selected ? "primary" : "background",
+			}}
 			borderColor="black"
 			borderRadius="lg"
 			color={selected ? "white" : "text"}
