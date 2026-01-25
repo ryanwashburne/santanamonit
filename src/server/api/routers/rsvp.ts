@@ -1,11 +1,16 @@
-import fs from "node:fs";
-import path from "node:path";
 import { z } from "zod";
 import type { AttendeeType } from "@/constants/attendee";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { sendRSVPEmail } from "@/server/commands/send-rsvp-email";
 
-// Column indices for the CSV file
+// Google Sheets published CSV URL
+const GOOGLE_SHEETS_CSV_URL = `https://docs.google.com/spreadsheets/d/e/2PACX-1vRiUifJGaUMZ07giupnaAM1tde4bGa6SYK7XWhQnwaTwi5pOuJSQrCWVPtmz3_-NE-0BYND793PJMY7/pub?gid=1581385337&single=true&output=csv`;
+
+// Cache for CSV data (1 minute TTL)
+let csvCache: { data: string[][]; timestamp: number } | null = null;
+const CACHE_TTL_MS = 1 * 60 * 1000;
+
+// Column indices for the Google Sheets CSV (F=5, G=6, H=7, I=8, M=12)
 const COL = {
 	DISPLAY_NAME: 5,
 	FIRST_NAME: 6,
@@ -69,10 +74,28 @@ type ParsedRow = {
 	group: number;
 };
 
-function loadCSVData() {
-	const csvPath = path.join(process.cwd(), "private", "Wedding Full.csv");
-	const content = fs.readFileSync(csvPath, "utf-8");
-	return parseCSV(content).slice(7); // Data starts at row 8
+async function loadCSVData(skipCache = false): Promise<string[][]> {
+	// Check cache first
+	if (
+		!skipCache &&
+		csvCache &&
+		Date.now() - csvCache.timestamp < CACHE_TTL_MS
+	) {
+		return csvCache.data;
+	}
+
+	const response = await fetch(GOOGLE_SHEETS_CSV_URL);
+	if (!response.ok) {
+		throw new Error(`Failed to fetch guest list: ${response.statusText}`);
+	}
+
+	const content = await response.text();
+	const data = parseCSV(content).slice(1); // Skip header row
+
+	// Update cache
+	csvCache = { data, timestamp: Date.now() };
+
+	return data;
 }
 
 function parseRow(row: string[]): ParsedRow {
@@ -110,8 +133,8 @@ export const rsvpRouter = createTRPCRouter({
 				lastName: z.string().min(1),
 			}),
 		)
-		.query(({ input }): GroupMember[] => {
-			const dataRows = loadCSVData();
+		.query(async ({ input }): Promise<GroupMember[]> => {
+			const dataRows = await loadCSVData();
 			const parsedRows = dataRows.map(parseRow);
 
 			// Find the requester and get their group
@@ -141,7 +164,8 @@ export const rsvpRouter = createTRPCRouter({
 	getGroupResponses: publicProcedure
 		.input(z.object({ group: z.number() }))
 		.query(async ({ ctx, input }) => {
-			const parsedRows = loadCSVData().map(parseRow);
+			const dataRows = await loadCSVData();
+			const parsedRows = dataRows.map(parseRow);
 
 			// Only fetch responses for defined members (have both names)
 			const memberKeys = parsedRows
@@ -236,8 +260,9 @@ export const rsvpRouter = createTRPCRouter({
 				lastName: z.string().min(1),
 			}),
 		)
-		.mutation(({ input }) => {
-			const parsedRows = loadCSVData().map(parseRow);
+		.mutation(async ({ input }) => {
+			const dataRows = await loadCSVData();
+			const parsedRows = dataRows.map(parseRow);
 
 			const guest = parsedRows.find((row) =>
 				matchesName(row, input.firstName, input.lastName),
