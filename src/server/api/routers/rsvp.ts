@@ -134,6 +134,8 @@ export const rsvpRouter = createTRPCRouter({
 			}),
 		)
 		.query(async ({ input }): Promise<GroupMember[]> => {
+			console.log("getGroupMembers", input);
+
 			const dataRows = await loadCSVData();
 			const parsedRows = dataRows.map(parseRow);
 
@@ -164,6 +166,8 @@ export const rsvpRouter = createTRPCRouter({
 	getGroupResponses: publicProcedure
 		.input(z.object({ group: z.number() }))
 		.query(async ({ ctx, input }) => {
+			console.log("getGroupResponses", input);
+
 			const dataRows = await loadCSVData();
 			const parsedRows = dataRows.map(parseRow);
 
@@ -206,6 +210,8 @@ export const rsvpRouter = createTRPCRouter({
 			}),
 		)
 		.mutation(async ({ ctx, input }) => {
+			console.log("submitGroupResponses", input);
+
 			const results = await Promise.all(
 				input.members.map((member) =>
 					ctx.db.rsvpResponse.upsert({
@@ -242,6 +248,8 @@ export const rsvpRouter = createTRPCRouter({
 			}),
 		)
 		.query(async ({ ctx, input }) => {
+			console.log("getResponse", input);
+
 			const response = await ctx.db.rsvpResponse.findUnique({
 				where: {
 					firstName_lastName: {
@@ -261,6 +269,8 @@ export const rsvpRouter = createTRPCRouter({
 			}),
 		)
 		.mutation(async ({ input }) => {
+			console.log("lookupGuest", input);
+
 			const dataRows = await loadCSVData();
 			const parsedRows = dataRows.map(parseRow);
 
