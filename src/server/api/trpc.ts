@@ -6,6 +6,8 @@
  * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
  * need to use are documented accordingly near the end.
  */
+
+import * as Sentry from "@sentry/nextjs";
 import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
@@ -74,6 +76,12 @@ export const createCallerFactory = t.createCallerFactory;
  */
 export const createTRPCRouter = t.router;
 
+const sentryMiddleware = t.middleware(
+	Sentry.trpcMiddleware({
+		attachRpcInput: true,
+	}),
+);
+
 /**
  * Middleware for timing procedure execution and adding an artificial delay in development.
  *
@@ -104,7 +112,9 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
  * guarantee that a user querying is authorized, but you can still access user session data if they
  * are logged in.
  */
-export const publicProcedure = t.procedure.use(timingMiddleware);
+export const publicProcedure = t.procedure
+	.use(timingMiddleware)
+	.use(sentryMiddleware);
 
 /**
  * Admin middleware - checks for admin token in cookies
@@ -132,4 +142,5 @@ const adminMiddleware = t.middleware(async ({ ctx, next }) => {
  */
 export const adminProcedure = t.procedure
 	.use(timingMiddleware)
+	.use(sentryMiddleware)
 	.use(adminMiddleware);
