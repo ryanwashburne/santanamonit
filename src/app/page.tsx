@@ -111,7 +111,7 @@ const MobileHome = () => {
 	}, []);
 
 	return (
-		<Box display={{ base: "block", md: "none" }}>
+		<Box bg="orange.500" display={{ base: "block", md: "none" }}>
 			<Center
 				h="calc(100dvh - 81px)" // not sure why 1px is needed to be added
 				px={4}
@@ -180,7 +180,7 @@ const DesktopHome = () => {
 	}, []);
 
 	return (
-		<Box display={{ base: "none", md: "block" }} mt="12vh">
+		<Box bg="orange.500" display={{ base: "none", md: "block" }} mt="12vh">
 			<Center>
 				<motion.div
 					animate={ready ? { opacity: 1 } : { opacity: 0 }}
