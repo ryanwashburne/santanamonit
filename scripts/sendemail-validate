@@ -1,0 +1,124 @@
+#!/bin/sh
+#
+# Validate patches before sending via git send-email.
+# Copy or symlink this file to .git/hooks/sendemail-validate to enable.
+
+print_error() {
+	printf '%s\n' "sendemail-validate: $*" >&2
+}
+
+reject_placeholders_in_file() {
+	label="$1"
+	file="$2"
+
+	if grep -qiE '\b(TODO|TBD|WIP)\b' "$file"
+	then
+		print_error "$label contains TODO/TBD/WIP markers"
+		return 1
+	fi
+}
+
+ensure_cover_letter_body() {
+	file="$1"
+
+	if ! awk 'BEGIN{body=0} body && $0 ~ /[^[:space:]]/ { exit 0 } /^$/ { body=1 } END { exit 1 }' "$file"
+	then
+		print_error "cover letter is missing body text"
+		return 1
+	fi
+}
+
+validate_cover_letter() {
+	file="$1"
+
+	if ! grep -q '^Subject:' "$file"
+	then
+		print_error "cover letter missing Subject header"
+		return 1
+	fi
+
+	reject_placeholders_in_file "cover letter" "$file" || return 1
+	ensure_cover_letter_body "$file" || return 1
+}
+
+validate_patch_subject() {
+	subject="$1"
+
+	case "$subject" in
+		*WIP*|*TODO*|fixup\!*|squash\!*)
+			print_error "patch subject contains WIP/TODO/fixup/squash"
+			return 1
+			;;
+	esac
+}
+
+report_whitespace_errors() {
+	range="$1"
+	whitespace_errors=$(git diff --check "$range" --) || return 1
+
+	if [ -n "$whitespace_errors" ]
+	then
+		print_error "whitespace errors detected"
+		printf '%s\n' "$whitespace_errors" >&2
+		return 1
+	fi
+}
+
+validate_patch() {
+	file="$1"
+
+	# Ensure that the patch applies without conflicts.
+	git am -3 "$file" || return
+
+	validate_patch_subject "$(git log -1 --pretty=%s)" || return 1
+	report_whitespace_errors 'HEAD^' || return 1
+}
+
+validate_series() {
+	report_whitespace_errors "$base_commit" || return 1
+
+	if [ -d node_modules ] && command -v pnpm >/dev/null 2>&1
+	then
+		pnpm run -s check || return 1
+	else
+		print_error "skipping biome check (pnpm or node_modules missing)"
+	fi
+}
+
+# main -------------------------------------------------------------------------
+
+if test "$GIT_SENDEMAIL_FILE_COUNTER" = 1
+then
+	remote=$(git config --default origin --get sendemail.validateRemote) &&
+	ref=$(git config --default HEAD --get sendemail.validateRemoteRef) &&
+	base_ref="refs/remotes/$remote/$ref" &&
+	base_commit=$(git rev-parse "$base_ref") &&
+	worktree=$(mktemp --tmpdir -d sendemail-validate.XXXXXXX) &&
+	git worktree add -fd --checkout "$worktree" "$base_ref" &&
+	git config --replace-all sendemail.validateWorktree "$worktree" &&
+	git config --replace-all sendemail.validateBase "$base_commit"
+else
+	worktree=$(git config --get sendemail.validateWorktree) &&
+	base_commit=$(git config --get sendemail.validateBase)
+fi || {
+	print_error "failed to prepare worktree"
+	exit 1
+}
+
+unset GIT_DIR GIT_WORK_TREE
+cd "$worktree" &&
+
+if grep -q "^diff --git " "$1"
+then
+	validate_patch "$1"
+else
+	validate_cover_letter "$1"
+fi &&
+
+if test "$GIT_SENDEMAIL_FILE_COUNTER" = "$GIT_SENDEMAIL_FILE_TOTAL"
+then
+	git config --unset-all sendemail.validateWorktree &&
+	git config --unset-all sendemail.validateBase &&
+	trap 'git worktree remove -ff "$worktree"' EXIT &&
+	validate_series
+fi
