@@ -92,7 +92,7 @@ const MobileSchedule: React.FC<Props> = ({ attendeeType, enableAnimation }) => {
 										<>
 											<VStack gap={1}>
 												<Text textTransform="uppercase">Brunch</Text>
-												<Text>Bravo Resort 10AM</Text>
+												<Text>Siago Resort 10AM</Text>
 											</VStack>
 											<VStack gap={1}>
 												<Text textTransform="uppercase">Welcome Party</Text>
