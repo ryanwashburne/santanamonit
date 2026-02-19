@@ -23,7 +23,7 @@ const WelcomeParty = ({ attendeeType }: Props) => {
 		>
 			{attendeeType !== AttendeeType.GUEST && (
 				<EventDetail label="Brunch">
-					<Text>Siago Beach Resort 10AM</Text>
+					<Text>Siago Resort 10AM</Text>
 				</EventDetail>
 			)}
 
