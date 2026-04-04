@@ -40,8 +40,8 @@ const OptInActivitiesPage = () => {
 						>
 							<Box>
 								<ActivityCard
-									date="June 13th"
-									description="A boat tour that takes you to 3 islands: Guyam Island, Naked Island, and Daku Island. Boats depart around 7-8AM. Boodle lunch will be served."
+									date="June 12th"
+									description="A boat tour that takes you to 3 islands: Guyam Island, Naked Island, and Daku Island. Boats depart around 11AM. Boodle lunch will be served."
 									image={islandHopping}
 									title="Island Hopping"
 								/>

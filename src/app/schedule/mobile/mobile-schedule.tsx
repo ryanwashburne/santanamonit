@@ -133,8 +133,8 @@ const MobileSchedule: React.FC<Props> = ({ attendeeType, enableAnimation }) => {
 										>
 											Island Hopping
 										</Heading>
-										<Text>June 13th | Saturday</Text>
-										<Text>8AM</Text>
+										<Text>June 12th | Friday</Text>
+										<Text>11AM</Text>
 									</VStack>
 								</Center>
 							</SubSection>

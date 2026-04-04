@@ -21,9 +21,9 @@ const IslandHopping = () => {
 					/>
 				</Flex>
 			}
-			date="June 13th | Saturday"
+			date="June 12th | Friday"
 			imagePosition="right"
-			time="8AM"
+			time="11AM"
 			title="Island Hopping"
 		/>
 	);

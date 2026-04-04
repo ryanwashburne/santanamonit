@@ -58,8 +58,8 @@ export const EVENTS: EventItem[] = [
 		type: "event",
 		id: "island-hopping",
 		title: "Island Hopping",
-		date: "June 13",
-		time: "8AM",
+		date: "June 12",
+		time: "11AM",
 		condition: (attendeeType) => attendeeType === AttendeeType.WP,
 	},
 	{
