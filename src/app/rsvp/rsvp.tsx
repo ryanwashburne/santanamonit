@@ -317,8 +317,10 @@ const RSVP: React.FC = () => {
 				(event) => member.responses[event.id]?.attending !== null,
 			);
 
-			// If they have any responses or need name input, validate fully
-			if (hasAnyResponse || member.needsNameInput) {
+			// Only validate +1 / group members when the submitter answered events
+			// for them. needsNameInput is for UI only — empty first name in the
+			// sheet must not block solo RSVPs (see placeholder rows with blank F).
+			if (hasAnyResponse) {
 				// Check names for placeholders
 				if (member.isPlaceholder) {
 					if (!member.firstName.trim() || !member.lastName.trim()) {
